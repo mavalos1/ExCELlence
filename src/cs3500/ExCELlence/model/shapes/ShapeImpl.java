@@ -3,6 +3,7 @@ package cs3500.ExCELlence.model.shapes;
 import cs3500.ExCELlence.model.Color;
 import cs3500.ExCELlence.model.Position2D;
 import cs3500.ExCELlence.model.Transition;
+import cs3500.ExCELlence.model.transitions.Transition;
 
 import java.util.Stack;
 
@@ -12,7 +13,7 @@ public class ShapeImpl {
   protected double h;
   protected Color c;
   protected double r;
-  protected Stack<Transition> transitionStack;
+  protected Stack<Transition> transitions;
 
   private void buildShape(Position2D p, double w, double h, Color c, double r) {
     this.setPosition(p);
@@ -28,6 +29,23 @@ public class ShapeImpl {
   public ShapeImpl() {
     this.buildShape(new Position2D(0, 0), 0, 0, new Color(),0);
   }
+
+  /**
+   * Increments the state of the shape by one tick.
+   */
+  public void tick() {
+    Transition t = transitions.peek();
+
+    p.setX(p.getX() + t.getDeltaPosition().getX());
+    p.setY(p.getY() + t.getDeltaPosition().getY());
+    w += t.getDeltaWidth();
+    h += t.getDeltaHeight();
+
+    c.setR(c.getR() + t.getDeltaColor().getR());
+    c.setG(c.getG() + t.getDeltaColor().getG());
+    c.setB(c.getB() + t.getDeltaColor().getB());
+  }
+
 
   /**
    * Initialize the shape to a position, width, height, color, and rotation
