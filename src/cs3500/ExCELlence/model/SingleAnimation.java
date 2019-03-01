@@ -1,138 +1,75 @@
 package cs3500.ExCELlence.model;
 
+import cs3500.ExCELlence.model.shapes.Oval;
+import cs3500.ExCELlence.model.shapes.Rectangle;
 import cs3500.ExCELlence.model.shapes.Shape;
+import cs3500.ExCELlence.model.shapes.Triangle;
 import cs3500.ExCELlence.model.transitions.Transition;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class SingleAnimation implements AnimationModel {
+  private Map<String, StringBuilder> outputLog;
+  private int currentTick;
   private Shape[] shapes;
 
   public SingleAnimation(Shape[] shapes) {
+    outputLog = new HashMap<>();
+    currentTick = 0;
     this.shapes = shapes;
   }
 
   public void animate() {
     boolean shouldPlay = true;
 
-    int tick = 0;
     while (shouldPlay) {
       shouldPlay = false;
 
       for (Shape shape : shapes) {
+        shape.draw();
         shape.tick();
+        parseTickOutput(shape);
 
-        parseAnimationOutput(shape);
         if (shape.hasTransition()) {
           shouldPlay = true;
         }
       }
+
+      currentTick++;
     }
 
   }
 
-  /**
-   * Get the current position of the animation's shape at a specific time.
-   */
-  public Position2D getPosition(int time) {
-    return shapeMap.get(time).getPosition();
+  public void parseTickOutput(Shape s) {
+    StringBuilder output = new StringBuilder();
+    output.append("motion " + s.getName() + "\t");
+    output.append(currentTick + " " + s.getPosition().getX() + " " + s.getPosition().getY() + " ");
+    output.append(s.getWidth() + " " + s.getHeight() + " ");
+    output.append(s.getColor().getR() + " " + s.getColor().getG() + " " + s.getColor().getB());
+
+    outputLog.get(s.getName()).append(output);
   }
 
-  /**
-   * Get the animation's shape at a specific time.
-   */
-  public Shape getShape(int time) {
-    return this.shapeMap.get(time);
-  }
+  public String parseAnimationOutput(Shape s) {
+    StringBuilder output = new StringBuilder();
+    output.append("shape " + s.getName());
 
-  /**
-   * Get the the shape's color at a specific time.
-   */
-  public Color getColor(int time) {
-    return shapeMap.get(time).getColor();
-  }
+    String sType = "";
+    if (s instanceof Rectangle) {
+      sType = "rectangle";
+    } else if (s instanceof Oval) {
+      sType = "oval";
+    } else if (s instanceof Triangle) {
+      sType = "triangle";
+    } else {
+      sType = "";
+    }
 
-  /**
-   * Get the shape's width at a specific time.
-   */
-  public double getWidth(int time) {
-    return shapeMap.get(time).getWidth();
-  }
+    output.append(outputLog.get(s.getName()));
 
-  /**
-   * Get the shape's height at a specific time.
-   */
-  public double getHeight(int time) {
-    return shapeMap.get(time).getHeight();
-  }
-
-  /**
-   * Get the shape's rotation at a specific time.
-   */
-  public double getRotation(int time) {
-    return shapeMap.get(time).getRotation();
-  }
-
-  /**
-   * Set the position of the animation's shape at a specific time.
-   */
-  public void setPosition(Position2D p, int time) {
-    this.shapeMap.get(time).setPosition(p);
-  }
-
-  /**
-   * Set the animation's shape at a specific time.
-   */
-  public void setShape(Shape s, int time) {
-    this.shapeMap.replace(time, s);
-  }
-
-  /**
-   * Set the shape's color at a specific time.
-   */
-  public void setColor(Color c, int time) {
-    this.shapeMap.get(time).setColor(c);
-  }
-
-  /**
-   * Set the shape's width at a specific time.
-   */
-  public void setWidth(double w, int time) {
-    this.shapeMap.get(time).setWidth(w);
-  }
-
-  /**
-   * Set the shape's height at a specific time.
-   */
-  public void setHeight(double h, int time) {
-    this.shapeMap.get(time).setHeight(h);
-  }
-
-  /**
-   * Set the shape's rotation at a specific time.
-   */
-  public void setRotation(double r, int time) {
-    this.shapeMap.get(time).setRotation(r);
-  }
-
-  /**
-   * Get the animation transition list.
-   */
-  public Stack<Transition> getTransitionList() {
-    return this.transitionStack;
-  }
-
-  /**
-   * Add an animation transition to the list.
-   */
-  public void addTransition(Transition t) {
-    this.transitionStack.add(t);
-  }
-
-  /**
-   * Undo the last transition from the list.
-   */
-  public void popTransition() {
-    this.transitionStack.pop();
+    return output.toString();
   }
 }

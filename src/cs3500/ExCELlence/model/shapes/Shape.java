@@ -2,6 +2,9 @@ package cs3500.ExCELlence.model.shapes;
 
 import cs3500.ExCELlence.model.Color;
 import cs3500.ExCELlence.model.Position2D;
+import cs3500.ExCELlence.model.transitions.Transition;
+
+import java.util.List;
 
 /**
  * This interface specifies the operation of a single 2D shape.
@@ -15,13 +18,25 @@ public interface Shape {
   /**
    * Increment the state of the shape by one tick
    */
-  void tick()
+  void tick();
 
   /**
    * Get whether or not the shape has any transitions left to be played.
    * @return whether or not the shape has any transitions left to be played.
    */
   boolean hasTransition();
+
+  /**
+   * Get the shape's name.
+   * @return p
+   */
+  String getName();
+
+  /**
+   * Set the shape's name.
+   * @param name
+   */
+  void setName(String name);
 
   /**
    * Get the shape's position.
@@ -83,5 +98,14 @@ public interface Shape {
    */
   void setRotation(double rotation);
 
+  /**
+   * Get the shape's transition list.
+   * @return r
+   */
+  List<Transition> getTransitionList();
+
+  /**
+   * Draw the shape.
+   */
   void draw();
 }

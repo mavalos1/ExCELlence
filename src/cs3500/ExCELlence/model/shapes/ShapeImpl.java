@@ -7,6 +7,7 @@ import cs3500.ExCELlence.model.transitions.Transition;
 import java.util.List;
 
 public class ShapeImpl {
+  protected String name;
   protected Position2D p;
   protected double w;
   protected double h;
@@ -14,7 +15,8 @@ public class ShapeImpl {
   protected double r;
   protected List<Transition> transitions;
 
-  private void buildShape(Position2D p, double w, double h, Color c, double r) {
+  private void buildShape(String name, Position2D p, double w, double h, Color c, double r) {
+    this.setName(name);
     this.setPosition(p);
     this.setWidth(w);
     this.setHeight(h);
@@ -26,7 +28,7 @@ public class ShapeImpl {
    * Initialize a shape with zero size, default color, and no rotation
    */
   public ShapeImpl() {
-    this.buildShape(new Position2D(0, 0), 0, 0, new Color(),0);
+    this.buildShape("", new Position2D(0, 0), 0, 0, new Color(),0);
   }
 
   /**
@@ -46,49 +48,55 @@ public class ShapeImpl {
     c.setB(c.getB() + t.getDeltaColor().getB());
 
     r += t.getDeltaRotation();
-<<<<<<< HEAD
-
     if (t.getTimeToLive() <= 0) {
       transitions.remove(0);
     } else {
       t.slowKill();
     }
-=======
->>>>>>> 0dd5ea67b972381d1621020d46811ce7ba332d4b
+  }
+
+  /**
+   * Return whether the stack still has more transitions.
+   */
+  public boolean hasTransition() {
+    return !transitions.isEmpty();
   }
 
 
   /**
    * Initialize the shape to a position, width, height, color, and rotation
+   * @param name
    * @param p
    * @param w
    * @param h
    * @param c
    * @param r
    */
-  public ShapeImpl(Position2D p, double w, double h, Color c, double r) {
-    this.buildShape(p, w, h, c, r);
+  public ShapeImpl(String name, Position2D p, double w, double h, Color c, double r) {
+    this.buildShape(name, p, w, h, c, r);
   }
 
   /**
    * Initialize the shape to a position, width, height, color, and no rotation
+   * @param name
    * @param p
    * @param w
    * @param h
    * @param c
    */
-  public ShapeImpl(Position2D p, double w, double h, Color c) {
-    this.buildShape(p, w, h, c, 0);
+  public ShapeImpl(String name, Position2D p, double w, double h, Color c) {
+    this.buildShape(name, p, w, h, c, 0);
   }
 
   /**
    * Initialize the shape to a position, width, height, default color, and no rotation
+   * @param name
    * @param p
    * @param w
    * @param h
    */
-  public ShapeImpl(Position2D p, double w, double h) {
-    this.buildShape(p, w, h, new Color(), 0);
+  public ShapeImpl(String name, Position2D p, double w, double h) {
+    this.buildShape(name, p, w, h, new Color(), 0);
   }
 
   /**
@@ -96,7 +104,23 @@ public class ShapeImpl {
    * @param v
    */
   public ShapeImpl(ShapeImpl v) {
-    this.buildShape(v.p, v.w, v.h, v.c, v.r);
+    this.buildShape(v.name, v.p, v.w, v.h, v.c, v.r);
+  }
+
+  /**
+   * Get the shape's name.
+   * @return p
+   */
+  public String getName() {
+    return this.name;
+  }
+
+  /**
+   * Set the shape's name.
+   * @param name
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -177,5 +201,13 @@ public class ShapeImpl {
    */
   public void setRotation(double rotation) {
     this.r = rotation;
+  }
+
+  /**
+   * Get the shape's transition list.
+   * @return r
+   */
+  public List<Transition> getTransitionList() {
+    return this.transitions;
   }
 }

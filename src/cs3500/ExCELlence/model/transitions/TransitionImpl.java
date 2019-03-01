@@ -10,17 +10,19 @@ public class TransitionImpl implements Transition {
   private double dw;
   private double dr;
   private int t;
+  private boolean hide;
 
   public TransitionImpl(
       Position2D deltaPosition, Color deltaColor,
       double deltaHeight, double deltaWidth,
-      double deltaRotation, int timeToLive) {
+      double deltaRotation, int timeToLive, boolean hide) {
     this.dp = deltaPosition;
     this.dc = deltaColor;
     this.dh = deltaHeight;
     this.dw = deltaWidth;
     this.dr = deltaRotation;
     this.t = timeToLive;
+    this.hide = hide;
   }
 
   public Position2D getDeltaPosition() {
@@ -45,6 +47,10 @@ public class TransitionImpl implements Transition {
 
   public int getTimeToLive() {
     return this.t;
+  }
+
+  public boolean getHide() {
+    return this.hide;
   }
 
   public void slowKill() {

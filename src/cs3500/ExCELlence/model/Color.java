@@ -5,6 +5,18 @@ public class Color {
   private int b;
   private int g;
 
+  public Color() {
+    this.setR(0);
+    this.setG(0);
+    this.setB(0);
+  }
+
+  public Color(int r, int g, int b) {
+    this.setR(r);
+    this.setG(g);
+    this.setB(b);
+  }
+
   public int getR() {
     return r;
   }
