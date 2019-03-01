@@ -4,6 +4,7 @@ import cs3500.ExCELlence.model.Color;
 import cs3500.ExCELlence.model.Position2D;
 import cs3500.ExCELlence.model.transitions.Transition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeImpl {
@@ -22,6 +23,7 @@ public class ShapeImpl {
     this.setHeight(h);
     this.setColor(c);
     this.setRotation(r);
+    transitions = new ArrayList<>();
   }
 
   /**
@@ -49,10 +51,10 @@ public class ShapeImpl {
 
     r += t.getDeltaRotation();
 
-    if (t.getTimeToLive() <= 0) {
-      transitions.remove(0);
-    } else {
+    if (t.getTimeToLive() > 1) {
       t.slowKill();
+    } else {
+      transitions.remove(0);
     }
   }
 

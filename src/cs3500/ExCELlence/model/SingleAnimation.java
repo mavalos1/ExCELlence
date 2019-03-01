@@ -14,9 +14,9 @@ import java.util.Stack;
 public class SingleAnimation implements AnimationModel {
   private Map<String, StringBuilder> outputLog;
   private int currentTick;
-  private Shape[] shapes;
+  private List<Shape> shapes;
 
-  public SingleAnimation(Shape[] shapes) {
+  public SingleAnimation(List<Shape> shapes) {
     outputLog = new HashMap<>();
     currentTick = 0;
     this.shapes = shapes;
@@ -48,9 +48,13 @@ public class SingleAnimation implements AnimationModel {
     output.append("motion " + s.getName() + "\t");
     output.append(currentTick + " " + s.getPosition().getX() + " " + s.getPosition().getY() + " ");
     output.append(s.getWidth() + " " + s.getHeight() + " ");
-    output.append(s.getColor().getR() + " " + s.getColor().getG() + " " + s.getColor().getB());
+    output.append(s.getColor().getR() + " " + s.getColor().getG() + " " + s.getColor().getB() + "\n");
 
-    outputLog.get(s.getName()).append(output);
+    if (outputLog.get(s.getName()) == null) {
+      outputLog.put(s.getName(), output);
+    } else {
+      outputLog.get(s.getName()).append(output);
+    }
   }
 
   public String parseAnimationOutput(Shape s) {
@@ -67,6 +71,8 @@ public class SingleAnimation implements AnimationModel {
     } else {
       sType = "";
     }
+
+    output.append(" " + sType + "\n");
 
     output.append(outputLog.get(s.getName()));
 
