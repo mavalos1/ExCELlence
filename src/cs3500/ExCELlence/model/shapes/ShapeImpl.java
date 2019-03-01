@@ -2,7 +2,6 @@ package cs3500.ExCELlence.model.shapes;
 
 import cs3500.ExCELlence.model.Color;
 import cs3500.ExCELlence.model.Position2D;
-import cs3500.ExCELlence.model.Transition;
 import cs3500.ExCELlence.model.transitions.Transition;
 
 import java.util.Stack;
@@ -44,6 +43,8 @@ public class ShapeImpl {
     c.setR(c.getR() + t.getDeltaColor().getR());
     c.setG(c.getG() + t.getDeltaColor().getG());
     c.setB(c.getB() + t.getDeltaColor().getB());
+
+    r += t.getDeltaRotation();
   }
 
 

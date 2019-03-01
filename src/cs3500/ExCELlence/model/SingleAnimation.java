@@ -1,7 +1,8 @@
 package cs3500.ExCELlence.model;
 
-import cs3500.ExCELlence.model.transitions.Transition;import java.util.HashMap;
-import java.util.Map;
+import cs3500.ExCELlence.model.shapes.Shape;
+import cs3500.ExCELlence.model.transitions.Transition;
+
 import java.util.Stack;
 
 public class SingleAnimation implements AnimationModel {
