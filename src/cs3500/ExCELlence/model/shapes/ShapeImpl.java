@@ -48,6 +48,7 @@ public class ShapeImpl {
     c.setB(c.getB() + t.getDeltaColor().getB());
 
     r += t.getDeltaRotation();
+
     if (t.getTimeToLive() <= 0) {
       transitions.remove(0);
     } else {
@@ -62,6 +63,9 @@ public class ShapeImpl {
     return !transitions.isEmpty();
   }
 
+  public void addTransition(Transition t) {
+    transitions.add(t);
+  }
 
   /**
    * Initialize the shape to a position, width, height, color, and rotation
