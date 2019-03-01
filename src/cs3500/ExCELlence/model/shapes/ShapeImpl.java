@@ -2,10 +2,9 @@ package cs3500.ExCELlence.model.shapes;
 
 import cs3500.ExCELlence.model.Color;
 import cs3500.ExCELlence.model.Position2D;
-import cs3500.ExCELlence.model.Transition;
 import cs3500.ExCELlence.model.transitions.Transition;
 
-import java.util.Stack;
+import java.util.List;
 
 public class ShapeImpl {
   protected Position2D p;
@@ -13,7 +12,7 @@ public class ShapeImpl {
   protected double h;
   protected Color c;
   protected double r;
-  protected Stack<Transition> transitions;
+  protected List<Transition> transitions;
 
   private void buildShape(Position2D p, double w, double h, Color c, double r) {
     this.setPosition(p);
@@ -34,16 +33,25 @@ public class ShapeImpl {
    * Increments the state of the shape by one tick.
    */
   public void tick() {
-    Transition t = transitions.peek();
+    Transition t = transitions.get(0);
 
     p.setX(p.getX() + t.getDeltaPosition().getX());
     p.setY(p.getY() + t.getDeltaPosition().getY());
+
     w += t.getDeltaWidth();
     h += t.getDeltaHeight();
 
     c.setR(c.getR() + t.getDeltaColor().getR());
     c.setG(c.getG() + t.getDeltaColor().getG());
     c.setB(c.getB() + t.getDeltaColor().getB());
+
+    r += t.getDeltaRotation();
+
+    if (t.getTimeToLive() <= 0) {
+      transitions.remove(0);
+    } else {
+      t.slowKill();
+    }
   }
 
 

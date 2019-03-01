@@ -46,4 +46,8 @@ public class TransitionImpl implements Transition {
   public int getTimeToLive() {
     return this.t;
   }
+
+  public void slowKill() {
+    t--;
+  }
 }

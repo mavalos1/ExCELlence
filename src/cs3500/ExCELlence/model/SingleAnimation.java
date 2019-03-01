@@ -5,15 +5,29 @@ import java.util.Map;
 import java.util.Stack;
 
 public class SingleAnimation implements AnimationModel {
-  private Stack<Transition> transitionStack;
-  private Stack<Shape> shapeStack;
+  private Shape[] shapes;
 
-  public SingleAnimation(Stack<Shape> s, Stack<Transition> t) {
-    this.transitionStack = new Stack<>();
-    this.shapeStack = new Stack<>();
+  public SingleAnimation(Shape[] shapes) {
+    this.shapes = shapes;
+  }
 
-    this.transitionStack = t;
-    this.shapeMap.put(0, s);
+  public void animate() {
+    boolean shouldPlay = true;
+
+    int tick = 0;
+    while (shouldPlay) {
+      shouldPlay = false;
+
+      for (Shape shape : shapes) {
+        shape.tick();
+
+        parseAnimationOutput(shape);
+        if (shape.hasTransition()) {
+          shouldPlay = true;
+        }
+      }
+    }
+
   }
 
   /**

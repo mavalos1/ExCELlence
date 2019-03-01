@@ -10,4 +10,5 @@ public interface Transition {
   double getDeltaWidth();
   double getDeltaRotation();
   int getTimeToLive();
+  void slowKill();
 }

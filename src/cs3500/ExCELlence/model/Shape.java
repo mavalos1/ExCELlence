@@ -8,6 +8,18 @@ package cs3500.ExCELlence.model;
  * </p>
  */
 public interface Shape {
+
+  /**
+   * Increment the state of the shape by one tick
+   */
+  void tick()
+
+  /**
+   * Get whether or not the shape has any transitions left to be played.
+   * @return whether or not the shape has any transitions left to be played.
+   */
+  boolean hasTransition();
+
   /**
    * Get the shape's position.
    * @return p
