@@ -1,4 +1,7 @@
-package cs3500.ExCELlence.model;
+package cs3500.ExCELlence.model.shapes;
+
+import cs3500.ExCELlence.model.Color;
+import cs3500.ExCELlence.model.Position2D;
 
 /**
  * This interface specifies the operation of a single 2D shape.

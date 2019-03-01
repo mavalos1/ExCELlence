@@ -46,12 +46,15 @@ public class ShapeImpl {
     c.setB(c.getB() + t.getDeltaColor().getB());
 
     r += t.getDeltaRotation();
+<<<<<<< HEAD
 
     if (t.getTimeToLive() <= 0) {
       transitions.remove(0);
     } else {
       t.slowKill();
     }
+=======
+>>>>>>> 0dd5ea67b972381d1621020d46811ce7ba332d4b
   }
 
 
