@@ -5,7 +5,9 @@ import cs3500.ExCELlence.model.Position2D;
 
 public class TransitionImpl implements Transition {
   private Position2D dp;
-  private Color dc;
+  private int r;
+  private int g;
+  private int b;
   private double dh;
   private double dw;
   private double dr;
@@ -13,7 +15,7 @@ public class TransitionImpl implements Transition {
   private boolean hide;
 
   public TransitionImpl(
-      Position2D deltaPosition, Color deltaColor,
+      Position2D deltaPosition, int deltaR, int deltaG, int deltaB,
       double deltaHeight, double deltaWidth,
       double deltaRotation, int timeToLive, boolean hide) {
     if (t < 0) {
@@ -21,7 +23,9 @@ public class TransitionImpl implements Transition {
     }
 
     this.dp = deltaPosition;
-    this.dc = deltaColor;
+    this.r = deltaR;
+    this.g = deltaG;
+    this.b = deltaB;
     this.dh = deltaHeight;
     this.dw = deltaWidth;
     this.dr = deltaRotation;
@@ -33,8 +37,16 @@ public class TransitionImpl implements Transition {
     return this.dp;
   }
 
-  public Color getDeltaColor() {
-    return this.dc;
+  public int getDeltaR() {
+    return this.r;
+  }
+
+  public int getDeltaG() {
+    return this.g;
+  }
+
+  public int getDeltaB() {
+    return this.b;
   }
 
   public double getDeltaHeight() {

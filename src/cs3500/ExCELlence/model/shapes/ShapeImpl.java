@@ -19,14 +19,6 @@ public class ShapeImpl {
   protected List<Transition> transitions;
 
   private void buildShape(String name, Position2D p, double w, double h, Color c, double r) {
-    if (name == null) {
-      throw new IllegalArgumentException("Invalid shape name");
-    }
-
-    if (w < 0 || h < 0) {
-      throw new IllegalArgumentException("Invalid shape size");
-    }
-
     this.setName(name);
     this.setPosition(p);
     this.setWidth(w);
@@ -141,6 +133,9 @@ public class ShapeImpl {
    * @param name
    */
   public void setName(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Invalid shape name");
+    }
     this.name = name;
   }
 
@@ -173,6 +168,9 @@ public class ShapeImpl {
    * @param w
    */
   public void setWidth(double w) {
+    if (w < 0) {
+      throw new IllegalArgumentException("Invalid shape width");
+    }
     this.w = w;
   }
 
@@ -189,6 +187,9 @@ public class ShapeImpl {
    * @param h
    */
   public void setHeight(double h) {
+    if (h < 0) {
+      throw new IllegalArgumentException("Invalid shape height");
+    }
     this.h = h;
   }
 

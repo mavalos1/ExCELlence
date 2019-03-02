@@ -37,7 +37,8 @@ public class ShapeImplTest {
     c2.setR(5);
     c2.setG(-5);
     c2.setB(5);
-    Transition t = new TransitionImpl(new Position2D(1,1), c2, 2, 1, 3, 5, false);
+    Transition t = new TransitionImpl(
+        new Position2D(1,1), 5, -5, 5, 2, 1, 3, 5, false);
 
     ((Rectangle) rect).addTransition(t);
 
@@ -57,5 +58,40 @@ public class ShapeImplTest {
     assertEquals(rect.getName(), "R");
     assertEquals(rect.getRotation(), 15, 0.001);
 
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNameShape() {
+    Shape rect = new Rectangle();
+    rect.setName(null);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNegativeWidthShape() {
+    Shape rect = new Rectangle();
+    rect.setWidth(-1);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNegativeHeightShape() {
+    Shape rect = new Rectangle();
+    rect.setHeight(-1);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNegativeColor() {
+    Color c = new Color(-1, 1, 1);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullShapeList() {
+    List<Shape> shapes = null;
+    SingleAnimation animation = new SingleAnimation(shapes);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testEmptyShapeList() {
+    List<Shape> shapes = new ArrayList<>();
+    SingleAnimation animation = new SingleAnimation(shapes);
   }
 }

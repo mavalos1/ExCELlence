@@ -5,7 +5,9 @@ import cs3500.ExCELlence.model.Position2D;
 
 public interface Transition {
   Position2D getDeltaPosition();
-  Color getDeltaColor();
+  int getDeltaR();
+  int getDeltaG();
+  int getDeltaB();
   double getDeltaHeight();
   double getDeltaWidth();
   double getDeltaRotation();

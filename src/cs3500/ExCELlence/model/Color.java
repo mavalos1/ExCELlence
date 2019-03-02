@@ -12,9 +12,6 @@ public class Color {
   }
 
   public Color(int r, int g, int b) {
-    if (r < 0 || g < 0 || b < 0) {
-      throw new IllegalArgumentException("Invalid color arguments");
-    }
     this.setR(r);
     this.setG(g);
     this.setB(b);
@@ -25,6 +22,9 @@ public class Color {
   }
 
   public void setR(int r) {
+    if (r < 0) {
+      throw new IllegalArgumentException("Invalid color R-component arguments");
+    }
     this.r = r;
   }
 
@@ -33,6 +33,9 @@ public class Color {
   }
 
   public void setB(int b) {
+    if (b < 0) {
+      throw new IllegalArgumentException("Invalid color B-component arguments");
+    }
     this.b = b;
   }
 
@@ -41,6 +44,9 @@ public class Color {
   }
 
   public void setG(int g) {
+    if (g < 0) {
+      throw new IllegalArgumentException("Invalid color G-component arguments");
+    }
     this.g = g;
   }
 }
