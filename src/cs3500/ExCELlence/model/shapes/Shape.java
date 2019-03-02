@@ -5,6 +5,7 @@ import cs3500.ExCELlence.model.Position2D;
 import cs3500.ExCELlence.model.transitions.Transition;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This interface specifies the operation of a single 2D shape.
@@ -14,6 +15,12 @@ import java.util.List;
  * </p>
  */
 public interface Shape {
+
+  /**
+   * Get the ID of the shape
+   * @return The shapes unique ID
+   */
+  UUID getId();
 
   /**
    * Increment the state of the shape by one tick

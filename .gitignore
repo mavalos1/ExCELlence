@@ -5,6 +5,7 @@ ExCELlence.iml
 .idea/encodings.xml
 .idea/modules.xml
 .idea/workspace.xml
+.idea/*
 out/production/ExCELlence/cs3500/ExCELlence/model/AnimationModel.class
 out/production/ExCELlence/cs3500/ExCELlence/model/Color.class
 out/production/ExCELlence/cs3500/ExCELlence/model/MainTest.class

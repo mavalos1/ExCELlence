@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2550d876-c3c1-4cd5-9dc6-c701fcf4e9c0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/AnimationModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/AnimationModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/Color.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/Color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/SingleAnimation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/SingleAnimation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/shapes/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/shapes/Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/shapes/ShapeImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/shapes/ShapeImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/transitions/TransitionImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/ExCELlence/model/transitions/TransitionImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/ShapeImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ShapeImplTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/ShapeImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ShapeImplTest.java" afterDir="false" />
     </list>
@@ -16,28 +25,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="315">
+              <caret line="58" column="32" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
               <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#752#753#0" expanded="true" />
+                <element signature="e#824#825#0" expanded="true" />
                 <element signature="e#1507#1508#0" expanded="true" />
                 <element signature="e#1546#1547#0" expanded="true" />
                 <element signature="e#1705#1706#0" expanded="true" />
                 <element signature="e#1733#1734#0" expanded="true" />
+                <element signature="e#1990#1991#0" expanded="true" />
+                <element signature="e#2009#2010#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/ShapeImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+            <state relative-caret-position="488">
+              <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="428" selection-start-line="428" selection-end-line="428" />
             </state>
           </provider>
         </entry>
@@ -66,8 +90,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+            <state relative-caret-position="323">
+              <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Shape.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -99,9 +132,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Rectangle.java" />
         <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Shape.java" />
         <option value="$PROJECT_DIR$/test/ShapeImplTest.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java" />
       </list>
     </option>
   </component>
@@ -200,10 +234,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ShapeImplTest.testShapeTest">
+  <component name="RunManager" selected="Application.MainTest">
     <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cs3500.ExCELlence.model.MainTest" />
       <module name="ExCELlence" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShapeImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExCELlence" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ShapeImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -220,8 +263,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ShapeImplTest.testShapeTest" />
         <item itemvalue="Application.MainTest" />
+        <item itemvalue="JUnit.ShapeImplTest.testShapeTest" />
+        <item itemvalue="JUnit.ShapeImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -235,59 +279,68 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 21m 07s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 22m 15s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 22m 31s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 22m 42s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 26m 33s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 36m 07s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShapeImplTest_testShapeTest - 2019.03.01 at 19h 36m 35s.xml">
+      <configuration name="ShapeImplTest.testShapeTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24959612" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.329927" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33722627" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Maven" visible="true" weight="0.1825525" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Designer" order="0" />
-      <window_info id="UI Designer" order="1" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="UI Designer" order="0" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.24959612" />
       <window_info id="Structure" order="4" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="3" weight="0.329927" />
+      <window_info anchor="bottom" id="Terminal" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="2" weight="0.329927" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.29343066" />
-      <window_info anchor="bottom" id="Debug" order="7" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.2671533" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="right" id="Palette&#9;" order="1" />
-      <window_info anchor="right" id="Maven" order="2" weight="0.15024233" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="right" id="Maven" order="1" visible="true" weight="0.1825525" />
+      <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="3" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="outputLog.get(s.getName())" language="JAVA" />
@@ -309,20 +362,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Rectangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Oval.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -337,15 +376,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#1507#1508#0" expanded="true" />
-            <element signature="e#1546#1547#0" expanded="true" />
-            <element signature="e#1705#1706#0" expanded="true" />
-            <element signature="e#1733#1734#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-3">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="428" selection-start-line="428" selection-end-line="428" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Rectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/Shape.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -359,19 +414,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/test/ShapeImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        <state relative-caret-position="488">
+          <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/ShapeImplTest.java">
+    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/SingleAnimation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+        <state relative-caret-position="323">
+          <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/ExCELlence/model/shapes/ShapeImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="58" column="32" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#752#753#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+            <element signature="e#1705#1706#0" expanded="true" />
+            <element signature="e#1733#1734#0" expanded="true" />
+            <element signature="e#1990#1991#0" expanded="true" />
+            <element signature="e#2009#2010#0" expanded="true" />
           </folding>
         </state>
       </provider>
