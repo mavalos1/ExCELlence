@@ -1,8 +1,8 @@
-package cs3500.ExCELlence.model.shapes;
+package cs3500.nguyenmayeux.model.shapes;
 
-import cs3500.ExCELlence.model.Color;
-import cs3500.ExCELlence.model.Position2D;
-import cs3500.ExCELlence.model.transitions.Transition;
+import cs3500.nguyenmayeux.model.Color;
+import cs3500.nguyenmayeux.model.Position2D;
+import cs3500.nguyenmayeux.model.transitions.Transition;
 
 import java.util.List;
 import java.util.UUID;

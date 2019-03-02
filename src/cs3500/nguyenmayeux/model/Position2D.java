@@ -1,4 +1,4 @@
-package cs3500.ExCELlence.model;
+package cs3500.nguyenmayeux.model;
 
 import java.util.Objects;
 

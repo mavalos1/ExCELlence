@@ -1,4 +1,4 @@
-package cs3500.ExCELlence.model.shapes;
+package cs3500.nguyenmayeux.model.shapes;
 
 public class Rectangle extends ShapeImpl implements Shape {
   public void draw() {

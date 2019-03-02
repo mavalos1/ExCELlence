@@ -1,15 +1,13 @@
-package cs3500.ExCELlence.model;
+package cs3500.nguyenmayeux.model;
 
-import cs3500.ExCELlence.model.shapes.Oval;
-import cs3500.ExCELlence.model.shapes.Rectangle;
-import cs3500.ExCELlence.model.shapes.Shape;
-import cs3500.ExCELlence.model.shapes.Triangle;
-import cs3500.ExCELlence.model.transitions.Transition;
+import cs3500.nguyenmayeux.model.shapes.Oval;
+import cs3500.nguyenmayeux.model.shapes.Rectangle;
+import cs3500.nguyenmayeux.model.shapes.Shape;
+import cs3500.nguyenmayeux.model.shapes.Triangle;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 import java.util.UUID;
 
 public class SingleAnimation implements AnimationModel {
@@ -22,7 +20,7 @@ public class SingleAnimation implements AnimationModel {
    * @param shapes
    */
   public SingleAnimation(List<Shape> shapes) {
-    if (shapes.isEmpty() || shapes == null) {
+    if (!(shapes != null && !shapes.isEmpty())) {
       throw new IllegalArgumentException("Invalid animation's shape list");
     }
     

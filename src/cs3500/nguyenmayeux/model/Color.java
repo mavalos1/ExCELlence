@@ -1,4 +1,4 @@
-package cs3500.ExCELlence.model;
+package cs3500.nguyenmayeux.model;
 
 public class Color {
   private int r;
