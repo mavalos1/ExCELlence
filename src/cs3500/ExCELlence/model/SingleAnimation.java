@@ -16,12 +16,22 @@ public class SingleAnimation implements AnimationModel {
   private int currentTick;
   private List<Shape> shapes;
 
+  /**
+   * Initialize the animation object with a list of shapes to animate
+   * @param shapes
+   */
   public SingleAnimation(List<Shape> shapes) {
     outputLog = new HashMap<>();
     currentTick = 0;
     this.shapes = shapes;
   }
 
+  /**
+   * Animate the shape contained in the animation model.
+   * The shape themselves contains transition instruction on how to animate each shape.
+   * The animation model calls to draw each shape every tick and advances to the next tick.
+   * The output log is appended for each specific shape.
+   */
   public void animate() {
     boolean shouldPlay = true;
 
@@ -43,7 +53,7 @@ public class SingleAnimation implements AnimationModel {
 
   }
 
-  public void parseTickOutput(Shape s) {
+  private void parseTickOutput(Shape s) {
     StringBuilder output = new StringBuilder();
     output.append("motion " + s.getName() + "\t");
     output.append(currentTick + " " + s.getPosition().getX() + " " + s.getPosition().getY() + " ");
@@ -75,6 +85,16 @@ public class SingleAnimation implements AnimationModel {
     output.append(" " + sType + "\n");
 
     output.append(outputLog.get(s.getName()));
+
+    return output.toString();
+  }
+
+  public String parseAllOutputs() {
+    StringBuilder output = new StringBuilder();
+
+    for (Shape s : shapes) {
+      output.append(parseAnimationOutput(s) + "\n");
+    }
 
     return output.toString();
   }
