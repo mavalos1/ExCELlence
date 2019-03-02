@@ -17,6 +17,14 @@ public class ShapeImpl {
   protected List<Transition> transitions;
 
   private void buildShape(String name, Position2D p, double w, double h, Color c, double r) {
+    if (name.isEmpty() || name == null) {
+      throw new IllegalArgumentException("Invalid shape name");
+    }
+
+    if (w < 0 || h < 0) {
+      throw new IllegalArgumentException("Invalid shape size");
+    }
+
     this.setName(name);
     this.setPosition(p);
     this.setWidth(w);

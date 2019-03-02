@@ -11,4 +11,13 @@ import cs3500.ExCELlence.model.transitions.Transition;import java.util.Stack;
  * </p>
  */
 public interface AnimationModel {
+  /**
+   * Animate the shape contained in the animation model.
+   */
+  public void animate();
+
+  /**
+   * Return the string output of all shapes in the animation.
+   */
+  public String parseAllOutputs();
 }
