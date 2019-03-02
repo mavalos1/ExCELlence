@@ -21,6 +21,10 @@ public class SingleAnimation implements AnimationModel {
    * @param shapes
    */
   public SingleAnimation(List<Shape> shapes) {
+    if (shapes.isEmpty() || shapes == null) {
+      throw new IllegalArgumentException("Invalid animation's shape list");
+    }
+    
     outputLog = new HashMap<>();
     currentTick = 0;
     this.shapes = shapes;

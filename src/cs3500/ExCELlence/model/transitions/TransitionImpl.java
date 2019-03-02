@@ -16,6 +16,10 @@ public class TransitionImpl implements Transition {
       Position2D deltaPosition, Color deltaColor,
       double deltaHeight, double deltaWidth,
       double deltaRotation, int timeToLive, boolean hide) {
+    if (t < 0) {
+      throw new IllegalArgumentException("Invalid transition time");
+    }
+
     this.dp = deltaPosition;
     this.dc = deltaColor;
     this.dh = deltaHeight;

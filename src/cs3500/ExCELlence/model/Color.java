@@ -12,6 +12,9 @@ public class Color {
   }
 
   public Color(int r, int g, int b) {
+    if (r < 0 || g < 0 || b < 0) {
+      throw new IllegalArgumentException("Invalid color arguments");
+    }
     this.setR(r);
     this.setG(g);
     this.setB(b);
