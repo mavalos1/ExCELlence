@@ -10,9 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.UUID;
 
 public class SingleAnimation implements AnimationModel {
-  private Map<String, StringBuilder> outputLog;
+  private Map<UUID, StringBuilder> outputLog;
   private int currentTick;
   private List<Shape> shapes;
 
@@ -64,10 +65,10 @@ public class SingleAnimation implements AnimationModel {
     output.append(s.getWidth() + " " + s.getHeight() + " ");
     output.append(s.getColor().getR() + " " + s.getColor().getG() + " " + s.getColor().getB() + "\n");
 
-    if (outputLog.get(s.getName()) == null) {
-      outputLog.put(s.getName(), output);
+    if (outputLog.get(s.getId()) == null) {
+      outputLog.put(s.getId(), output);
     } else {
-      outputLog.get(s.getName()).append(output);
+      outputLog.get(s.getId()).append(output);
     }
   }
 

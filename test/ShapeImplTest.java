@@ -47,6 +47,15 @@ public class ShapeImplTest {
     SingleAnimation anim = new SingleAnimation(shapes);
     anim.animate();
 
+    assertEquals(rect.getColor().getR(), 75);
+    assertEquals(rect.getColor().getG(), 125);
     assertEquals(rect.getColor().getB(), 105);
+    assertEquals(rect.getPosition().getX(), 10, 0.001);
+    assertEquals(rect.getPosition().getY(), 10, 0.001);
+    assertEquals(rect.getHeight(), 15, 0.001);
+    assertEquals(rect.getWidth(), 15, 0.001);
+    assertEquals(rect.getName(), "R");
+    assertEquals(rect.getRotation(), 15, 0.001);
+
   }
 }

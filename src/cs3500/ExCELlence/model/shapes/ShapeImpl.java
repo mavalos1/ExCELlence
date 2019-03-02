@@ -6,6 +6,7 @@ import cs3500.ExCELlence.model.transitions.Transition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ShapeImpl {
   protected String name;
@@ -14,10 +15,11 @@ public class ShapeImpl {
   protected double h;
   protected Color c;
   protected double r;
+  protected UUID id;
   protected List<Transition> transitions;
 
   private void buildShape(String name, Position2D p, double w, double h, Color c, double r) {
-    if (name.isEmpty() || name == null) {
+    if (name == null) {
       throw new IllegalArgumentException("Invalid shape name");
     }
 
@@ -31,6 +33,7 @@ public class ShapeImpl {
     this.setHeight(h);
     this.setColor(c);
     this.setRotation(r);
+    id = UUID.randomUUID();
     transitions = new ArrayList<>();
   }
 
@@ -75,6 +78,10 @@ public class ShapeImpl {
 
   public void addTransition(Transition t) {
     transitions.add(t);
+  }
+
+  public UUID getId() {
+    return id;
   }
 
   /**
