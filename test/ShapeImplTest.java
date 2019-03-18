@@ -1,3 +1,4 @@
+import cs3500.nguyenmayeux.model.helper.Transition;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -6,19 +7,17 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 import cs3500.nguyenmayeux.model.shapes.Oval;
-import cs3500.nguyenmayeux.model.Color;
-import cs3500.nguyenmayeux.model.Position2D;
+import cs3500.nguyenmayeux.model.helper.Color;
+import cs3500.nguyenmayeux.model.helper.Position2D;
 import cs3500.nguyenmayeux.model.SingleAnimation;
 import cs3500.nguyenmayeux.model.shapes.Rectangle;
 import cs3500.nguyenmayeux.model.shapes.Shape;
-import cs3500.nguyenmayeux.model.transitions.Transition;
-import cs3500.nguyenmayeux.model.transitions.TransitionImpl;
 
 public class ShapeImplTest {
 
   @Test
   public void testShapeTest() {
-    Shape rect = new Rectangle();
+    Shape rect = new Rectangle("R");
     Color c = new Color();
     c.setR(50);
     c.setG(150);
@@ -27,24 +26,22 @@ public class ShapeImplTest {
     rect.setColor(c);
     rect.setHeight(5);
     rect.setWidth(10);
-    rect.setName("R");
     rect.setPosition(new Position2D(5, 5));
     rect.setRotation(0);
 
-    Transition t = new TransitionImpl(
-        new Position2D(1,1), 5, -5, 5, 2, 1, 3, 5, false);
+    Transition t = new Transition(
+        new Position2D(1,1), 5, -5, 5, 2, 1, 3, 5);
 
     ((Rectangle) rect).addTransition(t);
 
-    Shape circle = new Oval();
-    circle.setName("C");
+    Shape circle = new Oval("C");
     circle.setColor(new Color(20, 240, 40));
     circle.setHeight(10);
     circle.setWidth(5);
     circle.setPosition(new Position2D(10, 10));
     circle.setRotation(20);
-    Transition tc = new TransitionImpl(
-        new Position2D(-1, -1), -1, 1, -1, -2, -1, -3, 5, false);
+    Transition tc = new Transition(
+        new Position2D(-1, -1), -1, 1, -1, -2, -1, -3, 5);
     ((Oval) circle).addTransition(tc);
 
     List<Shape> shapes = new ArrayList<>();
@@ -87,19 +84,19 @@ public class ShapeImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testNullNameShape() {
-    Shape rect = new Rectangle();
+    Shape rect = new Rectangle("R");
     rect.setName(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNegativeWidthShape() {
-    Shape rect = new Rectangle();
+    Shape rect = new Rectangle("R");
     rect.setWidth(-1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNegativeHeightShape() {
-    Shape rect = new Rectangle();
+    Shape rect = new Rectangle("R");
     rect.setHeight(-1);
   }
 
@@ -113,10 +110,5 @@ public class ShapeImplTest {
     List<Shape> shapes = null;
     SingleAnimation animation = new SingleAnimation(shapes);
   }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testEmptyShapeList() {
-    List<Shape> shapes = new ArrayList<>();
-    SingleAnimation animation = new SingleAnimation(shapes);
-  }
 }
+  

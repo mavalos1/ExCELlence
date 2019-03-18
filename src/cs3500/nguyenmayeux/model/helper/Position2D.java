@@ -1,15 +1,15 @@
-package cs3500.nguyenmayeux.model;
+package cs3500.nguyenmayeux.model.helper;
 
 import java.util.Objects;
 
 /**
- * This class represents a 2D position
+ * This class represents a 2D position.
  */
 public class Position2D {
   private double x, y;
 
   /**
-   * Initialize the object to the specified position
+   * Initialize the object to the specified position.
    * @param x
    * @param y
    */
@@ -19,16 +19,22 @@ public class Position2D {
   }
 
   /**
-   * Copy constructor
-   * @param v
+   * Initialize the object to the (0, 0) position.
    */
-  public Position2D(Position2D v) {
-    this.setX(v.x);
-    this.setY(v.y);
+  public Position2D() {
+    this(0, 0);
   }
 
   /**
-   * Get the x-coordinate of this position
+   * Copy constructor.
+   * @param v
+   */
+  public Position2D(Position2D v) {
+    this(v.x, v.y);
+  }
+
+  /**
+   * Get the x-coordinate of this position.
    *
    * @return x
    */
@@ -37,7 +43,7 @@ public class Position2D {
   }
 
   /**
-   * Get the y-coordinate of this position
+   * Get the y-coordinate of this position.
    *
    * @return y
    */
@@ -46,7 +52,7 @@ public class Position2D {
   }
 
   /**
-   * Set the x-coordinate of this position
+   * Set the x-coordinate of this position.
    *
    * @param x
    */
@@ -55,7 +61,7 @@ public class Position2D {
   }
 
   /**
-   * Set the y-coordinate of this position
+   * Set the y-coordinate of this position.
    *
    * @param y
    */
