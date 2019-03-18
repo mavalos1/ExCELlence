@@ -1,11 +1,10 @@
 package cs3500.nguyenmayeux.model.shapes;
 
-import cs3500.nguyenmayeux.model.Color;
-import cs3500.nguyenmayeux.model.Position2D;
-import cs3500.nguyenmayeux.model.transitions.Transition;
+import cs3500.nguyenmayeux.model.helper.Color;
+import cs3500.nguyenmayeux.model.helper.Position2D;
+import cs3500.nguyenmayeux.model.helper.Transition;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * This interface specifies the operation of a single 2D shape.
@@ -17,13 +16,7 @@ import java.util.UUID;
 public interface Shape {
 
   /**
-   * Get the ID of the shape
-   * @return The shapes unique ID
-   */
-  UUID getId();
-
-  /**
-   * Increment the state of the shape by one tick
+   * Increment the state of the shape by one tick.
    */
   void tick();
 
@@ -32,6 +25,22 @@ public interface Shape {
    * @return whether or not the shape has any transitions left to be played.
    */
   boolean hasTransition();
+
+  /**
+   * Add a new transition to the shape model.
+   */
+  void addTransition(Transition t);
+
+  /**
+   * Pop the last added transition from the shape model.
+   */
+  void popTransition();
+
+  /**
+   * Get the shape's transition list.
+   * @return r
+   */
+  List<Transition> getTransitionList();
 
   /**
    * Get the shape's name.
@@ -104,13 +113,6 @@ public interface Shape {
    * @param rotation
    */
   void setRotation(double rotation);
-
-  /**
-   * Get the shape's transition list.
-   * @return r
-   */
-  List<Transition> getTransitionList();
-
   /**
    * Draw the shape.
    */
