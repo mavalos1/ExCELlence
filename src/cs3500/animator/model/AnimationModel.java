@@ -26,6 +26,7 @@ public interface AnimationModel {
    * Advance the model to the next tick
    */
   void tick();
+
   /**
    * Retrieve the current state of a shape in a model by its name.
    * @param name the name of the shape to be retrieved

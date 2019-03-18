@@ -5,32 +5,32 @@ import cs3500.animator.model.helper.Position2D;
 import cs3500.animator.model.helper.Size;
 import cs3500.animator.model.helper.Transition;
 
-import java.util.List;
-
-public class Rectangle extends ShapeImpl implements Shape {
-  public Rectangle(String name, Position2D p, Size s, Color c, double r) {
+public class Ellipse extends ShapeImpl implements Shape {
+  public Ellipse(String name, Position2D p, Size s, Color c, double r) {
     super(name, p, s, c, r);
-    shapeType = "rectangle";
+    shapeType = "ellipse";
   }
 
-  public Rectangle(String name) {
+  public Ellipse(String name) {
     super(name);
-    shapeType = "rectangle";
+    shapeType = "ellipse";
   }
 
   public String SVGHeader() {
     return String.format(
-      "<rect id=\"%s\" x=\"%.0f\" y=\"%.0f\" width=\"%.0f\" height=\"%.0f\" " +
-          "fill=\"rgb(%d, %d, %d)\" visibility=\"visible\" >\n",
+      "<ellipse id=\"%s\" cx=\"%.0f\" cy=\"%.0f\" rx=\"%.0f\" ry=\"%.0f\" " +
+          "fill=\"rgb(%d, %d, %d)\" visibility=\"visible\">\n",
       name, p.getX(), p.getY(),
-      s.getW(), s.getH(),
+      s.getW() / 2, s.getH() / 2,
       c.getR(), c.getG(), c.getB()
     );
   }
 
+
   public String SVGFooter() {
-    return "\n</rect>\n";
+    return "\n</ellipse>\n";
   }
+
 
   public String SVGTransition(int tickMS) {
     StringBuilder transitionOutput = new StringBuilder();
@@ -42,6 +42,7 @@ public class Rectangle extends ShapeImpl implements Shape {
     return transitionOutput.toString();
   }
 
+
   private String deconstructToSVG(Transition t, int tickMS) {
     int duration = tickMS * t.getTimeToLive();
     StringBuilder out = new StringBuilder();
@@ -49,7 +50,7 @@ public class Rectangle extends ShapeImpl implements Shape {
     if ((Math.abs(t.getDeltaX() - 0) >= 0.01)) {
       out.append(
           String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"x\" by=\"%.0f\"/>\n",
+              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"cx\" by=\"%.0f\"/>\n",
               duration, t.getDeltaX() * t.getTimeToLive()
           )
       );
@@ -57,7 +58,7 @@ public class Rectangle extends ShapeImpl implements Shape {
     if ((Math.abs(t.getDeltaY() - 0) >= 0.01)) {
       out.append(
           String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"y\" by=\"%.0f\"/>\n",
+              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"cy\" by=\"%.0f\"/>\n",
               duration, t.getDeltaY() * t.getTimeToLive()
           )
       );
@@ -65,7 +66,7 @@ public class Rectangle extends ShapeImpl implements Shape {
     if ((Math.abs(t.getDeltaWidth() - 0) >= 0.01)) {
       out.append(
           String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"width\" by=\"%.0f\"/>\n",
+              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"rx\" by=\"%.0f\"/>\n",
               duration, t.getDeltaWidth() * t.getTimeToLive()
           )
       );
@@ -74,7 +75,7 @@ public class Rectangle extends ShapeImpl implements Shape {
     if ((Math.abs(t.getDeltaHeight() - 0) >= 0.01)) {
       out.append(
           String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"height\" by=\"%.0f\"/>\n",
+              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"ry\" by=\"%.0f\"/>\n",
               duration, t.getDeltaHeight() * t.getTimeToLive()
           )
       );

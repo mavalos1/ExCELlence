@@ -109,4 +109,10 @@ public interface Shape {
    * @return
    */
   String getShapeType();
+
+  String SVGHeader();
+
+  String SVGFooter();
+
+  String SVGTransition(int tickMS);
 }

@@ -26,7 +26,7 @@ public class TextualView extends ViewImpl {
    */
   public void render() {
     String canvasInfo =
-        String.format("canvas %.2f %.2f %.2f %.2f\n",
+        String.format("canvas %.0f %.0f %.0f %.0f\n",
             this.getCanvasPosition().getX(), this.getCanvasPosition().getY(),
             this.getCanvasSize().getW(), this.getCanvasSize().getH());
 
@@ -45,9 +45,29 @@ public class TextualView extends ViewImpl {
       System.out.print(e);
     }
   }
+  protected void animate() throws InterruptedException {
+    long tickMS = 1000 / this.tPs;
+    boolean shouldPlay = true;
 
-  public void renderShapeView(Shape s) {
-    System.out.println(String.format("motion %s %d %.2f %.2f %.2f %.2f %d %d %d",
+    while (shouldPlay) {
+      shouldPlay = false;
+
+      List<Shape> shapes = model.getAllShapes();
+      for (Shape s : shapes) {
+        renderShapeView(s);
+
+        if (s.hasTransition()) {
+          shouldPlay = true;
+        }
+      }
+
+      model.tick();
+      Thread.sleep(tickMS);
+    }
+  }
+
+  protected void renderShapeView(Shape s) {
+    System.out.println(String.format("motion %s %d %.0f %.0f %.0f %.0f %d %d %d",
         s.getName(), model.getCurrentTick(),
         s.getPosition().getX(), s.getPosition().getY(),
         s.getSize().getW(), s.getSize().getH(),

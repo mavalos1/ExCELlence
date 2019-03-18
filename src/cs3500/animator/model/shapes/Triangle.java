@@ -10,8 +10,17 @@ public class Triangle extends ShapeImpl implements Shape {
     shapeType = "triangle";
   }
 
-  public Triangle(String name) {
-    super(name);
-    shapeType = "triangle";
+
+  public String SVGHeader() {
+    return "";
+  }
+
+
+  public String SVGFooter() {
+    return "";
+  }
+
+  public String SVGTransition(int tickMS) {
+    return "";
   }
 }

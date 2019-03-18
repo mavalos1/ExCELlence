@@ -91,27 +91,4 @@ public abstract class ViewImpl implements AnimationView {
   public void setCanvasPosition(Position2D topLeft) {
     this.topLeft = topLeft;
   }
-
-  protected void animate() throws InterruptedException {
-    long tickMS = 1000 / this.tPs;
-    boolean shouldPlay = true;
-
-    while (shouldPlay) {
-      shouldPlay = false;
-
-      List<Shape> shapes = model.getAllShapes();
-      for (Shape s : shapes) {
-        renderShapeView(s);
-
-        if (s.hasTransition()) {
-          shouldPlay = true;
-        }
-      }
-
-      model.tick();
-      Thread.sleep(tickMS);
-    }
-  }
-
-  abstract void renderShapeView(Shape s);
 }

@@ -2,9 +2,6 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.helper.Position2D;
 import cs3500.animator.model.helper.Size;
-import cs3500.animator.model.shapes.Shape;
-
-import java.util.List;
 
 /**
  * This interface specifies the operation of a 2D animation view.
