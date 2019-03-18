@@ -80,11 +80,12 @@ public class Rectangle extends ShapeImpl implements Shape {
       );
     }
 
-    if (t.getDeltaR() != 0 || t.getDeltaR() != 0 || t.getDeltaR() != 0) {
+    if (t.getDeltaR() != 0 || t.getDeltaG() != 0 || t.getDeltaB() != 0) {
       out.append(
           String.format(
               "\t<animate attributeName=\"fill\" dur=\"%dms\" by=\"rgb(%d,%d,%d)\"/>\n",
-              duration, t.getDeltaR() * t.getTimeToLive(), t.getDeltaR() * t.getTimeToLive(), t.getDeltaR() * t.getTimeToLive()
+              duration, t.getDeltaR() * t.getTimeToLive(), t.getDeltaG() * t.getTimeToLive(),
+              t.getDeltaB() * t.getTimeToLive()
           )
       );
     }
