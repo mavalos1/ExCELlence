@@ -1,13 +1,17 @@
 package cs3500.animator.model.shapes;
 
+import cs3500.animator.model.helper.Color;
+import cs3500.animator.model.helper.Position2D;
+import cs3500.animator.model.helper.Size;
+
 public class Triangle extends ShapeImpl implements Shape {
-  public Triangle(String name) {
-    super(name);
+  public Triangle(String name, Position2D p, Size s, Color c, double r) {
+    super(name, p, s, c, r);
     shapeType = "triangle";
   }
 
-  public void draw() {
-    // Implementation-dependent of rectangle shape, not yet clear of how to draw the shape
-
+  public Triangle(String name) {
+    super(name);
+    shapeType = "triangle";
   }
 }

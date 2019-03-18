@@ -1,16 +1,17 @@
 package cs3500.animator.model.shapes;
 
-import java.awt.*;
+import cs3500.animator.model.helper.Color;
+import cs3500.animator.model.helper.Position2D;
+import cs3500.animator.model.helper.Size;
 
 public class Rectangle extends ShapeImpl implements Shape {
-  public Rectangle(String name) {
-    super(name);
+  public Rectangle(String name, Position2D p, Size s, Color c, double r) {
+    super(name, p, s, c, r);
     shapeType = "rectangle";
   }
 
-  public void draw(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
-
-    g2d.drawRect(30, 50, 420, 120);
+  public Rectangle(String name) {
+    super(name);
+    shapeType = "rectangle";
   }
 }

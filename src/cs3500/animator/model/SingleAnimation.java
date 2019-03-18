@@ -46,7 +46,6 @@ public class SingleAnimation implements AnimationModel {
    */
   public void tick() {
     for (Shape shape : shapes) {
-      shape.draw();
       if (shape.hasTransition()) {
         shape.tick();
       }

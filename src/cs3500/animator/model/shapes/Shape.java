@@ -109,9 +109,4 @@ public interface Shape {
    * @return
    */
   String getShapeType();
-
-  /**
-   * Draw the shape.
-   */
-  void draw(Graphics g);
 }

@@ -7,6 +7,13 @@ import cs3500.animator.model.shapes.Shape;
 
 import java.util.List;
 
+/**
+ * This class represents the implementations of the common functions of the view interface.
+ * <p>
+ *   The view is directly containing the model right now, which WILL be moved toward a controller
+ *   in the future.
+ * </p>
+ */
 public abstract class ViewImpl implements AnimationView {
   protected int tPs, currentTick;
   protected Size canvasSize;
