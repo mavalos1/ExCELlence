@@ -16,7 +16,9 @@ import java.util.List;
  *   retrieved, modified, removed by the unique name of each shape.
  *   The model allows user to read a string output of timeline of the model with the position and
  *   size of each shape over time by parseAllOutputs()
- *   The
+ *   The transitions added to the model are added on top of a list, thus overlapping transitions
+ *   are not a concern. The animations of a particular shape could be retrieved, added, and
+ *   popped accordingly.
  * </p>
  */
 public interface AnimationModel {
