@@ -1,4 +1,4 @@
-package cs3500.nguyenmayeux.model.helper;
+package cs3500.animator.model.helper;
 
 import java.util.Objects;
 
@@ -14,9 +14,8 @@ public class Color {
    * @param r
    * @param g
    * @param b
-   * @throws IllegalArgumentException when code is out of (0, 255) range
    */
-  public Color(int r, int g, int b) throws IllegalArgumentException {
+  public Color(int r, int g, int b) {
     this.setR(r);
     this.setG(g);
     this.setB(b);
@@ -28,11 +27,12 @@ public class Color {
   public Color() {
     this(0, 0, 0);
   }
+
   /**
    * Copy constructor.
    * @param v
    */
-  public Color(Color v) throws IllegalArgumentException {
+  public Color(Color v)  {
     this(v.r, v.g, v.b);
   }
 
@@ -50,32 +50,8 @@ public class Color {
    *
    * @param r
    */
-  public void setR(int r) throws IllegalArgumentException {
-    if (r < 0 || r > 255) {
-      throw new IllegalArgumentException("Invalid color R-component arguments");
-    }
-    this.r = r;
-  }
-
-  /**
-   * Get the b-code of this color.
-   *
-   * @return b
-   */
-  public int getB() {
-    return b;
-  }
-
-  /**
-   * Set the b-code of this color.
-   *
-   * @param b
-   */
-  public void setB(int b) throws IllegalArgumentException {
-    if (b < 0 || b > 255) {
-      throw new IllegalArgumentException("Invalid color B-component arguments");
-    }
-    this.b = b;
+  public void setR(int r) {
+    this.r = r % 256;
   }
 
   /**
@@ -92,11 +68,26 @@ public class Color {
    *
    * @param g
    */
-  public void setG(int g) throws IllegalArgumentException {
-    if (g < 0 || g > 255) {
-      throw new IllegalArgumentException("Invalid color G-component arguments");
-    }
-    this.g = g;
+  public void setG(int g) {
+    this.g = g % 256;
+  }
+
+  /**
+   * Get the b-code of this color.
+   *
+   * @return b
+   */
+  public int getB() {
+    return b;
+  }
+
+  /**
+   * Set the b-code of this color.
+   *
+   * @param b
+   */
+  public void setB(int b) {
+    this.b = b % 256;
   }
 
   @Override

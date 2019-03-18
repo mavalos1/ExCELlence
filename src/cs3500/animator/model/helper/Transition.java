@@ -1,4 +1,4 @@
-package cs3500.nguyenmayeux.model.helper;
+package cs3500.animator.model.helper;
 
 import java.util.Objects;
 
@@ -10,18 +10,16 @@ import java.util.Objects;
  * </p>
  */
 public class Transition {
-  private Position2D dp;
-  private int dr;
-  private int dg;
-  private int db;
-  private double dh;
-  private double dw;
+  private double dx, dy;
+  private int dr, dg, db;
+  private double dh, dw;
   private double drt;
   private int t;
 
   /**
    * Initialize the transition to the specified parameters
-   * @param deltaPosition the change in position of an animation, (0, 0) if unchanged
+   * @param deltaX the change in x-coordinate of an animation, 0 if unchanged
+   * @param deltaY the change in y-coordinate of an animation, 0 if unchanged
    * @param deltaR the change in R-color code of an animation, 0 if unchanged
    * @param deltaG the change in G-color code of an animation, 0 if unchanged
    * @param deltaB the change in B-color code of an animation, 0 if unchanged
@@ -32,10 +30,12 @@ public class Transition {
    * @throws IllegalArgumentException when time to live is under 1 tick
    */
   public Transition(
-      Position2D deltaPosition, int deltaR, int deltaG, int deltaB,
+      double deltaX, double deltaY,
+      int deltaR, int deltaG, int deltaB,
       double deltaHeight, double deltaWidth,
       double deltaRotation, int timeToLive) throws IllegalArgumentException {
-    this.setDeltaPosition(deltaPosition);
+    this.setDeltaX(deltaX);
+    this.setDeltaY(deltaY);
     this.setDeltaR(deltaR);
     this.setDeltaG(deltaG);
     this.setDeltaB(deltaB);
@@ -50,7 +50,7 @@ public class Transition {
    * @param time
    */
   public Transition(int time) throws IllegalArgumentException {
-    this(new Position2D(), 0, 0, 0, 0, 0, 0, time);
+    this(0, 0, 0, 0, 0, 0, 0, 0, time);
   }
 
   /**
@@ -58,23 +58,39 @@ public class Transition {
    * @param v
    */
   public Transition(Transition v) throws IllegalArgumentException {
-    this(v.dp, v.dr, v.dg, v.db, v.dh, v.dw, v.drt, v.t);
+    this(v.dx, v.dy, v.dr, v.dg, v.db, v.dh, v.dw, v.drt, v.t);
   }
 
   /**
-   * Get the deltaPosition of this transition.
-   * @return dp
+   * Get the deltaX of this transition.
+   * @return dx
    */
-  public Position2D getDeltaPosition() {
-    return this.dp;
+  public double getDeltaX() {
+    return this.dx;
   }
 
   /**
-   * Set the deltaPosition of this transition.
-   * @param p
+   * Set the deltaX of this transition.
+   * @param x
    */
-  public void setDeltaPosition(Position2D p) {
-    this.dp = p;
+  public void setDeltaX(double x) {
+    this.dx = x;
+  }
+
+  /**
+   * Get the deltaY of this transition.
+   * @return dY
+   */
+  public double getDeltaY() {
+    return this.dy;
+  }
+
+  /**
+   * Set the deltaY of this transition.
+   * @param y
+   */
+  public void setDeltaY(double y) {
+    this.dy = y;
   }
 
   /**
@@ -208,18 +224,20 @@ public class Transition {
 
     Transition that = (Transition) a;
 
-    return (this.dp == that.dp
+    return (this.dx == that.dx
+        && this.dy == that.dy
         && this.dr == that.dr
         && this.dg == that.dg
         && this.db == that.db
-        && Math.abs(this.dw - that.dw) < 0.01
-        && Math.abs(this.dh - that.dh) < 0.01
+        && this.dw == that.dw
+        && this.dh == that.dh
         && Math.abs(this.drt - that.drt) < 0.01
         && this.t == that.t);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.dp, this.dr, this.dg, this.db, this.dw, this.dh, this.drt, this.t);
+    return Objects.hash(this.dx, this.dy, this.dr, this.dg, this.db, this.dw, this.dh, this.drt,
+        this.t);
   }
 }

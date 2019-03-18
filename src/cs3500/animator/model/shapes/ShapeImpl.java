@@ -1,8 +1,9 @@
-package cs3500.nguyenmayeux.model.shapes;
+package cs3500.animator.model.shapes;
 
-import cs3500.nguyenmayeux.model.helper.Color;
-import cs3500.nguyenmayeux.model.helper.Position2D;
-import cs3500.nguyenmayeux.model.helper.Transition;
+import cs3500.animator.model.helper.Color;
+import cs3500.animator.model.helper.Position2D;
+import cs3500.animator.model.helper.Size;
+import cs3500.animator.model.helper.Transition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,9 @@ import java.util.List;
  */
 public class ShapeImpl {
   protected String name;
+  protected String shapeType;
   protected Position2D p;
-  protected double w;
-  protected double h;
+  protected Size s;
   protected Color c;
   protected double r;
   protected List<Transition> transitions;
@@ -35,27 +36,25 @@ public class ShapeImpl {
    * Initialize the shape with the specified params
    * @param name the name of the shape
    * @param p the initial position of the shape
-   * @param w the width of the shape
-   * @param h the height of the shape
+   * @param s the size of the shape
    * @param c the color of the shape
    * @param r the rotation of the shape
    */
-  public ShapeImpl(String name, Position2D p, double w, double h, Color c, double r)
+  public ShapeImpl(String name, Position2D p, Size s, Color c, double r)
       throws IllegalArgumentException {
     this.setName(name);
     this.setPosition(p);
-    this.setWidth(w);
-    this.setHeight(h);
+    this.setSize(s);
     this.setColor(c);
     this.setRotation(r);
-    transitions = new ArrayList<>();
+    this.transitions = new ArrayList<>();
   }
 
   /**
    * Initialize a shape with zero size, default color, and no rotation
    */
   public ShapeImpl(String name) throws IllegalArgumentException {
-    this(name, new Position2D(), 0, 0, new Color(),0);
+    this(name, new Position2D(), new Size(), new Color(),0);
   }
 
   /**
@@ -63,7 +62,7 @@ public class ShapeImpl {
    * @param v
    */
   public ShapeImpl(ShapeImpl v) throws IllegalArgumentException {
-    this(v.name, v.p, v.w, v.h, v.c, v.r);
+    this(v.name, v.p, v.s, v.c, v.r);
   }
 
   /**
@@ -73,11 +72,11 @@ public class ShapeImpl {
   public void tick() {
     Transition t = transitions.get(0);
 
-    p.setX(p.getX() + t.getDeltaPosition().getX());
-    p.setY(p.getY() + t.getDeltaPosition().getY());
+    p.setX(p.getX() + t.getDeltaX());
+    p.setY(p.getY() + t.getDeltaY());
 
-    w += t.getDeltaWidth();
-    h += t.getDeltaHeight();
+    s.setW(s.getW() + t.getDeltaWidth());
+    s.setH(s.getH() + t.getDeltaHeight());
 
     c.setR(c.getR() + t.getDeltaR());
     c.setG(c.getG() + t.getDeltaG());
@@ -158,44 +157,21 @@ public class ShapeImpl {
   }
 
   /**
-   * Get the shape's width.
-   * @return w
+   * Get the shape's size.
+   * @return s
    */
-  public double getWidth() {
-    return w;
+  public Size getSize() {
+    return s;
   }
 
   /**
-   * Set the shape's width.
-   * @param w
-   * @throws IllegalArgumentException when width is negative
+   * Set the shape's size.
+   * @param s
    */
-  public void setWidth(double w) throws IllegalArgumentException {
-    if (w < 0) {
-      throw new IllegalArgumentException("Invalid shape width");
-    }
-    this.w = w;
+  public void setSize(Size s) {
+    this.s = s;
   }
 
-  /**
-   * Get the shape's height.
-   * @return h
-   */
-  public double getHeight() {
-    return h;
-  }
-
-  /**
-   * Set the shape's height.
-   * @param h
-   * @throws IllegalArgumentException when height is negative
-   */
-  public void setHeight(double h) throws IllegalArgumentException {
-    if (h < 0) {
-      throw new IllegalArgumentException("Invalid shape height");
-    }
-    this.h = h;
-  }
 
   /**
    * Get the shape's color.
@@ -227,5 +203,13 @@ public class ShapeImpl {
    */
   public void setRotation(double rotation) {
     this.r = rotation;
+  }
+
+  /**
+   * Get the shape type
+   * @return
+   */
+  public String getShapeType() {
+    return this.shapeType;
   }
 }

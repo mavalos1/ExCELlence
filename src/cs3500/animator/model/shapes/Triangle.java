@@ -1,8 +1,9 @@
-package cs3500.nguyenmayeux.model.shapes;
+package cs3500.animator.model.shapes;
 
 public class Triangle extends ShapeImpl implements Shape {
   public Triangle(String name) {
     super(name);
+    shapeType = "triangle";
   }
 
   public void draw() {
