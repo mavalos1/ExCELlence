@@ -38,11 +38,22 @@ public class TextualView implements AnimationView {
   }
 
   /**
-   * Initialize the view to a speed and output destination.
+   * Initialize the view and output destination.
    * @param outFile
    */
   public TextualView(String outFile) {
     this(0, 0, 0, 0, outFile);
+  }
+
+  /**
+   * Initialize the view.
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   */
+  public TextualView(int x, int y, int w, int h) {
+    this(x, y, w, h, "");
   }
 
   /**
@@ -70,14 +81,7 @@ public class TextualView implements AnimationView {
 
     for (Shape s : shapeList) {
       if (currentTick == 0) {
-        String sType = "";
-        if (s instanceof Ellipse) {
-          sType = "ellipse";
-        } else if (s instanceof Rectangle) {
-          sType = "rectangle";
-        }
-
-        lineOutput.append(String.format("\nshape %s %s\n", s.getName(), sType));
+        lineOutput.append(String.format("shape %s %s\n", s.getName(), s.getShapeType()));
       } else {
         lineOutput.append(String.format("%d ", currentTick));
         lineOutput.append(String.format("motion %s ", s.getName()));

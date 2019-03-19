@@ -48,6 +48,18 @@ public class SVGView implements AnimationView {
   }
 
   /**
+   * Initialize the view.
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   * @param speed
+   */
+  public SVGView(int x, int y, int w, int h, int speed) {
+    this(x, y, w, h, speed, "");
+  }
+
+  /**
    * Set the paramters of the view bound.
    * @param x
    * @param y

@@ -161,11 +161,7 @@ public class Rectangle implements Shape {
       return false;
     }
 
-    if (transitions.get(0).endTime > currentTick) {
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   /**

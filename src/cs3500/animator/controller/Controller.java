@@ -9,6 +9,7 @@ import cs3500.animator.model.shapes.Shape;
 import cs3500.animator.view.AnimationView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextualView;
+import cs3500.animator.view.VisualView;
 
 import java.util.Objects;
 
@@ -56,6 +57,9 @@ public class Controller implements AnimationController{
         break;
       case "svg":
         this.view = new SVGView(speed, outFile);
+        break;
+      case "visual":
+        this.view = new VisualView();
         break;
       default:
         throw new IllegalArgumentException("Invalid view type");

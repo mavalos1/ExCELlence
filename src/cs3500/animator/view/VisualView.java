@@ -6,6 +6,7 @@ import cs3500.animator.model.shapes.Shape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VisualView implements AnimationView {
@@ -42,6 +43,11 @@ public class VisualView implements AnimationView {
   class AnimationPanel extends JPanel {
 
     private List<Shape> shapes;
+
+    public AnimationPanel() {
+      super();
+      this.shapes = new ArrayList<>();
+    }
 
     public void setShapes(List<Shape> shapes) {
       this.shapes = shapes;
