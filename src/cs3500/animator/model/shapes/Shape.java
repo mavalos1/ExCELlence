@@ -5,114 +5,69 @@ import cs3500.animator.model.helper.Position2D;
 import cs3500.animator.model.helper.Size;
 import cs3500.animator.model.helper.Transition;
 
-import java.awt.*;
-import java.util.List;
-
 /**
  * This interface specifies the operation of a single 2D shape.
+ *
  * <p>
- *   A 2D shape is characterized by a boundary box of size (w,h)
- *   at a r degree rotation
+ *   A shape has a name, an initial position, a size of width and height, a color, and a rotation.
+ *   A shape can have a list of transitions stored within to tell the model how to animate it.
+ *   A shape should have an unique name to avoid being overwritten when added to model.
+ * </p>
+ * <p>
+ *   The animations could only be added on top of each other, thus no overlapping animations,
+ *   meaning occuring at the same tick, could happen. Inconsistent transitions, therefore, are
+ *   not possible. If a shape want to stay unchanged for an amount of time, it needs to add a
+ *   default transition of such amount of time.
  * </p>
  */
 public interface Shape {
-
   /**
-   * Increment the state of the shape by one tick.
-   */
-  void tick();
-
-  /**
-   * Get whether or not the shape has any transitions left to be played.
-   * @return whether or not the shape has any transitions left to be played.
-   */
-  boolean hasTransition();
-
-  /**
-   * Add a new transition to the shape model.
-   */
-  void addTransition(Transition t);
-
-  /**
-   * Pop the last added transition from the shape model.
-   */
-  void popTransition();
-
-  /**
-   * Get the shape's transition list.
-   * @return r
-   */
-  List<Transition> getTransitionList();
-
-  /**
-   * Get the shape's name.
-   * @return p
+   * Get the shape name.
+   * @return
    */
   String getName();
 
   /**
-   * Set the shape's name.
-   * @param name
-   */
-  void setName(String name);
-
-  /**
    * Get the shape's position.
-   * @return p
+   * @return
    */
   Position2D getPosition();
 
   /**
-   * Set the shape's position.
-   * @param p
-   */
-  void setPosition(Position2D p);
-
-  /**
-   * Get the shape's size.
-   * @return s
+   * Get the model's size.
+   * @return
    */
   Size getSize();
 
   /**
-   * Set the shape's size.
-   * @param s
-   */
-  void setSize(Size s);
-
-  /**
-   * Get the shape's color.
-   * @return c
+   * Get the model's color.
+   * @return
    */
   Color getColor();
 
   /**
-   * Set the shape's color.
-   * @param c
+   * Add new transitions(s) to the shape.
+   * @param tr
    */
-  void setColor(Color c);
+  void addTransition(Transition... tr);
 
   /**
-   * Get the shape's rotation.
-   * @return r
+   * Advance the shape's state to the next tick.
+   * @param currentTick
    */
-  double getRotation();
+  void tick(int currentTick);
 
   /**
-   * Set the shape's color.
-   * @param rotation
-   */
-  void setRotation(double rotation);
-
-  /**
-   * Get the shape type
+   * Returns whether the shape can still animate.
+   * @param currentTick
    * @return
    */
-  String getShapeType();
+  boolean canTick(int currentTick);
 
-  String SVGHeader();
-
-  String SVGFooter();
-
-  String SVGTransition(int tickMS);
+  /**
+   * Provide the method to render the shape into an SVG-style code.
+   * @param tickMS
+   * @return
+   */
+  String toSVG(int tickMS);
 }

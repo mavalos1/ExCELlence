@@ -1,23 +1,30 @@
+import cs3500.animator.controller.AnimationController;
+import cs3500.animator.controller.Controller;
 import cs3500.animator.model.AnimationModel;
-import cs3500.animator.model.SingleAnimation;
-import cs3500.animator.model.helper.Size;
+import cs3500.animator.model.Model;
 import cs3500.animator.model.helper.Transition;
-import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.view.AnimationView;
 import cs3500.animator.view.TextualView;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TextualViewTest {
   public static void main(String[] args) {
-    AnimationModel model = new SingleAnimation(new Rectangle("R"));
-    model.addAnimation("R", new Transition(5, 0, 5, 5, 5, 0, 0, 0, 10));
-    AnimationView view = new TextualView(0, 0, 360, 360, 1, model);
+    AnimationModel model = new Model();
+    AnimationView view = new TextualView(10, 10, 300, 300, 1, "out.txt");
+    AnimationController controller = new Controller(model, view);
 
-    Ellipse c = new Ellipse("C");
-    c.setSize(new Size(20, 20));
-    model.addShape(c);
-    model.addAnimation("C", new Transition(-5, 5, -5, -5, -5, 1, 1, 0, 5));
+    Rectangle rect = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50);
+    rect.addTransition(
+        new Transition(2, 12, 20, 20, 30, 30, 30, 30, 30, 10, 10, 10, 10, 10, 10, 10));
+    model.addShape(rect);
 
-    view.render();
+    controller.renderView();
+    controller.nextTick();
+    controller.renderView();
+
+    controller.animate();
   }
 }

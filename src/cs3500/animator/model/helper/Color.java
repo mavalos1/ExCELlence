@@ -50,7 +50,7 @@ public class Color {
    *
    * @param r
    */
-  public void setR(int r) {
+  private void setR(int r) {
     if (r < 0) r += 256;
     this.r = r % 256;
   }
@@ -69,7 +69,7 @@ public class Color {
    *
    * @param g
    */
-  public void setG(int g) {
+  private void setG(int g) {
     if (g < 0) g += 256;
     this.g = g % 256;
   }
@@ -88,7 +88,7 @@ public class Color {
    *
    * @param b
    */
-  public void setB(int b) {
+  private void setB(int b) {
     if (b < 0) b += 256;
     this.b = b % 256;
   }

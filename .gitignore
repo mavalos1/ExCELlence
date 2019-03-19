@@ -6,3 +6,7 @@
 .idea/*
 bin/*
 **.kotlin_module
+out.txt
+big-bang-big-crunch.txt
+**.svg
+**.txt

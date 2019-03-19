@@ -1,76 +1,132 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.AnimationModel;
+import cs3500.animator.model.shapes.Ellipse;
+import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 
-import java.util.HashMap;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-public class TextualView extends ViewImpl {
+public class TextualView implements AnimationView {
+  private int x, y, w, h, speed;
+  private String outFile;
+  private StringBuilder TextStr;
+  private BufferedWriter writer;
+
   /**
-   * Initialize the view to a position, canvas size, and animation speed
-   *
+   * Initialize the view.
    * @param x
    * @param y
-   * @param h
    * @param w
-   * @param tickPerSecond
+   * @param h
+   * @param speed
+   * @param outFile
    */
-  public TextualView(int x, int y, int h, int w, int tickPerSecond, AnimationModel model) {
-    super(x, y, h, w, tickPerSecond, model);
+  public TextualView(int x, int y, int w, int h, int speed, String outFile) {
+    this.setBounds(x, y, w, h);
+    this.speed = speed;
+    this.outFile = outFile;
+    this.TextStr = new StringBuilder();
+
+    if (outFile != "") {
+      try {
+        this.writer = new BufferedWriter(new FileWriter(outFile));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
-   * Render the animation to a specified output.
+   * Initialize the view to a speed and output destination.
+   * @param speed
+   * @param outFile
    */
-  public void render() {
-    String canvasInfo =
-        String.format("canvas %.0f %.0f %.0f %.0f\n",
-            this.getCanvasPosition().getX(), this.getCanvasPosition().getY(),
-            this.getCanvasSize().getW(), this.getCanvasSize().getH());
+  public TextualView(int speed, String outFile) {
+    this(0, 0, 0, 0, speed, outFile);
+  }
 
-    System.out.println(canvasInfo);
+  /**
+   * Set the paramters of the view bound.
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   */
+  public void setBounds(int x, int y, int w, int h) {
+    if (w < 0 || h < 0)
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
 
-    List<Shape> shapes = model.getAllShapes();
-    for (Shape s : shapes) {
-      System.out.println(String.format("shape %s %s", s.getName(), s.getShapeType()));
+  /**
+   * Render the shapes provided at the current tick.
+   * @param currentTick
+   * @param shapeList
+   */
+  public void render(int currentTick, List<Shape> shapeList) {
+    StringBuilder lineOutput = new StringBuilder();
+
+    for (Shape s : shapeList) {
+      if (currentTick == 0) {
+        String sType = "";
+        if (s instanceof Ellipse) {
+          sType = "ellipse";
+        } else if (s instanceof Rectangle) {
+          sType = "rectangle";
+        }
+
+        lineOutput.append(String.format("\nshape %s %s\n", s.getName(), sType));
+      } else {
+        lineOutput.append(String.format("%d ", currentTick));
+        lineOutput.append(String.format("motion %s ", s.getName()));
+        lineOutput.append(String.format("%.0f %.0f ", s.getPosition().getX(), s.getPosition().getY()));
+        lineOutput.append(String.format("%.0f %.0f ", s.getSize().getW(), s.getSize().getH()));
+        lineOutput.append(String.format("%d %d %d\n",
+            s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
+      }
     }
 
-    System.out.println();
+    TextStr.append(lineOutput);
 
     try {
-      this.animate();
+      Thread.sleep(1000 / speed);
     } catch (InterruptedException e) {
-      System.out.print(e);
+      e.printStackTrace();
     }
-  }
-  protected void animate() throws InterruptedException {
-    long tickMS = 1000 / this.tPs;
-    boolean shouldPlay = true;
 
-    while (shouldPlay) {
-      shouldPlay = false;
-
-      List<Shape> shapes = model.getAllShapes();
-      for (Shape s : shapes) {
-        renderShapeView(s);
-
-        if (s.hasTransition()) {
-          shouldPlay = true;
-        }
-      }
-
-      model.tick();
-      Thread.sleep(tickMS);
+    if (this.outFile != "") {
+      renderFile(lineOutput.toString());
+    } else {
+      renderConsole(lineOutput.toString());
     }
   }
 
-  protected void renderShapeView(Shape s) {
-    System.out.println(String.format("motion %s %d %.0f %.0f %.0f %.0f %d %d %d",
-        s.getName(), model.getCurrentTick(),
-        s.getPosition().getX(), s.getPosition().getY(),
-        s.getSize().getW(), s.getSize().getH(),
-        s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
+  /**
+   * Render the view output to a file.
+   */
+  public void renderFile(String lineOutput) {
+    if (outFile == "") {
+      throw new IllegalArgumentException("No output file destination");
+    }
+
+    try {
+      this.writer = new BufferedWriter(new FileWriter(outFile, true));
+      this.writer.write(lineOutput);
+      this.writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Render the view output to the system console.
+   */
+  public void renderConsole(String lineOutput) {
+    System.out.print(lineOutput);
   }
 }

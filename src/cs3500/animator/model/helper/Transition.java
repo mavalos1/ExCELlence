@@ -1,243 +1,58 @@
 package cs3500.animator.model.helper;
 
-import java.util.Objects;
-
 /**
- * This class specifies the operation of a transition.
+ * This class represents the implentation of a transition.
  * <p>
- *   A transition is characterized by the difference in position, color, height, width, rotation
- *   that is expected in the animation within a certain time window.
+ *   A transition is characterized by a beginning time, an end time, and the changes within such
+ *   time duration, including the starting states of x-position, y-position, width, height, and
+ *   RGB-color code, with the end states of all the above properties.
  * </p>
  */
 public class Transition {
-  private double dx, dy;
-  private int dr, dg, db;
-  private double dh, dw;
-  private double drt;
-  private int t;
+  public int beginTime, endTime, duration;
+  public int x1, y1, w1, h1, r1, g1, b1;
+  public int x2, y2, w2, h2, r2, g2, b2;
 
   /**
-   * Initialize the transition to the specified parameters
-   * @param deltaX the change in x-coordinate of an animation, 0 if unchanged
-   * @param deltaY the change in y-coordinate of an animation, 0 if unchanged
-   * @param deltaR the change in R-color code of an animation, 0 if unchanged
-   * @param deltaG the change in G-color code of an animation, 0 if unchanged
-   * @param deltaB the change in B-color code of an animation, 0 if unchanged
-   * @param deltaHeight the change in height of an animation, 0 if unchanged
-   * @param deltaWidth the change in width of an animation, 0 if unchanged
-   * @param deltaRotation the change in rotation of an animation, 0 if unchanged
-   * @param timeToLive the amount of time that the animation will occur
-   * @throws IllegalArgumentException when time to live is under 1 tick
+   * Initialize the transition to the specified time and start/end state
+   * @param beginTime the tick to start the transition
+   * @param endTime the tick to end the transition
+   * @param x1 the initial x-position
+   * @param y1 the initial y-position
+   * @param w1 the initial width
+   * @param h1 the initial height
+   * @param r1 the initial R-color code
+   * @param g1 the initial G-color code
+   * @param b1 the initial B-color code
+   * @param x2 the result x-position
+   * @param y2 the result y-position
+   * @param w2 the result width
+   * @param h2 the result height
+   * @param r2 the result R-color code
+   * @param g2 the result G-color code
+   * @param b2 the result B-color code
    */
   public Transition(
-      double deltaX, double deltaY,
-      int deltaR, int deltaG, int deltaB,
-      double deltaHeight, double deltaWidth,
-      double deltaRotation, int timeToLive) throws IllegalArgumentException {
-    this.setDeltaX(deltaX);
-    this.setDeltaY(deltaY);
-    this.setDeltaR(deltaR);
-    this.setDeltaG(deltaG);
-    this.setDeltaB(deltaB);
-    this.setDeltaHeight(deltaHeight);
-    this.setDeltaWidth(deltaWidth);
-    this.setDeltaRotation(deltaRotation);
-    this.setTimeToLive(timeToLive);
-  }
-
-  /**
-   * Initialize a default transition that does nothing to the shape for an amount of time.
-   * @param time
-   */
-  public Transition(int time) throws IllegalArgumentException {
-    this(0, 0, 0, 0, 0, 0, 0, 0, time);
-  }
-
-  /**
-   * Copy constructor.
-   * @param v
-   */
-  public Transition(Transition v) throws IllegalArgumentException {
-    this(v.dx, v.dy, v.dr, v.dg, v.db, v.dh, v.dw, v.drt, v.t);
-  }
-
-  /**
-   * Get the deltaX of this transition.
-   * @return dx
-   */
-  public double getDeltaX() {
-    return this.dx;
-  }
-
-  /**
-   * Set the deltaX of this transition.
-   * @param x
-   */
-  public void setDeltaX(double x) {
-    this.dx = x;
-  }
-
-  /**
-   * Get the deltaY of this transition.
-   * @return dY
-   */
-  public double getDeltaY() {
-    return this.dy;
-  }
-
-  /**
-   * Set the deltaY of this transition.
-   * @param y
-   */
-  public void setDeltaY(double y) {
-    this.dy = y;
-  }
-
-  /**
-   * Get the delta R-code of this transition.
-   * @return dr
-   */
-  public int getDeltaR() {
-    return this.dr;
-  }
-
-  /**
-   * Set the delta R-code of this transition.
-   * @param r
-   */
-  public void setDeltaR(int r) {
-    this.dr = r;
-  }
-
-  /**
-   * Get the delta G-code of this transition.
-   * @return dg
-   */
-  public int getDeltaG() {
-    return this.dg;
-  }
-
-  /**
-   * Set the delta G-code of this transition.
-   * @param g
-   */
-  public void setDeltaG(int g) {
-    this.dg = g;
-  }
-
-  /**
-   * Get the delta B-code of this transition.
-   * @return db
-   */
-  public int getDeltaB() {
-    return this.db;
-  }
-
-  /**
-   * Set the delta B-code of this transition.
-   * @param b
-   */
-  public void setDeltaB(int b) {
-    this.db = b;
-  }
-
-  /**
-   * Get the delta height of this transition.
-   * @return dh
-   */
-  public double getDeltaHeight() {
-    return this.dh;
-  }
-
-  /**
-   * Set the delta height of this transition.
-   * @param h
-   */
-  public void setDeltaHeight(double h) {
-    this.dh = h;
-  }
-
-  /**
-   * Get the delta width of this transition.
-   * @return dw
-   */
-  public double getDeltaWidth() {
-    return this.dw;
-  }
-
-  /**
-   * Set the delta width of this transition.
-   * @param w
-   */
-  public void setDeltaWidth(double w) {
-    this.dw = w;
-  }
-
-  /**
-   * Get the delta rotation of this transition.
-   * @return dr
-   */
-  public double getDeltaRotation() {
-    return this.drt;
-  }
-
-  /**
-   * Set the delta rotation of this transition.
-   * @param rt
-   */
-  public void setDeltaRotation(double rt) {
-    this.drt = rt;
-  }
-
-  /**
-   * Get the time to live of this transition.
-   * @return dt
-   */
-  public int getTimeToLive() {
-    return this.t;
-  }
-
-  /**
-   * Set the time to live of this transition.
-   * @param t
-   * @throws IllegalArgumentException when tick is under 1 tick
-   */
-  public void setTimeToLive(int t) throws IllegalArgumentException {
-    if (t < 1) {
-      throw new IllegalArgumentException("Invalid transition time");
-    }
-
-    this.t = t;
-  }
-
-  /**
-   * Decrement the time to live of this transition.
-   */
-  public void slowKill() {
-    t--;
-  }
-
-  @Override
-  public boolean equals(Object a) {
-    if (this == a)  { return true; }
-    if (!(a instanceof Transition)) { return false; }
-
-    Transition that = (Transition) a;
-
-    return (this.dx == that.dx
-        && this.dy == that.dy
-        && this.dr == that.dr
-        && this.dg == that.dg
-        && this.db == that.db
-        && this.dw == that.dw
-        && this.dh == that.dh
-        && Math.abs(this.drt - that.drt) < 0.01
-        && this.t == that.t);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.dx, this.dy, this.dr, this.dg, this.db, this.dw, this.dh, this.drt,
-        this.t);
+      int beginTime, int endTime,
+      int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+      int x2, int y2, int w2, int h2, int r2, int g2, int b2
+  ) {
+    this.beginTime = beginTime;
+    this.endTime = endTime;
+    this.duration = endTime - beginTime;
+    this.x1 = x1;
+    this.y1 = y1;
+    this.w1 = w1;
+    this.h1 = h1;
+    this.r1 = r1;
+    this.g1 = g1;
+    this.b1 = b1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.w2 = w2;
+    this.h2 = h2;
+    this.r2 = r2;
+    this.g2 = g2;
+    this.b2 = b2;
   }
 }

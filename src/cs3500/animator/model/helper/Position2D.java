@@ -56,7 +56,7 @@ public class Position2D {
    *
    * @param x
    */
-  public void setX(double x) {
+  private void setX(double x) {
     this.x = x;
   }
 
@@ -65,7 +65,7 @@ public class Position2D {
    *
    * @param y
    */
-  public void setY(double y) {
+  private void setY(double y) {
     this.y = y;
   }
 

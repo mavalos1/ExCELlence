@@ -1,96 +1,98 @@
 package cs3500.animator.model.shapes;
 
-import cs3500.animator.model.helper.Color;
-import cs3500.animator.model.helper.Position2D;
-import cs3500.animator.model.helper.Size;
 import cs3500.animator.model.helper.Transition;
 
-public class Ellipse extends ShapeImpl implements Shape {
-  public Ellipse(String name, Position2D p, Size s, Color c, double r) {
-    super(name, p, s, c, r);
-    shapeType = "ellipse";
+/**
+ * This class represents the implementation of a class that could be rendered as an ellipse to the
+ * view. The paramaters of the shape is similar to the rectangle, aside from the method of
+ * interpreting to SVG and Swing.
+ */
+public class Ellipse extends Rectangle {
+  /**
+   * Initialize the ellipse model.
+   * @param name
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   * @param r
+   * @param g
+   * @param b
+   */
+  public Ellipse(String name, int x, int y, int w, int h, int r, int g, int b) {
+    super(name, x, y, w, h, r, g, b);
   }
 
+  /**
+   * Initialize the ellipse with a name.
+   * @param name
+   */
   public Ellipse(String name) {
     super(name);
-    shapeType = "ellipse";
   }
 
-  public String SVGHeader() {
-    return String.format(
-      "<ellipse id=\"%s\" cx=\"%.0f\" cy=\"%.0f\" rx=\"%.0f\" ry=\"%.0f\" " +
-          "fill=\"rgb(%d, %d, %d)\" visibility=\"visible\">\n",
-      name, p.getX(), p.getY(),
-      s.getW() / 2, s.getH() / 2,
-      c.getR(), c.getG(), c.getB()
-    );
-  }
-
-
-  public String SVGFooter() {
-    return "\n</ellipse>\n";
-  }
-
-
-  public String SVGTransition(int tickMS) {
-    StringBuilder transitionOutput = new StringBuilder();
+  /**
+   * Provide the method to render the shape into an SVG-style code.
+   * @param tickMS
+   * @return
+   */
+  @Override
+  public String toSVG(int tickMS) {
+    StringBuilder toSVG = new StringBuilder();
+    toSVG.append(String.format("\n<ellipse id=\"%s\" cx=\"%.2f\" cy=\"%.2f\" rx=\"%.2f\" " +
+            "ry=\"%.2f\" fill=\"rgb(%d,%d,%d)\" visibility=\"visible\" >",
+        name, position.getX(), position.getY(),
+        size.getW() / 2, size.getH() / 2, color.getR(), color.getG(), color.getB()));
 
     for (Transition t : transitions) {
-      transitionOutput.append(deconstructToSVG(t, tickMS));
+      toSVG.append(transitionToSVG(t, tickMS));
     }
 
-    return transitionOutput.toString();
+    toSVG.append("\n</ellipse>");
+
+    return toSVG.toString();
   }
 
+  /**
+   * Provide the method to render the shape's transitions to an SVG-style code.
+   * @param t
+   * @param tickMS
+   * @return
+   */
+  @Override
+  protected String transitionToSVG(Transition t, int tickMS) {
+    StringBuilder toSVG = new StringBuilder();
 
-  private String deconstructToSVG(Transition t, int tickMS) {
-    int duration = tickMS * t.getTimeToLive();
-    StringBuilder out = new StringBuilder();
-
-    if ((Math.abs(t.getDeltaX() - 0) >= 0.01)) {
-      out.append(
-          String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"cx\" by=\"%.0f\"/>\n",
-              duration, t.getDeltaX() * t.getTimeToLive()
-          )
-      );
-    }
-    if ((Math.abs(t.getDeltaY() - 0) >= 0.01)) {
-      out.append(
-          String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"cy\" by=\"%.0f\"/>\n",
-              duration, t.getDeltaY() * t.getTimeToLive()
-          )
-      );
-    }
-    if ((Math.abs(t.getDeltaWidth() - 0) >= 0.01)) {
-      out.append(
-          String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"rx\" by=\"%.0f\"/>\n",
-              duration, t.getDeltaWidth() * t.getTimeToLive()
-          )
-      );
+    if (t.x1 != t.x2) {
+      toSVG.append(String.format("\n\t<animate attributeType=\"xml\" begin=\"%dms\" dur=\"%dms\"" +
+              " attributeName=\"cx\" from=\"%d\" to=\"%d\" fill=\"freeze\" />",
+          t.beginTime * tickMS, t.duration * tickMS, t.x1, t.x2));
     }
 
-    if ((Math.abs(t.getDeltaHeight() - 0) >= 0.01)) {
-      out.append(
-          String.format(
-              "\t<animate attributeType=\"xml\" dur=\"%dms\" attributeName=\"ry\" by=\"%.0f\"/>\n",
-              duration, t.getDeltaHeight() * t.getTimeToLive()
-          )
-      );
+    if (t.y1 != t.y2) {
+      toSVG.append(String.format("\n\t<animate attributeType=\"xml\" begin=\"%dms\" dur=\"%dms\"" +
+              " attributeName=\"cy\" from=\"%d\" to=\"%d\" fill=\"freeze\" />",
+          t.beginTime * tickMS, t.duration * tickMS, t.y1, t.y2));
     }
 
-    if (t.getDeltaR() != 0 || t.getDeltaG() != 0 || t.getDeltaB() != 0) {
-      out.append(
-          String.format(
-              "\t<animate attributeName=\"fill\" dur=\"%dms\" by=\"rgb(%d,%d,%d)\"/>\n",
-              duration, t.getDeltaR() * t.getTimeToLive(), t.getDeltaG() * t.getTimeToLive(),
-              t.getDeltaB() * t.getTimeToLive()
-          )
-      );
+    if (t.w1 != t.w2) {
+      toSVG.append(String.format("\n\t<animate attributeType=\"xml\" begin=\"%dms\" dur=\"%dms\"" +
+              " attributeName=\"cx\" from=\"%d\" to=\"%d\" fill=\"freeze\" />",
+          t.beginTime * tickMS, t.duration * tickMS, t.w1, t.w2));
     }
 
-    return out.toString();
+    if (t.h1 != t.h2) {
+      toSVG.append(String.format("\n\t<animate attributeType=\"xml\" begin=\"%dms\" dur=\"%dms\"" +
+              " attributeName=\"cy\" from=\"%d\" to=\"%d\" fill=\"freeze\" />",
+          t.beginTime * tickMS, t.duration * tickMS, t.h1, t.h2));
+    }
+
+    if (t.r1 != t.r2 || t.g1 != t.g2 || t.b1 != t.b2) {
+      toSVG.append(String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
+              "from=\"rgb(%d,%d,%d)\" to=\"rgb(%d,%d,%d)\"/>",
+          t.beginTime * tickMS, t.duration * tickMS, t.r1, t.g1, t.b1, t.r2, t.g2, t.b2));
+    }
+
+    return toSVG.toString();
   }
 }

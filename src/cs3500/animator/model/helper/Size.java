@@ -55,7 +55,7 @@ public class Size {
    * @param w
    * @throws IllegalArgumentException when width is negative
    */
-  public void setW(double w) throws IllegalArgumentException {
+  private void setW(double w) throws IllegalArgumentException {
     if (w < 0) {
       throw new IllegalArgumentException("Invalid size width");
     }
@@ -69,7 +69,7 @@ public class Size {
    * @param h
    * @throws IllegalArgumentException when height is negative
    */
-  public void setH(double h) throws IllegalArgumentException{
+  private void setH(double h) throws IllegalArgumentException{
     if (h < 0) {
       throw new IllegalArgumentException("Invalid size height");
     }

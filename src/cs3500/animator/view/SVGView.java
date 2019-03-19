@@ -1,7 +1,6 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.AnimationModel;
-import cs3500.animator.model.helper.Transition;
+import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 
 import java.io.BufferedWriter;
@@ -9,42 +8,99 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class SVGView extends ViewImpl {
-  StringBuilder svgOutput;
+public class SVGView implements AnimationView {
+  private int x, y, w, h, speed;
+  private String outFile;
+  private StringBuilder SVGStr;
+  private BufferedWriter writer;
 
-  public SVGView(int x, int y, int h, int w, int tickPerSecond, AnimationModel model) {
-    super(x, y, h, w, tickPerSecond, model);
-    svgOutput = new StringBuilder();
-  }
+  /**
+   * Initialize the view.
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   * @param speed
+   * @param outFile
+   */
+  public SVGView(int x, int y, int w, int h, int speed, String outFile) {
+    this.setBounds(x, y, w, h);
+    this.speed = speed;
+    this.outFile = outFile;
+    SVGStr = new StringBuilder();
 
-  private String renderToSVG() {
-    svgOutput.append(
-        String.format(
-          "<svg width=\"%.0f\" height=\"%.0f\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n",
-          this.canvasSize.getW(), this.canvasSize.getH()
-        )
-    );
-
-    List<Shape> shapes = model.getAllShapes();
-    for (Shape s : shapes) {
-      svgOutput.append(s.SVGHeader());
-      svgOutput.append(s.SVGTransition((int) 1000 / tPs));
-      svgOutput.append(s.SVGFooter());
+    if (outFile != "") {
+      try {
+        this.writer = new BufferedWriter(new FileWriter(outFile));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
-    svgOutput.append("\n</svg>");
-    return svgOutput.toString();
   }
 
-  public void render() {
-    String fileContent = renderToSVG();
+  /**
+   * Initialize the view to a speed and an output destination.
+   * @param speed
+   * @param outFile
+   */
+  public SVGView(int speed, String outFile) {
+    this(0, 0, 0, 0, speed, outFile);
+  }
 
-    BufferedWriter writer = null;
+  /**
+   * Set the paramters of the view bound.
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   */
+  public void setBounds(int x, int y, int w, int h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+
+  /**
+   * Render the shapes provided at the current tick.
+   * @param currentTick
+   * @param shapeList
+   */
+  public void render(int currentTick, List<Shape> shapeList) {
+    if (currentTick != 0) {
+      return;
+    }
+
+    SVGStr.append(String.format("<svg width=\"%d\" height=\"%d\" version=\"1.1\" " +
+        "xmlns=\"http://www.w3.org/2000/svg\">\n", w, h));
+    for (Shape s : shapeList) {
+      SVGStr.append(s.toSVG(1000 / speed));
+    }
+    SVGStr.append("\n</svg>\n");
+
+    if (outFile != "") {
+      renderFile();
+    } else {
+      renderConsole();
+    }
+  }
+
+  /**
+   * Render the view output to a file.
+   */
+  public void renderFile() {
     try {
-      writer = new BufferedWriter(new FileWriter("out.svg"));
-      writer.write(fileContent);
-      writer.close();
+      this.writer.write(SVGStr.toString());
+      this.writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Render the view output to the system console.
+   */
+  public void renderConsole() {
+    System.out.print(SVGStr.toString());
   }
 }
