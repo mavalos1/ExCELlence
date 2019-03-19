@@ -1,11 +1,11 @@
-package cs3500.nguyenmayeux.model;
+package cs3500.animator.model;
 
-import cs3500.nguyenmayeux.model.helper.Transition;
-import cs3500.nguyenmayeux.model.shapes.*;
+import cs3500.animator.model.helper.Transition;
+import cs3500.animator.model.shapes.Shape;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A class representing a single animation. The model stores a list of shapes, each of which
@@ -13,9 +13,8 @@ import java.util.Map;
  * calls these changes to each shape every tick and store the result into an outputLog.
  */
 public class SingleAnimation implements AnimationModel {
-  private List<Shape> shapes;
-  private Map<String, StringBuilder> outputLog;
   private int currentTick;
+  private List<Shape> shapes;
 
   /**
    * Initialize the animation object with a number of shapes to animate
@@ -23,8 +22,8 @@ public class SingleAnimation implements AnimationModel {
    * @throws IllegalArgumentException when shape list to add is null or empty
    */
   public SingleAnimation(Shape... shapes) throws IllegalArgumentException {
-    outputLog = new HashMap<>();
     currentTick = 0;
+    this.shapes = new ArrayList<>();
     this.addShape(shapes);
   }
 
@@ -34,39 +33,25 @@ public class SingleAnimation implements AnimationModel {
    * @throws IllegalArgumentException when shape list to add is null or empty
    */
   public SingleAnimation(List<Shape> shapes) throws IllegalArgumentException {
-    if (shapes == null) {
+    if (shapes == null || shapes.isEmpty()) {
       throw new IllegalArgumentException("Invalid initial shape list");
     }
-    outputLog = new HashMap<>();
+
     currentTick = 0;
     this.shapes = shapes;
   }
 
   /**
-   * Animate the shape contained in the animation model.
-   * The shape themselves contains transition instruction on how to animate each shape.
-   * The animation model calls to draw each shape every tick and advances to the next tick.
-   * The output log is appended for each specific shape.
+   * Advance the model to the next tick
    */
-  public void animate() {
-    boolean shouldPlay = true;
-
-    while (shouldPlay) {
-      shouldPlay = false;
-
-      for (Shape shape : shapes) {
-        shape.draw();
+  public void tick() {
+    for (Shape shape : shapes) {
+      if (shape.hasTransition()) {
         shape.tick();
-        parseTickOutput(shape);
-
-        if (shape.hasTransition()) {
-          shouldPlay = true;
-        }
       }
-
-      currentTick++;
     }
 
+    currentTick++;
   }
 
   /**
@@ -85,9 +70,11 @@ public class SingleAnimation implements AnimationModel {
         throw new IllegalArgumentException("Invalid null shape");
       }
 
-      for (Shape inS : this.shapes) {
-        if (inS.getName().equals(s.getName())) {
-          throw new IllegalArgumentException("Shape with the same name already exists");
+      if (this.shapes != null && !this.shapes.isEmpty()) {
+        for (Shape inS : this.shapes) {
+          if (inS.getName().equals(s.getName())) {
+            throw new IllegalArgumentException("Shape with the same name already exists");
+          }
         }
       }
 
@@ -112,6 +99,14 @@ public class SingleAnimation implements AnimationModel {
     }
 
     throw new IllegalArgumentException("No shape with such name exists");
+  }
+
+  /**
+   * Retrieve the current state of all shapes in the model.
+   * @return all shapes in the model
+   */
+  public List<Shape> getAllShapes() {
+    return this.shapes;
   }
 
   /**
@@ -167,58 +162,10 @@ public class SingleAnimation implements AnimationModel {
   }
 
   /**
-   * Print to log the animation of one shape at a tick
-   * @param s
+   * Get the current tick number
+   * @return
    */
-  private void parseTickOutput(Shape s) {
-    StringBuilder output = new StringBuilder();
-    output.append("motion " + s.getName() + "\t");
-    output.append(currentTick + " " + s.getPosition().getX() + " " + s.getPosition().getY() + " ");
-    output.append(s.getWidth() + " " + s.getHeight() + " ");
-    output.append(s.getColor().getR() + " " + s.getColor().getG() + " " + s.getColor().getB() + "\n");
-
-    if (outputLog.get(s.getName()) == null) {
-      outputLog.put(s.getName(), output);
-    } else {
-      outputLog.get(s.getName()).append(output);
-    }
-  }
-
-  /**
-   * Return the string output of one single shape in the animation.
-   */
-  public String parseAnimationOutput(Shape s) {
-    StringBuilder output = new StringBuilder();
-    output.append("shape " + s.getName());
-
-    String sType = "";
-    if (s instanceof Rectangle) {
-      sType = "rectangle";
-    } else if (s instanceof Oval) {
-      sType = "oval";
-    } else if (s instanceof Triangle) {
-      sType = "triangle";
-    } else {
-      sType = "";
-    }
-
-    output.append(" " + sType + "\n");
-
-    output.append(outputLog.get(s.getName()));
-
-    return output.toString();
-  }
-
-  /**
-   * Return the string output of all shapes in the animation.
-   */
-  public String parseAllOutputs() {
-    StringBuilder output = new StringBuilder();
-
-    for (Shape s : shapes) {
-      output.append(parseAnimationOutput(s) + "\n");
-    }
-
-    return output.toString();
+  public int getCurrentTick() {
+    return this.currentTick;
   }
 }

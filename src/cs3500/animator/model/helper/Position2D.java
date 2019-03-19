@@ -1,4 +1,4 @@
-package cs3500.nguyenmayeux.model.helper;
+package cs3500.animator.model.helper;
 
 import java.util.Objects;
 

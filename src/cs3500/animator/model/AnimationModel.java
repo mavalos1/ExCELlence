@@ -1,7 +1,7 @@
-package cs3500.nguyenmayeux.model;
+package cs3500.animator.model;
 
-import cs3500.nguyenmayeux.model.helper.Transition;
-import cs3500.nguyenmayeux.model.shapes.Shape;
+import cs3500.animator.model.helper.Transition;
+import cs3500.animator.model.shapes.Shape;
 
 import java.util.List;
 
@@ -23,42 +23,59 @@ import java.util.List;
  */
 public interface AnimationModel {
   /**
-   * Animate the shape contained in the animation model.
+   * Advance the model to the next tick
    */
-  void animate();
+  void tick();
 
   /**
    * Retrieve the current state of a shape in a model by its name.
+   * @param name the name of the shape to be retrieved
+   * @return a shape with the name requested
    */
   Shape getShape(String name);
 
   /**
+   * Retrieve the current state of all shapes in the model.
+   * @return all shapes in the model
+   */
+  List<Shape> getAllShapes();
+
+
+  /**
    * Add a new shape(s) to the animation model.
+   * @param s the shapes to be added
    */
   void addShape(Shape... s);
 
   /**
    * Remove a shape(s) of a name from the animation model.
+   * @param name the name of the shape to be removed
    */
   void removeShape(String name);
 
   /**
    * Add a new animation(s) to a shape already in a model.
+   * @param name the name of the shape to add the animation to
+   * @param t the transitions to add
    */
   void addAnimation(String name, Transition... t);
 
   /**
    * Remove the last added animation(s) from a shape already in a model.
+   * @param name the name of the shape to remove the animation from
    */
   void popAnimation(String name);
 
   /**
    * Get the animation list of a shape already in a model.
+   * @param name the name of the shape to get the animation list
+   * @return the list of animations of a shape
    */
   List<Transition> getAnimationList(String name);
 
   /**
-   * Return the string output of all shapes in the animation.
+   * Get the current tick number
+   * @return
    */
-  String parseAllOutputs();
+  int getCurrentTick();
 }

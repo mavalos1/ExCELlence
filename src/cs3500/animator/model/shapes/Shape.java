@@ -1,9 +1,11 @@
-package cs3500.nguyenmayeux.model.shapes;
+package cs3500.animator.model.shapes;
 
-import cs3500.nguyenmayeux.model.helper.Color;
-import cs3500.nguyenmayeux.model.helper.Position2D;
-import cs3500.nguyenmayeux.model.helper.Transition;
+import cs3500.animator.model.helper.Color;
+import cs3500.animator.model.helper.Position2D;
+import cs3500.animator.model.helper.Size;
+import cs3500.animator.model.helper.Transition;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -67,28 +69,16 @@ public interface Shape {
   void setPosition(Position2D p);
 
   /**
-   * Get the shape's width.
-   * @return w
+   * Get the shape's size.
+   * @return s
    */
-  double getWidth();
+  Size getSize();
 
   /**
-   * Set the shape's height.
-   * @param w
+   * Set the shape's size.
+   * @param s
    */
-  void setWidth(double w);
-
-  /**
-   * Get the shape's height.
-   * @return h
-   */
-  double getHeight();
-
-  /**
-   * Set the shape's height.
-   * @param h
-   */
-  void setHeight(double h);
+  void setSize(Size s);
 
   /**
    * Get the shape's color.
@@ -113,8 +103,16 @@ public interface Shape {
    * @param rotation
    */
   void setRotation(double rotation);
+
   /**
-   * Draw the shape.
+   * Get the shape type
+   * @return
    */
-  void draw();
+  String getShapeType();
+
+  String SVGHeader();
+
+  String SVGFooter();
+
+  String SVGTransition(int tickMS);
 }
