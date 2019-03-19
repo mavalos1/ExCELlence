@@ -12,16 +12,18 @@ import cs3500.animator.view.VisualView;
 public class VisualViewTest {
   public static void main(String[] args) {
     Rectangle r = new Rectangle("R", new Position2D(10, 10), new Size(100, 100),
-        new Color(100,100, 100), 0.0);
+        new Color(0,0, 0), 0.0);
+    r.setColor(new Color(0,255,0));
     AnimationModel model = new SingleAnimation(r);
-    model.addAnimation("R", new Transition(5, 0, 5, 5, 5, 0, 0, 0, 10));
-    AnimationView view = new VisualView(0, 0, 360, 360, 100, model);
+    model.addAnimation("R", new Transition(5, 0, 0, 0, 0, 0, 0, 0, 10));
 
     Ellipse c = new Ellipse("C");
     c.setSize(new Size(20, 20));
+    c.setColor(new Color(255, 0, 0));
     model.addShape(c);
-    model.addAnimation("C", new Transition(-5, 5, -5, -5, -5, 1, 1, 0, 5));
+    model.addAnimation("C", new Transition(5, 5, 0, 0, 0, 1, 1, 0, 5));
 
+    AnimationView view = new VisualView(0, 0, 360, 360, 10, model);
     view.render();
   }
 }
