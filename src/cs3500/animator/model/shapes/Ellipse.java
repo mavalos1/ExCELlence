@@ -95,4 +95,9 @@ public class Ellipse extends Rectangle {
 
     return toSVG.toString();
   }
+
+  @Override
+  public String getShapeType() {
+    return "ellipse";
+  }
 }

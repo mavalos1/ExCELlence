@@ -21,9 +21,16 @@ import cs3500.animator.model.helper.Transition;
  * </p>
  */
 public interface Shape {
+
+  /**
+   * Get the type of shape
+   * @return the type of shape
+   */
+  String getShapeType();
+
   /**
    * Get the shape name.
-   * @return
+   * @return the name of the shape
    */
   String getName();
 

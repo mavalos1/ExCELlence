@@ -230,4 +230,9 @@ public class Rectangle implements Shape {
 
     return toSVG.toString();
   }
+
+  @Override
+  public String getShapeType() {
+    return "rectangle";
+  }
 }

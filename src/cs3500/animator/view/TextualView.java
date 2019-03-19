@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TextualView implements AnimationView {
-  private int x, y, w, h, speed;
+  private int x, y, w, h;
   private String outFile;
   private StringBuilder TextStr;
   private BufferedWriter writer;
@@ -21,12 +21,10 @@ public class TextualView implements AnimationView {
    * @param y
    * @param w
    * @param h
-   * @param speed
    * @param outFile
    */
-  public TextualView(int x, int y, int w, int h, int speed, String outFile) {
+  public TextualView(int x, int y, int w, int h, String outFile) {
     this.setBounds(x, y, w, h);
-    this.speed = speed;
     this.outFile = outFile;
     this.TextStr = new StringBuilder();
 
@@ -41,11 +39,10 @@ public class TextualView implements AnimationView {
 
   /**
    * Initialize the view to a speed and output destination.
-   * @param speed
    * @param outFile
    */
-  public TextualView(int speed, String outFile) {
-    this(0, 0, 0, 0, speed, outFile);
+  public TextualView(String outFile) {
+    this(0, 0, 0, 0, outFile);
   }
 
   /**
@@ -92,12 +89,6 @@ public class TextualView implements AnimationView {
     }
 
     TextStr.append(lineOutput);
-
-    try {
-      Thread.sleep(1000 / speed);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
 
     if (this.outFile != "") {
       renderFile(lineOutput.toString());

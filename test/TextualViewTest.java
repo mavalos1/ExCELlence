@@ -13,8 +13,8 @@ import static org.junit.Assert.assertEquals;
 public class TextualViewTest {
   public static void main(String[] args) {
     AnimationModel model = new Model();
-    AnimationView view = new TextualView(10, 10, 300, 300, 1, "out.txt");
-    AnimationController controller = new Controller(model, view);
+    AnimationView view = new TextualView(10, 10, 300, 300, "out.txt");
+    AnimationController controller = new Controller(model, view, 1);
 
     Rectangle rect = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50);
     rect.addTransition(

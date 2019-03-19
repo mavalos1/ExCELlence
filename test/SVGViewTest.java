@@ -15,7 +15,7 @@ public class SVGViewTest {
   public static void main(String[] args) {
     AnimationModel model = new Model();
     AnimationView view = new SVGView(10, 10, 500, 500, 1, "out.svg");
-    AnimationController controller = new Controller(model, view);
+    AnimationController controller = new Controller(model, view, 10);
 
     Rectangle rect = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50);
     rect.addTransition(

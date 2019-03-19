@@ -23,15 +23,17 @@ import java.util.Objects;
 public class Controller implements AnimationController{
   private AnimationView view;
   private AnimationModel model;
+  private int speed;
 
   /**
    * Initialize the controller.
    * @param model
    * @param view
    */
-  public Controller(AnimationModel model, AnimationView view) {
+  public Controller(AnimationModel model, AnimationView view, int speed) {
     this.model = model;
     this.view = view;
+    this.speed = speed;
   }
 
   /**
@@ -45,11 +47,12 @@ public class Controller implements AnimationController{
     Objects.requireNonNull(type, "Must have non-null view type");
     Objects.requireNonNull(outFile, "Must have non-null output file name");
 
+    this.speed = speed;
     this.model = new Model();
 
     switch (type) {
       case "text":
-        this.view = new TextualView(speed, outFile);
+        this.view = new TextualView(outFile);
         break;
       case "svg":
         this.view = new SVGView(speed, outFile);
@@ -80,6 +83,11 @@ public class Controller implements AnimationController{
     while (model.canTick()) {
       this.renderView();
       this.nextTick();
+      try {
+        Thread.sleep(1000 / speed);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
 
     this.renderView();
