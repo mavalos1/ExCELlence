@@ -122,8 +122,12 @@ public class Rectangle implements Shape {
 
     Transition t = transitions.get(0);
 
-    if (currentTick < t.beginTime || t.duration == 0) {
+    if (currentTick < t.beginTime) {
       return;
+    }
+
+    if (t.duration == 0) {
+      t.duration = 1;
     }
 
     if (currentTick == t.beginTime) {
