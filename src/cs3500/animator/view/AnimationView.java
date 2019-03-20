@@ -15,17 +15,17 @@ import java.util.List;
 public interface AnimationView {
   /**
    * Render the shapes provided at the current tick.
-   * @param currentTick
-   * @param shapeList
+   * @param currentTick the current tick of the model
+   * @param shapeList the list of shape to be rendered
    */
   void render(int currentTick, List<Shape> shapeList);
 
   /**
-   * Set the paramters of the view bound.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
+   * Set the parameters of the view bound.
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
    */
   void setBounds(int x, int y, int w, int h);
 }

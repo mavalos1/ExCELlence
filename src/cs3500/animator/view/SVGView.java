@@ -8,20 +8,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents the implementation of the SVG view.
+ * <p>
+ *   The SVG view will render the shapes passed to it into a string, the console, or a file in
+ *   SVG-style code.
+ *   The visual view allows to set custom bounds and initiate render of one frame.
+ * </p>
+ */
 public class SVGView implements AnimationView {
-  private int x, y, w, h, speed;
+  private int x;
+  private int y;
+  private int w;
+  private int h;
+  private int speed;
   private String outFile;
-  private StringBuilder SVGStr;
+  private StringBuilder svgStr;
   private BufferedWriter writer;
 
   /**
    * Initialize the view.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
-   * @param speed
-   * @param outFile
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
+   * @param speed the speed of the animation
+   * @param outFile name of the output file
    */
   public SVGView(int x, int y, int w, int h, int speed, String outFile) {
     if (speed <= 0) {
@@ -31,9 +43,9 @@ public class SVGView implements AnimationView {
     this.setBounds(x, y, w, h);
     this.speed = speed;
     this.outFile = outFile;
-    SVGStr = new StringBuilder();
+    svgStr = new StringBuilder();
 
-    if (outFile != "") {
+    if (!outFile.equals("")) {
       try {
         this.writer = new BufferedWriter(new FileWriter(outFile));
       } catch (IOException e) {
@@ -44,8 +56,8 @@ public class SVGView implements AnimationView {
 
   /**
    * Initialize the view to a speed and an output destination.
-   * @param speed
-   * @param outFile
+   * @param speed the speed of the animation
+   * @param outFile the name of the output file
    */
   public SVGView(int speed, String outFile) {
     this(0, 0, 0, 0, speed, outFile);
@@ -53,11 +65,11 @@ public class SVGView implements AnimationView {
 
   /**
    * Initialize the view.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
-   * @param speed
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
+   * @param speed the speed of the animation
    */
   public SVGView(int x, int y, int w, int h, int speed) {
     this(x, y, w, h, speed, "");
@@ -65,10 +77,10 @@ public class SVGView implements AnimationView {
 
   /**
    * Set the paramters of the view bound.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
    */
   public void setBounds(int x, int y, int w, int h) {
     if (w < 0 || h < 0) {
@@ -83,20 +95,20 @@ public class SVGView implements AnimationView {
 
   /**
    * Render the shapes provided at the current tick.
-   * @param currentTick
-   * @param shapeList
+   * @param currentTick the current tick of the model
+   * @param shapeList the list of shapes to be rendered
    */
   public void render(int currentTick, List<Shape> shapeList) {
     if (currentTick != 0) {
       return;
     }
 
-    SVGStr.append(String.format("<svg width=\"%d\" height=\"%d\" version=\"1.1\" " +
+    svgStr.append(String.format("<svg width=\"%d\" height=\"%d\" version=\"1.1\" " +
         "xmlns=\"http://www.w3.org/2000/svg\">\n", w, h));
     for (Shape s : shapeList) {
-      SVGStr.append(s.toSVG(1000 / speed));
+      svgStr.append(s.toSVG(1000 / speed));
     }
-    SVGStr.append("\n</svg>\n");
+    svgStr.append("\n</svg>\n");
 
     if (outFile != "") {
       renderFile();
@@ -110,7 +122,7 @@ public class SVGView implements AnimationView {
    */
   public void renderFile() {
     try {
-      this.writer.write(SVGStr.toString());
+      this.writer.write(svgStr.toString());
       this.writer.close();
     } catch (IOException e) {
       e.printStackTrace();
@@ -121,6 +133,6 @@ public class SVGView implements AnimationView {
    * Render the view output to the system console.
    */
   public void renderConsole() {
-    System.out.print(SVGStr.toString());
+    System.out.print(svgStr.toString());
   }
 }

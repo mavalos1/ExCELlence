@@ -14,14 +14,10 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This is the test class for the textual view.
+ */
 public class TextualViewTest {
-
-  @Test
-  public void testSetBounds_success() {
-    TextualView textualView = new TextualView(10,10,300,300);
-    textualView.setBounds(0,0, 100, 100);
-  }
-
   @Test(expected = IllegalArgumentException.class)
   public void testSetBounds_error() {
     TextualView textualView = new TextualView(10,10,300,300);
@@ -55,6 +51,7 @@ public class TextualViewTest {
     AnimationModel model = new Model();
     AnimationView view = new TextualView(10, 10, 300, 300);
     AnimationController controller = new Controller(model, view, 1);
+    view.setBounds(10, 10, 100, 100);
 
     Rectangle rect = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50);
     rect.addTransition(
@@ -63,19 +60,19 @@ public class TextualViewTest {
 
     controller.animate();
 
-    assertEquals(outContent.toString(), "shape R rectangle\n" +
-            "1 motion R 20 20 30 30 30 30 30\n" +
-            "2 motion R 20 20 30 30 30 30 30\n" +
-            "3 motion R 19 19 28 28 28 28 28\n" +
-            "4 motion R 18 18 26 26 26 26 26\n" +
-            "5 motion R 17 17 24 24 24 24 24\n" +
-            "6 motion R 16 16 22 22 22 22 22\n" +
-            "7 motion R 15 15 20 20 20 20 20\n" +
-            "8 motion R 14 14 18 18 18 18 18\n" +
-            "9 motion R 13 13 16 16 16 16 16\n" +
-            "10 motion R 12 12 14 14 14 14 14\n" +
-            "11 motion R 11 11 12 12 12 12 12\n" +
-            "12 motion R 10 10 10 10 10 10 10\n");
+    assertEquals(outContent.toString(), "shape R rectangle\n"
+        + "1 motion R 20 20 30 30 30 30 30\n"
+        + "2 motion R 20 20 30 30 30 30 30\n"
+        + "3 motion R 19 19 28 28 28 28 28\n"
+        + "4 motion R 18 18 26 26 26 26 26\n"
+        + "5 motion R 17 17 24 24 24 24 24\n"
+        + "6 motion R 16 16 22 22 22 22 22\n"
+        + "7 motion R 15 15 20 20 20 20 20\n"
+        + "8 motion R 14 14 18 18 18 18 18\n"
+        + "9 motion R 13 13 16 16 16 16 16\n"
+        + "10 motion R 12 12 14 14 14 14 14\n"
+        + "11 motion R 11 11 12 12 12 12 12\n"
+        + "12 motion R 10 10 10 10 10 10 10\n");
   }
 
 }

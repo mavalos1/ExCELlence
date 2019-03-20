@@ -1,23 +1,43 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.AnimationModel;
-import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Shape;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the implementation of the visual view.
+ * <p>
+ *   The visual view will render the shapes passed to it into a Javax Swing JPanel.
+ *   The visual view allows to set custom bounds and initiate render of one frame.
+ * </p>
+ */
 public class VisualView implements AnimationView {
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
   private JScrollPane scrollPane;
 
+  /**
+   * Set the view bounds.
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
+   */
   public void setBounds(int x, int y, int w, int h) {
     viewFrame.setBounds(x,y,w,h);
   }
 
+  /**
+   * Initialize the view to a default JPanel, ready for rendering.
+   */
   public VisualView() {
     viewFrame = new JFrame();
     viewFrame.setTitle("Animation Visual View");
@@ -34,6 +54,11 @@ public class VisualView implements AnimationView {
     viewFrame.setVisible(true);
   }
 
+  /**
+   * Render the shapes provided at the current tick.
+   * @param tick the current tick of the model
+   * @param shapes the list of shape to be rendered
+   */
   public void render(int tick, List<Shape> shapes) {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
@@ -54,7 +79,10 @@ public class VisualView implements AnimationView {
     }
 
     public void paintComponent(Graphics g) {
-      int x, y, w, h;
+      int x;
+      int y;
+      int w;
+      int h;
 
       for (Shape s : shapes) {
         x = (int) Math.round(s.getPosition().getX());
@@ -64,11 +92,9 @@ public class VisualView implements AnimationView {
 
         g.setColor(new Color(s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
 
-        switch(s.getShapeType()) {
-          case "ellipse":
-            g.fillOval(x, y, w, h);
-            break;
-          case "rectangle":
+        if (s.getShapeType().equals("ellipse")) {
+          g.fillOval(x, y, w, h);
+        } else if (s.getShapeType().equals("rectangle")) {
             g.fillRect(x, y, w, h);
             break;
         }

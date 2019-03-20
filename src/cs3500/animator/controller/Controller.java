@@ -32,6 +32,13 @@ public class Controller implements AnimationController{
    * @param view
    */
   public Controller(AnimationModel model, AnimationView view, int speed) {
+    Objects.requireNonNull(model, "Must have a valid model");
+    Objects.requireNonNull(view, "Must have a valid view");
+
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
+    }
+
     this.model = model;
     this.view = view;
     this.speed = speed;
@@ -47,6 +54,10 @@ public class Controller implements AnimationController{
     Objects.requireNonNull(speed, "Must have non-null speed");
     Objects.requireNonNull(type, "Must have non-null view type");
     Objects.requireNonNull(outFile, "Must have non-null output file name");
+
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
+    }
 
     this.speed = speed;
     this.model = new Model();

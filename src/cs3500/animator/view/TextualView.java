@@ -1,7 +1,5 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.shapes.Ellipse;
-import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 
 import java.io.BufferedWriter;
@@ -9,26 +7,36 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents the implementation of the textual view.
+ * <p>
+ *   The textual view will render the shapes passed to it into a string, the console, or a file.
+ *   The textual view allows to set custom bounds and initiate render of one frame.
+ * </p>
+ */
 public class TextualView implements AnimationView {
-  private int x, y, w, h;
+  private int x;
+  private int y;
+  private int w;
+  private int h;
   private String outFile;
-  private StringBuilder TextStr;
+  private StringBuilder textStr;
   private BufferedWriter writer;
 
   /**
    * Initialize the view.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
-   * @param outFile
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
+   * @param outFile name of the output file
    */
   public TextualView(int x, int y, int w, int h, String outFile) {
     this.setBounds(x, y, w, h);
     this.outFile = outFile;
-    this.TextStr = new StringBuilder();
+    this.textStr = new StringBuilder();
 
-    if (outFile != "") {
+    if (!outFile.equals("")) {
       try {
         this.writer = new BufferedWriter(new FileWriter(outFile));
       } catch (IOException e) {
@@ -39,7 +47,7 @@ public class TextualView implements AnimationView {
 
   /**
    * Initialize the view and output destination.
-   * @param outFile
+   * @param outFile name of the output file
    */
   public TextualView(String outFile) {
     this(0, 0, 0, 0, outFile);
@@ -47,21 +55,21 @@ public class TextualView implements AnimationView {
 
   /**
    * Initialize the view.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
    */
   public TextualView(int x, int y, int w, int h) {
     this(x, y, w, h, "");
   }
 
   /**
-   * Set the paramters of the view bound.
-   * @param x x position.
-   * @param y y position.
-   * @param w w position.
-   * @param h h position.
+   * Set the parameters of the view bound.
+   * @param x x position
+   * @param y y position
+   * @param w width
+   * @param h height
    */
   public void setBounds(int x, int y, int w, int h) {
     if (w < 0 || h < 0) {
@@ -87,16 +95,17 @@ public class TextualView implements AnimationView {
       } else {
         lineOutput.append(String.format("%d ", currentTick));
         lineOutput.append(String.format("motion %s ", s.getName()));
-        lineOutput.append(String.format("%.0f %.0f ", s.getPosition().getX(), s.getPosition().getY()));
+        lineOutput.append(String.format("%.0f %.0f ",
+            s.getPosition().getX(), s.getPosition().getY()));
         lineOutput.append(String.format("%.0f %.0f ", s.getSize().getW(), s.getSize().getH()));
         lineOutput.append(String.format("%d %d %d\n",
             s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
       }
     }
 
-    TextStr.append(lineOutput);
+    textStr.append(lineOutput);
 
-    if (this.outFile != "") {
+    if (!outFile.equals("")) {
       renderFile(lineOutput.toString());
     } else {
       renderConsole(lineOutput.toString());
@@ -107,7 +116,7 @@ public class TextualView implements AnimationView {
    * Render the view output to a file.
    */
   public void renderFile(String lineOutput) {
-    if (outFile == "") {
+    if (outFile.equals("")) {
       throw new IllegalArgumentException("No output file destination");
     }
 

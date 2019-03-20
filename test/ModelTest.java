@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This is the test class for the animation model.
+ */
 public class ModelTest {
   @Test
   public void testEmptyModel() {
