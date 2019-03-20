@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import cs3500.animator.controller.AnimationController;
 import cs3500.animator.controller.Controller;
 import cs3500.animator.model.AnimationModel;

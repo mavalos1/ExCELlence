@@ -58,13 +58,15 @@ public class TextualView implements AnimationView {
 
   /**
    * Set the paramters of the view bound.
-   * @param x
-   * @param y
-   * @param w
-   * @param h
+   * @param x x position.
+   * @param y y position.
+   * @param w w position.
+   * @param h h position.
    */
   public void setBounds(int x, int y, int w, int h) {
-    if (w < 0 || h < 0)
+    if (w < 0 || h < 0) {
+      throw new IllegalArgumentException("Width or height is negative");
+    }
     this.x = x;
     this.y = y;
     this.w = w;
@@ -73,8 +75,8 @@ public class TextualView implements AnimationView {
 
   /**
    * Render the shapes provided at the current tick.
-   * @param currentTick
-   * @param shapeList
+   * @param currentTick the current tick.
+   * @param shapeList the shapeList.
    */
   public void render(int currentTick, List<Shape> shapeList) {
     StringBuilder lineOutput = new StringBuilder();
