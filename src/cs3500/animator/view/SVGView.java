@@ -24,6 +24,10 @@ public class SVGView implements AnimationView {
    * @param outFile
    */
   public SVGView(int x, int y, int w, int h, int speed, String outFile) {
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
+    }
+
     this.setBounds(x, y, w, h);
     this.speed = speed;
     this.outFile = outFile;
@@ -67,6 +71,10 @@ public class SVGView implements AnimationView {
    * @param h
    */
   public void setBounds(int x, int y, int w, int h) {
+    if (w < 0 || h < 0) {
+      throw new IllegalArgumentException("Invalid view size");
+    }
+
     this.x = x;
     this.y = y;
     this.w = w;
