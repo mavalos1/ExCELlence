@@ -1,6 +1,5 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 
 import java.io.BufferedWriter;
@@ -17,8 +16,6 @@ import java.util.List;
  * </p>
  */
 public class SVGView implements AnimationView {
-  private int x;
-  private int y;
   private int w;
   private int h;
   private int speed;
@@ -87,8 +84,6 @@ public class SVGView implements AnimationView {
       throw new IllegalArgumentException("Invalid view size");
     }
 
-    this.x = x;
-    this.y = y;
     this.w = w;
     this.h = h;
   }
@@ -110,7 +105,7 @@ public class SVGView implements AnimationView {
     }
     svgStr.append("\n</svg>\n");
 
-    if (outFile != "") {
+    if (!outFile.equals("")) {
       renderFile();
     } else {
       renderConsole();

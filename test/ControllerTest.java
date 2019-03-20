@@ -5,8 +5,6 @@ import cs3500.animator.model.Model;
 import cs3500.animator.view.SVGView;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * This is the test class for the controller.
  */

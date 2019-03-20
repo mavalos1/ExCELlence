@@ -13,7 +13,7 @@ import cs3500.animator.view.VisualView;
 public class VisualViewTest {
   /**
    * This is the main method of the test class to launch the visual window.
-   * @param args
+   * @param args arguments
    */
   public static void main(String[] args) {
     AnimationModel model = new Model();

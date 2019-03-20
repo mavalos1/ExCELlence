@@ -22,7 +22,6 @@ import java.util.List;
 public class VisualView implements AnimationView {
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
-  private JScrollPane scrollPane;
 
   /**
    * Set the view bounds.
@@ -39,6 +38,7 @@ public class VisualView implements AnimationView {
    * Initialize the view to a default JPanel, ready for rendering.
    */
   public VisualView() {
+    JScrollPane scrollPane;
     viewFrame = new JFrame();
     viewFrame.setTitle("Animation Visual View");
     viewFrame.setSize(400, 400);
@@ -95,10 +95,8 @@ public class VisualView implements AnimationView {
         if (s.getShapeType().equals("ellipse")) {
           g.fillOval(x, y, w, h);
         } else if (s.getShapeType().equals("rectangle")) {
-            g.fillRect(x, y, w, h);
-            break;
+          g.fillRect(x, y, w, h);
         }
-
       }
     }
   }

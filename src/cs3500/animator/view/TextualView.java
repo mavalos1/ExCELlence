@@ -32,6 +32,10 @@ public class TextualView implements AnimationView {
    * @param outFile name of the output file
    */
   public TextualView(int x, int y, int w, int h, String outFile) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
     this.setBounds(x, y, w, h);
     this.outFile = outFile;
     this.textStr = new StringBuilder();
