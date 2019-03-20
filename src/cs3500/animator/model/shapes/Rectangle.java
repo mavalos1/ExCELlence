@@ -23,14 +23,14 @@ public class Rectangle implements Shape {
 
   /**
    * Initialize the rectangle model.
-   * @param name
-   * @param x
-   * @param y
-   * @param w
-   * @param h
-   * @param r
-   * @param g
-   * @param b
+   * @param name the name of the shape
+   * @param x the x pos
+   * @param y the y pos
+   * @param w the width
+   * @param h the height
+   * @param r red
+   * @param g green
+   * @param b blue
    */
   public Rectangle(String name, int x, int y, int w, int h, int r, int g, int b) {
     this.name = name;
@@ -42,7 +42,7 @@ public class Rectangle implements Shape {
 
   /**
    * Initialize the rectangle model with a name.
-   * @param name
+   * @param name the name of the shape
    */
   public Rectangle(String name) {
     this(name, 0, 0, 0, 0, 0, 0, 0);
@@ -52,29 +52,37 @@ public class Rectangle implements Shape {
    * Get the shape name.
    * @return
    */
-  public String getName() { return name; }
+  public String getName() {
+    return name;
+  }
 
   /**
    * Get the shape's position.
    * @return
    */
-  public Position2D getPosition() { return position; }
+  public Position2D getPosition() {
+    return position;
+  }
 
   /**
    * Get the model's size.
    * @return
    */
-  public Size getSize() { return size; }
+  public Size getSize() {
+    return size;
+  }
 
   /**
    * Get the model's color.
    * @return
    */
-  public Color getColor() { return color; }
+  public Color getColor() {
+    return color;
+  }
 
   /**
    * Add new transitions(s) to the shape.
-   * @param tr
+   * @param tr the transitions to add
    */
   public void addTransition(Transition... tr) {
     Objects.requireNonNull(tr, "Must have a valid transition list to add");
@@ -113,7 +121,7 @@ public class Rectangle implements Shape {
 
   /**
    * Advance the shape's state to the next tick.
-   * @param currentTick
+   * @param currentTick the current tick
    */
   public void tick(int currentTick) {
     if (transitions.isEmpty()) {
@@ -146,7 +154,7 @@ public class Rectangle implements Shape {
       color = new Color(
           color.getR() + (t.r2 - t.r1) / t.duration,
           color.getG() + (t.g2 - t.g1) / t.duration,
-          color.getB() +(t.b2 - t.b1) / t.duration
+          color.getB() + (t.b2 - t.b1) / t.duration
       );
 
       if (currentTick >= t.endTime) {
@@ -157,20 +165,16 @@ public class Rectangle implements Shape {
 
   /**
    * Returns whether the shape can still animate.
-   * @param currentTick
+   * @param currentTick the current tick
    * @return
    */
   public boolean canTick(int currentTick) {
-    if (transitions.isEmpty()) {
-      return false;
-    }
-
-    return true;
+    return !transitions.isEmpty();
   }
 
   /**
    * Provide the method to render the shape into an SVG-style code.
-   * @param tickMS
+   * @param tickMS ticks per millisecond
    * @return
    */
   public String toSVG(int tickMS) {
@@ -191,8 +195,8 @@ public class Rectangle implements Shape {
 
   /**
    * Provide the method to render the shape's transitions to an SVG-style code.
-   * @param t
-   * @param tickMS
+   * @param t the transition
+   * @param tickMS ticks per millisecond
    * @return
    */
   protected String transitionToSVG(Transition t, int tickMS) {
@@ -223,7 +227,8 @@ public class Rectangle implements Shape {
     }
 
     if (t.r1 != t.r2 || t.g1 != t.g2 || t.b1 != t.b2) {
-      toSVG.append(String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
+      toSVG.append(
+              String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
               "from=\"rgb(%d,%d,%d)\" to=\"rgb(%d,%d,%d)\"/>",
           t.beginTime * tickMS, t.duration * tickMS, t.r1, t.g1, t.b1, t.r2, t.g2, t.b2));
     }

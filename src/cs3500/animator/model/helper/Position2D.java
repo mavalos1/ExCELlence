@@ -6,12 +6,13 @@ import java.util.Objects;
  * This class represents a 2D position.
  */
 public class Position2D {
-  private double x, y;
+  private double x;
+  private double y;
 
   /**
    * Initialize the object to the specified position.
-   * @param x
-   * @param y
+   * @param x the x pos
+   * @param y the y pos
    */
   public Position2D(double x, double y) {
     this.setX(x);
@@ -27,7 +28,7 @@ public class Position2D {
 
   /**
    * Copy constructor.
-   * @param v
+   * @param v the position2D
    */
   public Position2D(Position2D v) {
     this(v.x, v.y);
@@ -36,7 +37,7 @@ public class Position2D {
   /**
    * Get the x-coordinate of this position.
    *
-   * @return x
+   * @return x the x pos
    */
   public double getX() {
     return x;
@@ -54,7 +55,7 @@ public class Position2D {
   /**
    * Set the x-coordinate of this position.
    *
-   * @param x
+   * @param x the x pos
    */
   private void setX(double x) {
     this.x = x;
@@ -63,7 +64,7 @@ public class Position2D {
   /**
    * Set the y-coordinate of this position.
    *
-   * @param y
+   * @param y the y pos
    */
   private void setY(double y) {
     this.y = y;
@@ -71,8 +72,12 @@ public class Position2D {
 
   @Override
   public boolean equals(Object a) {
-    if (this == a)  { return true; }
-    if (!(a instanceof Position2D)) { return false; }
+    if (this == a) {
+      return true;
+    }
+    if (!(a instanceof Position2D)) {
+      return false;
+    }
 
     Position2D that = (Position2D) a;
 

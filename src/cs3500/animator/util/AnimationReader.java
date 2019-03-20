@@ -57,7 +57,8 @@ public class AnimationReader {
     return builder.build();
   }
 
-  private static <AnimationController> void readCanvas(Scanner s, AnimationBuilder<AnimationController> builder) {
+  private static <AnimationController> void readCanvas(
+          Scanner s, AnimationBuilder<AnimationController> builder) {
     int[] vals = new int[4];
     String[] fieldNames = {"left", "top", "width", "height"};
     for (int i = 0; i < 4; i++) {
@@ -66,7 +67,8 @@ public class AnimationReader {
     builder.setBounds(vals[0], vals[1], vals[2], vals[3]);
   }
 
-  private static <AnimationController> void readShape(Scanner s, AnimationBuilder<AnimationController> builder) {
+  private static <AnimationController> void readShape(
+          Scanner s, AnimationBuilder<AnimationController> builder) {
     String name;
     String type;
     if (s.hasNext()) {
@@ -82,7 +84,8 @@ public class AnimationReader {
     builder.declareShape(name, type);
   }
 
-  private static <AnimationController> void readMotion(Scanner s, AnimationBuilder<AnimationController> builder) {
+  private static <AnimationController> void readMotion(
+          Scanner s, AnimationBuilder<AnimationController> builder) {
     String[] fieldNames = new String[]{
       "initial time",
       "initial x-coordinate", "initial y-coordinate",

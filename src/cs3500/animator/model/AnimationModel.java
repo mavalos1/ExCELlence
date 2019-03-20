@@ -28,14 +28,14 @@ public interface AnimationModel {
 
   /**
    * Get the shape matching a specified name in the model.
-   * @param name
-   * @return
+   * @param name the name of the shape
+   * @return the shape
    */
   Shape getShape(String name);
 
   /**
    * Add a new shape to the model.
-   * @param sh
+   * @param sh the shapes
    */
   void addShape(Shape... sh);
 

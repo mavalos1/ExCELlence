@@ -9,12 +9,26 @@ package cs3500.animator.model.helper;
  * </p>
  */
 public class Transition {
-  public int beginTime, endTime, duration;
-  public int x1, y1, w1, h1, r1, g1, b1;
-  public int x2, y2, w2, h2, r2, g2, b2;
+  public int beginTime;
+  public int endTime;
+  public int duration;
+  public int x1;
+  public int y1;
+  public int w1;
+  public int h1;
+  public int r1;
+  public int g1;
+  public int b1;
+  public int x2;
+  public int y2;
+  public int w2;
+  public int h2;
+  public int r2;
+  public int g2;
+  public int b2;
 
   /**
-   * Initialize the transition to the specified time and start/end state
+   * Initialize the transition to the specified time and start/end state.
    * @param beginTime the tick to start the transition
    * @param endTime the tick to end the transition
    * @param x1 the initial x-position

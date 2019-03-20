@@ -23,7 +23,7 @@ import cs3500.animator.model.helper.Transition;
 public interface Shape {
 
   /**
-   * Get the type of shape
+   * Get the type of shape.
    * @return the type of shape
    */
   String getShapeType();
@@ -54,26 +54,26 @@ public interface Shape {
 
   /**
    * Add new transitions(s) to the shape.
-   * @param tr
+   * @param tr the transitions
    */
   void addTransition(Transition... tr);
 
   /**
    * Advance the shape's state to the next tick.
-   * @param currentTick
+   * @param currentTick the current tick
    */
   void tick(int currentTick);
 
   /**
    * Returns whether the shape can still animate.
-   * @param currentTick
+   * @param currentTick the current tick
    * @return
    */
   boolean canTick(int currentTick);
 
   /**
    * Provide the method to render the shape into an SVG-style code.
-   * @param tickMS
+   * @param tickMS the ticks per millisecond
    * @return
    */
   String toSVG(int tickMS);

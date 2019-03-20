@@ -32,8 +32,8 @@ public class Model implements AnimationModel {
 
   /**
    * Get the shape matching a specified name in the model.
-   * @param name
-   * @return
+   * @param name the name of the shape
+   * @return the shape
    */
   public Shape getShape(String name) throws IllegalArgumentException {
     for (Shape s : shapes) {
@@ -47,7 +47,7 @@ public class Model implements AnimationModel {
 
   /**
    * Add a new shape to the model.
-   * @param sh
+   * @param sh the shapes
    */
   public void addShape(Shape... sh) {
     for (Shape s : sh) {
