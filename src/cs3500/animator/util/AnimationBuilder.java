@@ -1,5 +1,9 @@
 package cs3500.animator.util;
 
+/**
+ * a class for creating animation controllers.
+ * @param <AnimationController> the type of thing to build
+ */
 public interface AnimationBuilder<AnimationController> {
   /**
    * Constructs a final document.

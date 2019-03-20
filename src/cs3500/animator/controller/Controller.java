@@ -21,15 +21,15 @@ import java.util.Objects;
  *   The added shapes and animations are rendered by the order of them being added.
  * </p>
  */
-public class Controller implements AnimationController{
+public class Controller implements AnimationController {
   private AnimationView view;
   private AnimationModel model;
   private int speed;
 
   /**
    * Initialize the controller.
-   * @param model
-   * @param view
+   * @param model the model
+   * @param view the view
    */
   public Controller(AnimationModel model, AnimationView view, int speed) {
     this.model = model;
@@ -39,9 +39,9 @@ public class Controller implements AnimationController{
 
   /**
    * Initialize the controller with a type, speed, and an output destination.
-   * @param type
-   * @param speed
-   * @param outFile
+   * @param type the type of view
+   * @param speed the ticks per second
+   * @param outFile the file to write to
    */
   public Controller(String type, int speed, String outFile) {
     Objects.requireNonNull(speed, "Must have non-null speed");
@@ -110,8 +110,8 @@ public class Controller implements AnimationController{
 
   /**
    * Add a new shape to the model.
-   * @param name
-   * @param type
+   * @param name the name of the shape
+   * @param type the type of shape
    */
   public void addShape(String name, String type) {
     Objects.requireNonNull(name, "Must have a valid shape name");

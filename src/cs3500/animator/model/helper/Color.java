@@ -7,13 +7,15 @@ import java.util.Objects;
  * identify each color code.
  */
 public class Color {
-  private int r, g, b;
+  private int r;
+  private int g;
+  private int b;
 
   /**
    * Initialize the color to the code.
-   * @param r
-   * @param g
-   * @param b
+   * @param r red
+   * @param g green
+   * @param b blue
    */
   public Color(int r, int g, int b) {
     this.setR(r);
@@ -30,7 +32,7 @@ public class Color {
 
   /**
    * Copy constructor.
-   * @param v
+   * @param v the color
    */
   public Color(Color v)  {
     this(v.r, v.g, v.b);
@@ -48,17 +50,19 @@ public class Color {
   /**
    * Set the r-code of this color.
    *
-   * @param r
+   * @param r the red componenet
    */
   private void setR(int r) {
-    if (r < 0) r += 256;
+    if (r < 0) {
+      r += 256;
+    }
     this.r = r % 256;
   }
 
   /**
    * Get the g-code of this color.
    *
-   * @return g
+   * @return g green
    */
   public int getG() {
     return g;
@@ -67,17 +71,19 @@ public class Color {
   /**
    * Set the g-code of this color.
    *
-   * @param g
+   * @param g green
    */
   private void setG(int g) {
-    if (g < 0) g += 256;
+    if (g < 0) {
+      g += 256;
+    }
     this.g = g % 256;
   }
 
   /**
    * Get the b-code of this color.
    *
-   * @return b
+   * @return b blue
    */
   public int getB() {
     return b;
@@ -86,17 +92,23 @@ public class Color {
   /**
    * Set the b-code of this color.
    *
-   * @param b
+   * @param b blue
    */
   private void setB(int b) {
-    if (b < 0) b += 256;
+    if (b < 0) {
+      b += 256;
+    }
     this.b = b % 256;
   }
 
   @Override
   public boolean equals(Object a) {
-    if (this == a)  { return true; }
-    if (!(a instanceof Color)) { return false; }
+    if (this == a)  {
+      return true;
+    }
+    if (!(a instanceof Color)) {
+      return false;
+    }
 
     Color that = (Color) a;
 

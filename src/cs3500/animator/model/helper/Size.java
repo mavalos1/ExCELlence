@@ -2,13 +2,17 @@ package cs3500.animator.model.helper;
 
 import java.util.Objects;
 
+/**
+ * a class to represent a shape's width and height.
+ */
 public class Size {
-  private double w, h;
+  private double w;
+  private double h;
 
   /**
    * Initialize the object to the specified position.
-   * @param w
-   * @param h
+   * @param w the width
+   * @param h the height
    * @throws IllegalArgumentException when either width or height is negative
    */
   public Size(double w, double h) throws IllegalArgumentException {
@@ -25,7 +29,7 @@ public class Size {
 
   /**
    * Copy constructor.
-   * @param v
+   * @param v the size
    */
   public Size(Size v) {
     this(v.w, v.h);
@@ -52,7 +56,7 @@ public class Size {
   /**
    * Set the width of this size.
    *
-   * @param w
+   * @param w the width
    * @throws IllegalArgumentException when width is negative
    */
   private void setW(double w) throws IllegalArgumentException {
@@ -66,10 +70,10 @@ public class Size {
   /**
    * Set the height of this size.
    *
-   * @param h
+   * @param h the height
    * @throws IllegalArgumentException when height is negative
    */
-  private void setH(double h) throws IllegalArgumentException{
+  private void setH(double h) throws IllegalArgumentException {
     if (h < 0) {
       throw new IllegalArgumentException("Invalid size height");
     }
@@ -78,8 +82,12 @@ public class Size {
 
   @Override
   public boolean equals(Object a) {
-    if (this == a)  { return true; }
-    if (!(a instanceof Size)) { return false; }
+    if (this == a)  {
+      return true;
+    }
+    if (!(a instanceof Size)) {
+      return false;
+    }
 
     Size that = (Size) a;
 

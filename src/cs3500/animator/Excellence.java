@@ -1,15 +1,16 @@
 package cs3500.animator;
 
+import java.io.FileReader;
+import java.io.IOException;
+
 import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationBuilderImpl;
 import cs3500.animator.util.AnimationReader;
 
-import java.io.*;
-
 /**
  * The animation main method.
- * <p>
- *   The main method could be called with the following parameters that needs to come with an
+ *
+ * <p>The main method could be called with the following parameters that needs to come with an
  *   string to specify:
  *   <p>
  *     -in "name-of-animation-file": the input file to read from
@@ -28,8 +29,14 @@ import java.io.*;
  * </p>
  */
 public class Excellence {
+  /**
+   * The main method to start the program.
+   * @param args arguments to specify in out view and speed
+   */
   public static void main(String[] args) {
-    String inFile = "", outFile = "", viewType = "";
+    String inFile = "";
+    String outFile = "";
+    String viewType = "";
     int speed = 1;
 
     for (int i = 0; i < args.length; i++) {
@@ -46,12 +53,14 @@ public class Excellence {
         case "-speed":
           speed = Integer.parseInt(args[i + 1]);
           break;
+        default:
+          continue;
       }
 
       i++;
     }
 
-    if (viewType == "" || inFile == "") {
+    if (viewType.equals("") || inFile.equals("")) {
       throw new IllegalArgumentException("Input file and view type is not provided");
     }
 

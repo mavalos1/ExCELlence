@@ -10,14 +10,14 @@ import cs3500.animator.model.helper.Transition;
 public class Ellipse extends Rectangle {
   /**
    * Initialize the ellipse model.
-   * @param name
-   * @param x
-   * @param y
-   * @param w
-   * @param h
-   * @param r
-   * @param g
-   * @param b
+   * @param name the name of the shape
+   * @param x the x pos
+   * @param y the y pos
+   * @param w the width
+   * @param h the height
+   * @param r red
+   * @param g green
+   * @param b blue
    */
   public Ellipse(String name, int x, int y, int w, int h, int r, int g, int b) {
     super(name, x, y, w, h, r, g, b);
@@ -25,7 +25,7 @@ public class Ellipse extends Rectangle {
 
   /**
    * Initialize the ellipse with a name.
-   * @param name
+   * @param name the name of the shape
    */
   public Ellipse(String name) {
     super(name);
@@ -33,14 +33,14 @@ public class Ellipse extends Rectangle {
 
   /**
    * Provide the method to render the shape into an SVG-style code.
-   * @param tickMS
-   * @return
+   * @param tickMS ticks per millisecond
+   * @return a string of the svg
    */
   @Override
   public String toSVG(int tickMS) {
     StringBuilder toSVG = new StringBuilder();
-    toSVG.append(String.format("\n<ellipse id=\"%s\" cx=\"%.2f\" cy=\"%.2f\" rx=\"%.2f\" " +
-            "ry=\"%.2f\" fill=\"rgb(%d,%d,%d)\" visibility=\"visible\" >",
+    toSVG.append(String.format("\n<ellipse id=\"%s\" cx=\"%.2f\" cy=\"%.2f\" rx=\"%.2f\" "
+                    + "ry=\"%.2f\" fill=\"rgb(%d,%d,%d)\" visibility=\"visible\" >",
         name, position.getX(), position.getY(),
         size.getW() / 2, size.getH() / 2, color.getR(), color.getG(), color.getB()));
 
@@ -55,8 +55,8 @@ public class Ellipse extends Rectangle {
 
   /**
    * Provide the method to render the shape's transitions to an SVG-style code.
-   * @param t
-   * @param tickMS
+   * @param t the transition
+   * @param tickMS the ticker per millisecond
    * @return
    */
   @Override
@@ -88,7 +88,8 @@ public class Ellipse extends Rectangle {
     }
 
     if (t.r1 != t.r2 || t.g1 != t.g2 || t.b1 != t.b2) {
-      toSVG.append(String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
+      toSVG.append(
+              String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
               "from=\"rgb(%d,%d,%d)\" to=\"rgb(%d,%d,%d)\"/>",
           t.beginTime * tickMS, t.duration * tickMS, t.r1, t.g1, t.b1, t.r2, t.g2, t.b2));
     }

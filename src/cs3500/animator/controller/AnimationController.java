@@ -40,8 +40,8 @@ public interface AnimationController {
 
   /**
    * Add a new shape to the model.
-   * @param name
-   * @param type
+   * @param name the name of the shape
+   * @param type the type of shape
    */
   void addShape(String name, String type);
 
