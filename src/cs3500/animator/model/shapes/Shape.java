@@ -77,4 +77,9 @@ public interface Shape {
    * @return
    */
   String toSVG(int tickMS);
+
+  /**
+   * Reset the transition list.
+   */
+  void reset();
 }

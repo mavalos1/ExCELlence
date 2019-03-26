@@ -58,7 +58,7 @@ public class TextualViewTest {
             new Transition(2, 12, 20, 20, 30, 30, 30, 30, 30, 10, 10, 10, 10, 10, 10, 10));
     model.addShape(rect);
 
-    controller.animate();
+    controller.start();
 
     assertEquals(outContent.toString(), "shape R rectangle\n"
         + "1 motion R 20 20 30 30 30 30 30\n"

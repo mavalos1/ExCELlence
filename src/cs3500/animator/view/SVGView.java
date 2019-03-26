@@ -117,8 +117,8 @@ public class SVGView implements AnimationView {
    */
   public void renderFile() {
     try {
-      this.writer.write(svgStr.toString());
-      this.writer.close();
+      writer.write(svgStr.toString());
+      writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }

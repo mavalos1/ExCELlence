@@ -30,6 +30,6 @@ public class VisualViewTest {
     controller.nextTick();
     controller.renderView();
 
-    controller.animate();
+    controller.start();
   }
 }

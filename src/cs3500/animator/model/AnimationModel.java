@@ -55,4 +55,9 @@ public interface AnimationModel {
    * @return
    */
   int getCurrentTick();
+
+  /**
+   * Reset the model.
+   */
+  void reset();
 }

@@ -89,7 +89,7 @@ public class SVGViewTest {
     controller.nextTick();
     controller.renderView();
 
-    controller.animate();
+    controller.start();
 
     try {
       String content = new Scanner(new File("out.svg")).useDelimiter("\\Z").next();
@@ -118,7 +118,7 @@ public class SVGViewTest {
         new Transition(5, 10, 50, 50, 50, 50, 80,250,124, 10, 10, 10, 10, 10, 10, 10));
     model.addShape(ell);
 
-    controller.animate();
+    controller.start();
 
     assertEquals(output + "\n", outContent.toString());
   }

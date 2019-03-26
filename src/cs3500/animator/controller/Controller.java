@@ -6,10 +6,7 @@ import cs3500.animator.model.helper.Transition;
 import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
-import cs3500.animator.view.AnimationView;
-import cs3500.animator.view.SVGView;
-import cs3500.animator.view.TextualView;
-import cs3500.animator.view.VisualView;
+import cs3500.animator.view.*;
 
 import java.util.Objects;
 
@@ -25,6 +22,8 @@ public class Controller implements AnimationController {
   private AnimationView view;
   private AnimationModel model;
   private int speed;
+  private boolean shouldPlay;
+  private boolean loop;
 
   /**
    * Initialize the controller.
@@ -42,6 +41,8 @@ public class Controller implements AnimationController {
     this.model = model;
     this.view = view;
     this.speed = speed;
+    this.shouldPlay = false;
+    this.loop = false;
   }
 
   /**
@@ -60,6 +61,7 @@ public class Controller implements AnimationController {
     }
 
     this.speed = speed;
+    this.shouldPlay = false;
     this.model = new Model();
 
     switch (type) {
@@ -71,6 +73,9 @@ public class Controller implements AnimationController {
         break;
       case "visual":
         this.view = new VisualView();
+        break;
+      case "edit":
+        this.view = new EditorViewImpl();
         break;
       default:
         throw new IllegalArgumentException("Invalid view type");
@@ -94,10 +99,12 @@ public class Controller implements AnimationController {
   /**
    * Animate the model till the end.
    */
-  public void animate() {
-    while (model.canTick()) {
-      this.renderView();
-      this.nextTick();
+  public void start() {
+    shouldPlay = true;
+
+    while (model.canTick() && shouldPlay == true) {
+      renderView();
+      nextTick();
       try {
         Thread.sleep(1000 / speed);
       } catch (InterruptedException e) {
@@ -105,7 +112,12 @@ public class Controller implements AnimationController {
       }
     }
 
-    this.renderView();
+    renderView();
+
+    if (loop == true) {
+      restart();
+      start();
+    }
   }
 
   /**
@@ -166,5 +178,22 @@ public class Controller implements AnimationController {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Transition t = new Transition(t1, t2, x1, y1, w1, h1, r1, g1, b1, x2, y2, w2, h2, r2, g2, b2);
     model.getShape(name).addTransition(t);
+  }
+
+  public void pause() {
+    shouldPlay = false;
+  }
+
+  public void restart() {
+    pause();
+    model.reset();
+  }
+
+  public void setLoop(boolean loop) {
+    this.loop = loop;
+  }
+
+  public void adjustSpeed(int speed) {
+    this.speed = speed;
   }
 }

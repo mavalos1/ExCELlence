@@ -125,9 +125,9 @@ public class TextualView implements AnimationView {
     }
 
     try {
-      this.writer = new BufferedWriter(new FileWriter(outFile, true));
-      this.writer.write(lineOutput);
-      this.writer.close();
+      writer = new BufferedWriter(new FileWriter(outFile, true));
+      writer.write(lineOutput);
+      writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }

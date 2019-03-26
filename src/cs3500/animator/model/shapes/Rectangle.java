@@ -19,6 +19,7 @@ public class Rectangle implements Shape {
   protected Position2D position;
   protected Size size;
   protected Color color;
+  protected int currentTransition;
   protected List<Transition> transitions;
 
   /**
@@ -38,6 +39,7 @@ public class Rectangle implements Shape {
     this.size = new Size(w, h);
     this.color = new Color(r, g, b);
     this.transitions = new ArrayList<>();
+    this.currentTransition = 0;
   }
 
   /**
@@ -88,9 +90,9 @@ public class Rectangle implements Shape {
     Objects.requireNonNull(tr, "Must have a valid transition list to add");
 
     if (transitions.isEmpty()) {
-      this.position = new Position2D(tr[0].x1, tr[0].y1);
-      this.size = new Size(tr[0].w1, tr[0].h1);
-      this.color = new Color(tr[0].r1, tr[0].g1, tr[0].b1);
+      position = new Position2D(tr[0].x1, tr[0].y1);
+      size = new Size(tr[0].w1, tr[0].h1);
+      color = new Color(tr[0].r1, tr[0].g1, tr[0].b1);
     }
 
     for (Transition t : tr) {
@@ -128,7 +130,7 @@ public class Rectangle implements Shape {
       return;
     }
 
-    Transition t = transitions.get(0);
+    Transition t = transitions.get(currentTransition);
 
     if (currentTick < t.beginTime) {
       return;
@@ -158,7 +160,7 @@ public class Rectangle implements Shape {
       );
 
       if (currentTick >= t.endTime) {
-        transitions.remove(0);
+        currentTransition++;
       }
     }
   }
@@ -239,5 +241,12 @@ public class Rectangle implements Shape {
   @Override
   public String getShapeType() {
     return "rectangle";
+  }
+
+  /**
+   * Reset the transition list.
+   */
+  public void reset() {
+    currentTransition = 0;
   }
 }

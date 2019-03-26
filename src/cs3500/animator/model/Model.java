@@ -72,7 +72,7 @@ public class Model implements AnimationModel {
    */
   public boolean canTick() {
     for (Shape s : shapes) {
-      if (s.canTick(this.currentTick)) {
+      if (s.canTick(currentTick)) {
         return true;
       }
     }
@@ -85,6 +85,15 @@ public class Model implements AnimationModel {
    * @return
    */
   public int getCurrentTick() {
-    return this.currentTick;
+    return currentTick;
+  }
+
+  /**
+   * Reset the model.
+   */
+  public void reset() {
+    for (Shape s : shapes) {
+      s.reset();
+    }
   }
 }

@@ -18,7 +18,7 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @return an animation controller
    */
   public AnimationController build() {
-    controller.animate();
+    controller.start();
 
     return controller;
   }
