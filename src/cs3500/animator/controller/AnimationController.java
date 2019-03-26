@@ -69,8 +69,24 @@ public interface AnimationController {
                      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
                      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
 
+  /**
+   * Pause the animation.
+   */
   void pause();
+
+  /**
+   * Restart the animation.
+   */
   void restart();
-  void setLoop(boolean loop);
+
+  /**
+   * Toggle the looping option.
+   */
+  void toggleLoop();
+
+  /**
+   * Set the speed of the animation.
+   * @param speed the number of ticks per second
+   */
   void adjustSpeed(int speed);
 }

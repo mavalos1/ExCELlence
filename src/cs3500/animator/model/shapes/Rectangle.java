@@ -126,7 +126,7 @@ public class Rectangle implements Shape {
    * @param currentTick the current tick
    */
   public void tick(int currentTick) {
-    if (transitions.isEmpty()) {
+    if (!canTick(currentTick)) {
       return;
     }
 
@@ -171,7 +171,7 @@ public class Rectangle implements Shape {
    * @return
    */
   public boolean canTick(int currentTick) {
-    return !transitions.isEmpty();
+    return !transitions.isEmpty() && (currentTransition < transitions.size());
   }
 
   /**
@@ -238,15 +238,19 @@ public class Rectangle implements Shape {
     return toSVG.toString();
   }
 
-  @Override
-  public String getShapeType() {
-    return "rectangle";
-  }
-
   /**
    * Reset the transition list.
    */
   public void reset() {
     currentTransition = 0;
+    Transition t0 = transitions.get(currentTransition);
+    this.position = new Position2D(t0.x1, t0.y1);
+    this.size = new Size(t0.w1, t0.h1);
+    this.color = new Color(t0.r1, t0.g1, t0.b1);
+  }
+
+  @Override
+  public String getShapeType() {
+    return "rectangle";
   }
 }

@@ -92,6 +92,7 @@ public class Model implements AnimationModel {
    * Reset the model.
    */
   public void reset() {
+    currentTick = 0;
     for (Shape s : shapes) {
       s.reset();
     }

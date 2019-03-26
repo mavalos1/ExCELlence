@@ -62,6 +62,7 @@ public class Controller implements AnimationController {
 
     this.speed = speed;
     this.shouldPlay = false;
+    this.loop = false;
     this.model = new Model();
 
     switch (type) {
@@ -180,19 +181,32 @@ public class Controller implements AnimationController {
     model.getShape(name).addTransition(t);
   }
 
+  /**
+   * Pause the animation.
+   */
   public void pause() {
     shouldPlay = false;
   }
 
+  /**
+   * Restart the animation.
+   */
   public void restart() {
     pause();
     model.reset();
   }
 
-  public void setLoop(boolean loop) {
-    this.loop = loop;
+  /**
+   * Toggle the looping option.
+   */
+  public void toggleLoop() {
+    loop = !loop;
   }
 
+  /**
+   * Set the speed of the animation.
+   * @param speed the number of ticks per second
+   */
   public void adjustSpeed(int speed) {
     this.speed = speed;
   }
