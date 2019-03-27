@@ -70,7 +70,27 @@ public class VisualView implements AnimationView {
     viewFrame.repaint();
   }
 
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
   public void setListener(ActionListener l) {
     throw new UnsupportedOperationException("Visual view does not support action listener");
+  }
+
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  public int getSpeedInput() {
+    throw new UnsupportedOperationException("Visual view does not support input");
+  }
+
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  public void setSpeedInput(int speed) {
+    throw new UnsupportedOperationException("Visual view does not support input");
   }
 }

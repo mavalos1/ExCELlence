@@ -26,7 +26,7 @@ public class Controller implements AnimationController, ActionListener {
   private AnimationModel model;
   private int speed = 1;
   private boolean shouldPlay = false;
-  private boolean loop = false;
+  private boolean loop = true;
 
   /**
    * Initialize the controller.
@@ -44,6 +44,7 @@ public class Controller implements AnimationController, ActionListener {
     this.model = model;
     this.view = view;
     this.speed = speed;
+    this.view.setSpeedInput(this.speed);
   }
 
   /**
@@ -75,8 +76,9 @@ public class Controller implements AnimationController, ActionListener {
         this.view = new VisualView();
         break;
       case "edit":
-        this.view = new EditorViewImpl();
+        this.view = new EditorView();
         this.view.setListener(this);
+        this.view.setSpeedInput(this.speed);
         break;
       default:
         throw new IllegalArgumentException("Invalid view type");
@@ -214,7 +216,7 @@ public class Controller implements AnimationController, ActionListener {
    * Set the speed of the animation.
    * @param speed the number of ticks per second
    */
-  public void adjustSpeed(int speed) {
+  public void setSpeed(int speed) {
     this.speed = speed;
   }
 
@@ -246,6 +248,7 @@ public class Controller implements AnimationController, ActionListener {
         }
         break;
       case "speed":
+        setSpeed(view.getSpeedInput());
         break;
       default:
         throw new IllegalArgumentException("Unsupported action command");

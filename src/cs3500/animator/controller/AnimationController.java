@@ -88,5 +88,5 @@ public interface AnimationController {
    * Set the speed of the animation.
    * @param speed the number of ticks per second
    */
-  void adjustSpeed(int speed);
+  void setSpeed(int speed);
 }

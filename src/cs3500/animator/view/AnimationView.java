@@ -30,5 +30,21 @@ public interface AnimationView {
    */
   void setBounds(int x, int y, int w, int h);
 
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
   void setListener(ActionListener l);
+
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  int getSpeedInput();
+
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  void setSpeedInput(int speed);
 }
