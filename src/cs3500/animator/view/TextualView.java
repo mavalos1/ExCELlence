@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -138,5 +139,9 @@ public class TextualView implements AnimationView {
    */
   public void renderConsole(String lineOutput) {
     System.out.print(lineOutput);
+  }
+
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("Textual view does not support action listener");
   }
 }

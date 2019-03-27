@@ -9,3 +9,4 @@ bin/*
 **.txt
 **.zip
 **.MF
+target/*

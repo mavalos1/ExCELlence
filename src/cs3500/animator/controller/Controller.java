@@ -8,6 +8,9 @@ import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 import cs3500.animator.view.*;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
@@ -18,12 +21,12 @@ import java.util.Objects;
  *   The added shapes and animations are rendered by the order of them being added.
  * </p>
  */
-public class Controller implements AnimationController {
+public class Controller implements AnimationController, ActionListener {
   private AnimationView view;
   private AnimationModel model;
-  private int speed;
-  private boolean shouldPlay;
-  private boolean loop;
+  private int speed = 1;
+  private boolean shouldPlay = false;
+  private boolean loop = false;
 
   /**
    * Initialize the controller.
@@ -41,8 +44,6 @@ public class Controller implements AnimationController {
     this.model = model;
     this.view = view;
     this.speed = speed;
-    this.shouldPlay = false;
-    this.loop = false;
   }
 
   /**
@@ -61,8 +62,6 @@ public class Controller implements AnimationController {
     }
 
     this.speed = speed;
-    this.shouldPlay = false;
-    this.loop = false;
     this.model = new Model();
 
     switch (type) {
@@ -77,6 +76,7 @@ public class Controller implements AnimationController {
         break;
       case "edit":
         this.view = new EditorViewImpl();
+        this.view.setListener(this);
         break;
       default:
         throw new IllegalArgumentException("Invalid view type");
@@ -103,7 +103,9 @@ public class Controller implements AnimationController {
   public void start() {
     shouldPlay = true;
 
-    while (model.canTick() && shouldPlay == true) {
+    while (model.canTick()) {
+      if (!shouldPlay) return;
+
       renderView();
       nextTick();
       try {
@@ -115,7 +117,7 @@ public class Controller implements AnimationController {
 
     renderView();
 
-    if (loop == true) {
+    if (loop) {
       restart();
       start();
     }
@@ -184,16 +186,21 @@ public class Controller implements AnimationController {
   /**
    * Pause the animation.
    */
-  public void pause() {
-    shouldPlay = false;
+  public void togglePause() {
+    shouldPlay = !shouldPlay;
+    if (shouldPlay) {
+      //TODO: fix unpause
+      //start();
+    }
   }
 
   /**
    * Restart the animation.
    */
   public void restart() {
-    pause();
+    shouldPlay = false;
     model.reset();
+    renderView();
   }
 
   /**
@@ -209,5 +216,39 @@ public class Controller implements AnimationController {
    */
   public void adjustSpeed(int speed) {
     this.speed = speed;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    switch (e.getActionCommand()) {
+      case "start/pause":
+        togglePause();
+        JButton sButton = (JButton) e.getSource();
+
+        if (shouldPlay) {
+          sButton.setText("Pause");
+        } else {
+          sButton.setText("Start");
+        }
+
+        break;
+      case "restart":
+        restart();
+        break;
+      case "loop":
+        toggleLoop();
+        JButton lButton = (JButton) e.getSource();
+
+        if (loop) {
+          lButton.setText("Loop ✓");
+        } else {
+          lButton.setText("Loop");
+        }
+        break;
+      case "speed":
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported action command");
+    }
   }
 }

@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -129,5 +130,10 @@ public class SVGView implements AnimationView {
    */
   public void renderConsole() {
     System.out.print(svgStr.toString());
+  }
+
+
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("SVG view does not support action listener");
   }
 }

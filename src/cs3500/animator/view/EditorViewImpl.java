@@ -4,14 +4,14 @@ import cs3500.animator.model.shapes.Shape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class EditorViewImpl implements AnimationView {
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
   private JPanel buttonPanel;
-  private JButton startButton;
-  private JButton pauseButton;
+  private JButton startPauseButton;
   private JButton restartButton;
   private JButton loopButton;
   private JButton speedButton;
@@ -38,13 +38,17 @@ public class EditorViewImpl implements AnimationView {
     buttonPanel.setLayout(new FlowLayout());
     viewFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-    startButton = new JButton("Start");
-    pauseButton = new JButton("Pause");
+    startPauseButton = new JButton("Pause");
     restartButton = new JButton("Restart");
     loopButton = new JButton("Loop");
     speedButton = new JButton("Speed");
-    buttonPanel.add(startButton);
-    buttonPanel.add(pauseButton);
+
+    startPauseButton.setActionCommand("start/pause");
+    restartButton.setActionCommand("restart");
+    loopButton.setActionCommand("loop");
+    speedButton.setActionCommand("speed");
+
+    buttonPanel.add(startPauseButton);
     buttonPanel.add(restartButton);
     buttonPanel.add(loopButton);
     buttonPanel.add(speedButton);
@@ -73,5 +77,12 @@ public class EditorViewImpl implements AnimationView {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
+  }
+
+  public void setListener(ActionListener l) {
+    startPauseButton.addActionListener(l);
+    restartButton.addActionListener(l);
+    loopButton.addActionListener(l);
+    speedButton.addActionListener(l);
   }
 }

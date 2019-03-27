@@ -70,9 +70,9 @@ public interface AnimationController {
                      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
 
   /**
-   * Pause the animation.
+   * Play/pause the animation.
    */
-  void pause();
+  void togglePause();
 
   /**
    * Restart the animation.

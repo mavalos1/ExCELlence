@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -67,5 +68,9 @@ public class VisualView implements AnimationView {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
+  }
+
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("Visual view does not support action listener");
   }
 }

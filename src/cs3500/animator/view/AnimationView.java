@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -28,4 +29,6 @@ public interface AnimationView {
    * @param h height of the view
    */
   void setBounds(int x, int y, int w, int h);
+
+  void setListener(ActionListener l);
 }
