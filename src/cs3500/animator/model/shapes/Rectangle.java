@@ -273,6 +273,10 @@ public class Rectangle implements Shape {
    */
   public void reset() {
     currentTransition = 0;
+    if (transitions.isEmpty()) {
+      return;
+    }
+
     Transition t0 = transitions.get(0);
 
     if (t0.beginTime > 1) {

@@ -93,4 +93,10 @@ public interface AnimationModel {
    */
   void deleteKeyFrame(String name, int t);
 
+  /**
+   * Remove the shape with such name from the model
+   * @param name the name of the shape
+   */
+  void removeShape(String name);
+
 }

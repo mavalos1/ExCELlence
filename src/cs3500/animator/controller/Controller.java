@@ -276,6 +276,33 @@ public class Controller implements AnimationController, ActionListener {
       case "speed":
         setSpeed(view.getSpeed());
         break;
+      case "rectangle":
+        PopUpOptionPanel pR = (PopUpOptionPanel) e.getSource();
+
+        Rectangle r = new Rectangle(pR.name, pR.x, pR.y, pR.w, pR.h, pR.r, pR.g, pR.b);
+        model.addShape(r);
+        break;
+      case "ellipse":
+        PopUpOptionPanel pE = (PopUpOptionPanel) e.getSource();
+
+        Ellipse el = new Ellipse(pE.name, pE.x, pE.y, pE.w, pE.h, pE.r, pE.g, pE.b);
+        model.addShape(el);
+        break;
+      case "removeShape":
+        PopUpOptionPanel pS = (PopUpOptionPanel) e.getSource();
+
+        model.removeShape(pS.name);
+        break;
+      case "addKeyFrame":
+        PopUpOptionPanel pK = (PopUpOptionPanel) e.getSource();
+
+        addKeyFrame(pK.name, pK.t, pK.x, pK.y, pK.w, pK.h, pK.r, pK.g, pK.b);
+        break;
+      case "removeKeyFrame":
+        PopUpOptionPanel pF = (PopUpOptionPanel) e.getSource();
+
+        deleteKeyFrame(pF.name, pF.t);
+        break;
       default:
         throw new IllegalArgumentException("Unsupported action command");
     }

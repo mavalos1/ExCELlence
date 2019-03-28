@@ -3,6 +3,7 @@ package cs3500.animator.view;
 import cs3500.animator.model.shapes.Shape;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,20 @@ import java.util.List;
  * </p>
  */
 public class EditorView implements AnimationView {
+  private final static String START = "▶";
+  private final static String PAUSE = "❙❙";
+  private final static String LOOP_ON = "↺ ✓";
+  private final static String LOOP_OFF = "↺";
+  private final static String RESTART = "◼";
+  private final static String SPEED = "Set Speed";
+  private final static String RECTANGLE = "▢";
+  private final static String ELLIPSE = "◯";
+  private final static String REMOVE_SHAPE = "Remove";
+  private final static String ADD_KEYFRAME = "Add";
+  private final static String REMOVE_KEYFRAME = "Remove";
+
   private JFrame viewFrame;
+  private JScrollPane scrollPane;
   private AnimationPanel animationPanel;
   private int speed;
 
@@ -33,12 +47,17 @@ public class EditorView implements AnimationView {
   private JPanel shapePanel;
   private JButton rectangleButton;
   private JButton ellipseButton;
+  private JButton removeShapeButton;
+
+  private JPanel keyFramePanel;
+  private JButton addKeyFrameButton;
+  private JButton removeKeyFrameButton;
 
   /**
    * Initialize the view to a default JPanel, ready for rendering.
    */
   public EditorView() {
-    JScrollPane scrollPane;
+    scrollPane = new JScrollPane();
     viewFrame = new JFrame();
     viewFrame.setTitle("Animation Editor View");
     viewFrame.setSize(400, 400);
@@ -56,11 +75,11 @@ public class EditorView implements AnimationView {
     buttonPanel.setLayout(new FlowLayout());
     viewFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-    startPauseButton = new JButton("Pause");
-    restartButton = new JButton("Restart");
-    loopButton = new JButton("Loop");
-    speedButton = new JButton("Set Speed");
-    speedInput = new JTextField("1000", 10);
+    startPauseButton = new JButton(PAUSE);
+    restartButton = new JButton(RESTART);
+    loopButton = new JButton(LOOP_ON);
+    speedButton = new JButton(SPEED);
+    speedInput = new JTextField(10);
 
     startPauseButton.setActionCommand("start/pause");
     restartButton.setActionCommand("restart");
@@ -75,17 +94,29 @@ public class EditorView implements AnimationView {
 
     //shape panel
     shapePanel = new JPanel();
+    shapePanel.setBorder(new TitledBorder("Shape"));
     shapePanel.setLayout(new BoxLayout(shapePanel, BoxLayout.Y_AXIS));
-    viewFrame.add(shapePanel, BorderLayout.EAST);
+    viewFrame.add(shapePanel, BorderLayout.WEST);
 
-    rectangleButton = new JButton("Rectangle");
-    ellipseButton = new JButton("Ellipse");
-
-    rectangleButton.setActionCommand("rectangle");
-    ellipseButton.setActionCommand("ellipse");
+    rectangleButton = new JButton(RECTANGLE);
+    ellipseButton = new JButton(ELLIPSE);
+    removeShapeButton = new JButton(REMOVE_SHAPE);
 
     shapePanel.add(rectangleButton);
     shapePanel.add(ellipseButton);
+    shapePanel.add(removeShapeButton);
+
+    //keyframe panel
+    keyFramePanel = new JPanel();
+    keyFramePanel.setBorder(new TitledBorder("KeyFrame"));
+    keyFramePanel.setLayout(new BoxLayout(keyFramePanel, BoxLayout.Y_AXIS));
+    viewFrame.add(keyFramePanel, BorderLayout.EAST);
+
+    addKeyFrameButton = new JButton(ADD_KEYFRAME);
+    removeKeyFrameButton = new JButton(REMOVE_KEYFRAME);
+
+    keyFramePanel.add(addKeyFrameButton);
+    keyFramePanel.add(removeKeyFrameButton);
 
     this.viewFrame.pack();
     viewFrame.setVisible(true);
@@ -99,7 +130,9 @@ public class EditorView implements AnimationView {
    * @param h height of the view
    */
   public void setBounds(int x, int y, int w, int h) {
-    viewFrame.setBounds(x,y,w,h);
+    viewFrame.setBounds(x,y,
+        w + shapePanel.getWidth() + keyFramePanel.getWidth(),
+        h + buttonPanel.getHeight());
   }
 
   /**
@@ -132,10 +165,10 @@ public class EditorView implements AnimationView {
     startPauseButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        if (startPauseButton.getText() == "Start") {
-          startPauseButton.setText("Pause");
+        if (startPauseButton.getText().equals(START)) {
+          startPauseButton.setText(PAUSE);
         } else {
-          startPauseButton.setText("Start");
+          startPauseButton.setText(START);
         }
       }
     });
@@ -143,20 +176,40 @@ public class EditorView implements AnimationView {
     restartButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        startPauseButton.setText("Start");
+        startPauseButton.setText(START);
       }
     });
 
     loopButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        if (loopButton.getText() == "Loop") {
-          loopButton.setText("Loop ✓");
+        if (loopButton.getText().equals(LOOP_ON)) {
+          loopButton.setText(LOOP_OFF);
         } else {
-          loopButton.setText("Loop");
+          loopButton.setText(LOOP_ON);
         }
       }
     });
+
+    PopUpOptionPanel createRectPopup = new PopUpOptionPanel("Add Rectangle");
+    rectangleButton.addActionListener(createRectPopup);
+    createRectPopup.addActionListener(l);
+
+    PopUpOptionPanel createEllipsePopup = new PopUpOptionPanel("Add Ellipse");
+    ellipseButton.addActionListener(createEllipsePopup);
+    createEllipsePopup.addActionListener(l);
+
+    PopUpOptionPanel removeShapePopup = new PopUpOptionPanel("Remove Shape");
+    removeShapeButton.addActionListener(removeShapePopup);
+    removeShapePopup.addActionListener(l);
+
+    PopUpOptionPanel addKeyFramePopup = new PopUpOptionPanel("Add Keyframe");
+    addKeyFrameButton.addActionListener(addKeyFramePopup);
+    addKeyFramePopup.addActionListener(l);
+
+    PopUpOptionPanel removeKeyFramePopup = new PopUpOptionPanel("Remove Keyframe");
+    removeKeyFrameButton.addActionListener(removeKeyFramePopup);
+    removeKeyFramePopup.addActionListener(l);
   }
 
   /**
