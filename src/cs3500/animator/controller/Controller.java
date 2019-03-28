@@ -24,7 +24,6 @@ import java.util.Objects;
 public class Controller implements AnimationController, ActionListener {
   private AnimationView view;
   private AnimationModel model;
-  private int speed = 1;
   private boolean shouldPlay = true;
   private boolean loop = false;
 
@@ -43,8 +42,7 @@ public class Controller implements AnimationController, ActionListener {
 
     this.model = model;
     this.view = view;
-    this.speed = speed;
-    this.view.setSpeedInput(this.speed);
+    setSpeed(speed);
   }
 
   /**
@@ -62,15 +60,14 @@ public class Controller implements AnimationController, ActionListener {
       throw new IllegalArgumentException("Invalid animation speed");
     }
 
-    this.speed = speed;
-    this.model = new Model();
-
     switch (type) {
       case "text":
-        this.view = new TextualView(outFile);
+        this.view = new TextualView();
+        this.view.setOutputFile(outFile);
         break;
       case "svg":
-        this.view = new SVGView(speed, outFile);
+        this.view = new SVGView();
+        this.view.setOutputFile(outFile);
         break;
       case "visual":
         this.view = new VisualView();
@@ -78,11 +75,13 @@ public class Controller implements AnimationController, ActionListener {
       case "edit":
         this.view = new EditorView();
         this.view.setListener(this);
-        this.view.setSpeedInput(this.speed);
         break;
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
+
+    this.model = new Model();
+    setSpeed(speed);
   }
 
   /**
@@ -112,16 +111,15 @@ public class Controller implements AnimationController, ActionListener {
 
       renderView();
       nextTick();
-      try {
-        Thread.sleep(1000 / speed);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
     }
 
     renderView();
 
     if (loop) {
+      if (view instanceof TextualView || view instanceof SVGView) {
+        return;
+      }
+
       restart();
       start();
     }
@@ -146,6 +144,10 @@ public class Controller implements AnimationController, ActionListener {
   public void addShape(String name, String type) {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Objects.requireNonNull(name, "Must have a valid shape type");
+
+    if (name.isEmpty() || type.isEmpty()) {
+      throw new IllegalArgumentException("Empty shape name or type");
+    }
 
     Shape s = null;
     if (type.equals("rectangle")) {
@@ -247,7 +249,11 @@ public class Controller implements AnimationController, ActionListener {
    * @param speed the number of ticks per second
    */
   public void setSpeed(int speed) {
-    this.speed = speed;
+    if (view instanceof TextualView) {
+      return;
+    }
+
+    view.setSpeed(speed);
   }
 
   @Override
@@ -278,7 +284,7 @@ public class Controller implements AnimationController, ActionListener {
         }
         break;
       case "speed":
-        setSpeed(view.getSpeedInput());
+        setSpeed(view.getSpeed());
         break;
       default:
         throw new IllegalArgumentException("Unsupported action command");

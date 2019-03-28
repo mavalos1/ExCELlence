@@ -22,7 +22,7 @@ public class ModelTest {
   }
 
   @Test
-  public void testAddShape() {
+  public void testAddGetShape() {
     AnimationModel model = new Model();
     Rectangle r = new Rectangle("R");
     Ellipse e = new Ellipse("C");
@@ -30,6 +30,9 @@ public class ModelTest {
     model.addShape(e);
     assertEquals("R", model.getShape("R").getName());
     assertEquals("C", model.getShape("C").getName());
+    assertEquals(2, model.getShapes().size());
+    assertEquals("R", model.getShapes().get(0).getName());
+    assertEquals("C", model.getShapes().get(1).getName());
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -40,11 +40,17 @@ public interface AnimationView {
    * Get the speed input by the user.
    * @return the speed in the input box
    */
-  int getSpeedInput();
+  int getSpeed();
 
   /**
    * Set the speed input box to a value.
    * @param speed the speed to set
    */
-  void setSpeedInput(int speed);
+  void setSpeed(int speed);
+
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  void setOutputFile(String outFile);
 }

@@ -21,23 +21,10 @@ public class VisualView implements AnimationView {
   private int y;
   private int w;
   private int h;
+  private int speed;
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
 
-  /**
-   * Set the view bounds.
-   * @param x x-coordinate of the top-left corner of the view
-   * @param y y-coordinate of the top-left corner of the view
-   * @param w width of the view
-   * @param h height of the view
-   */
-  public void setBounds(int x, int y, int w, int h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    viewFrame.setBounds(x,y,w,h);
-  }
 
   /**
    * Initialize the view to a default JPanel, ready for rendering.
@@ -60,6 +47,25 @@ public class VisualView implements AnimationView {
   }
 
   /**
+   * Set the view bounds.
+   * @param x x-coordinate of the top-left corner of the view
+   * @param y y-coordinate of the top-left corner of the view
+   * @param w width of the view
+   * @param h height of the view
+   */
+  public void setBounds(int x, int y, int w, int h) {
+    if (w < 0 || h < 0) {
+      throw new IllegalArgumentException("Width or height is negative");
+    }
+
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    viewFrame.setBounds(x,y,w,h);
+  }
+
+  /**
    * Render the shapes provided at the current tick.
    * @param tick the current tick of the model
    * @param shapes the list of shape to be rendered
@@ -68,6 +74,12 @@ public class VisualView implements AnimationView {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
+
+    try {
+      Thread.sleep(1000 / speed);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -82,15 +94,27 @@ public class VisualView implements AnimationView {
    * Get the speed input by the user.
    * @return the speed in the input box
    */
-  public int getSpeedInput() {
-    throw new UnsupportedOperationException("Visual view does not support input");
+  public int getSpeed() {
+    return speed;
   }
 
   /**
    * Set the speed input box to a value.
    * @param speed the speed to set
    */
-  public void setSpeedInput(int speed) {
-    throw new UnsupportedOperationException("Visual view does not support input");
+  public void setSpeed(int speed) {
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
+    }
+
+    this.speed = speed;
+  }
+
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  public void setOutputFile(String outFile) {
+    throw new UnsupportedOperationException("Visual view does not support file output");
   }
 }

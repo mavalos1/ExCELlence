@@ -126,7 +126,7 @@ public class Rectangle implements Shape {
 
     Transition t = transitions.get(currentTransition);
 
-    if (currentTick < t.beginTime) {
+    if (currentTick < t.beginTime && t.beginTime != 0) {
       return;
     }
 
@@ -176,13 +176,34 @@ public class Rectangle implements Shape {
    */
   public String toSVG(int tickMS) {
     StringBuilder toSVG = new StringBuilder();
-    toSVG.append(String.format("\n<rect id=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" " +
+    toSVG.append(String.format(
+        "\n<rect id=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" " +
             "height=\"%.2f\" fill=\"rgb(%.0f,%.0f,%.0f)\" visibility=\"visible\" >",
         name, position.getX(), position.getY(),
-        size.getW(), size.getH(), color.getR(), color.getG(), color.getB()));
+        size.getW(), size.getH(), color.getR(), color.getG(), color.getB())
+    );
 
-    for (Transition t : transitions) {
-      toSVG.append(transitionToSVG(t, tickMS));
+    if (!transitions.isEmpty()) {
+      Transition t0 = transitions.get(0);
+      toSVG.append(String.format("\n\t<set attributeType=\"xml\" attributeName=\"x\" " +
+              "begin=\"%dms\" to=\"%d\" fill=\"freeze\" />",
+          t0.beginTime * tickMS, t0.x1));
+      toSVG.append(String.format("\n\t<set attributeType=\"xml\" attributeName=\"y\" " +
+              "begin=\"%dms\" to=\"%d\" fill=\"freeze\" />",
+          t0.beginTime * tickMS, t0.y1));
+      toSVG.append(String.format("\n\t<set attributeType=\"xml\" attributeName=\"width\" " +
+              "begin=\"%dms\" to=\"%d\" fill=\"freeze\" />",
+          t0.beginTime * tickMS, t0.w1));
+      toSVG.append(String.format("\n\t<set attributeType=\"xml\" attributeName=\"height\" " +
+              "begin=\"%dms\" to=\"%d\" fill=\"freeze\" />",
+          t0.beginTime * tickMS, t0.h1));
+      toSVG.append(String.format("\n\t<set attributeName=\"fill\" begin=\"%dms\" " +
+              "to=\"rgb(%d,%d,%d)\" fill=\"freeze\" />",
+          t0.beginTime * tickMS, t0.r1, t0.g1, t0.b1));
+
+      for (Transition t : transitions) {
+        toSVG.append(transitionToSVG(t, tickMS));
+      }
     }
 
     toSVG.append("\n</rect>");
@@ -226,7 +247,7 @@ public class Rectangle implements Shape {
     if (t.r1 != t.r2 || t.g1 != t.g2 || t.b1 != t.b2) {
       toSVG.append(
               String.format("\n\t<animate attributeName=\"fill\" begin=\"%dms\" dur=\"%dms\" " +
-              "from=\"rgb(%d,%d,%d)\" to=\"rgb(%d,%d,%d)\"/>",
+              "from=\"rgb(%d,%d,%d)\" to=\"rgb(%d,%d,%d)\"  fill=\"freeze\"/>",
           t.beginTime * tickMS, t.duration * tickMS, t.r1, t.g1, t.b1, t.r2, t.g2, t.b2));
     }
 

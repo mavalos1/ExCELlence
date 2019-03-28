@@ -114,7 +114,7 @@ public class EditorView implements AnimationView {
    * Get the speed input by the user.
    * @return the speed in the input box
    */
-  public int getSpeedInput() {
+  public int getSpeed() {
     return Integer.parseInt(speedInput.getText());
   }
 
@@ -122,7 +122,16 @@ public class EditorView implements AnimationView {
    * Set the speed input box to a value.
    * @param speed the speed to set
    */
-  public void setSpeedInput(int speed) {
+  public void setSpeed(int speed) {
     speedInput.setText(Integer.toString(speed));
+  }
+
+
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  public void setOutputFile(String outFile) {
+    throw new UnsupportedOperationException("Editor view does not support file output");
   }
 }
