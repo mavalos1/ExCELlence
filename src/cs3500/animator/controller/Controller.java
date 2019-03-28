@@ -121,7 +121,6 @@ public class Controller implements AnimationController, ActionListener {
       }
 
       restart();
-      start();
     }
   }
 
@@ -229,7 +228,12 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void restart() {
     shouldPlay = false;
-    model.reset();
+    if (!model.canTick()) {
+      model.reset();
+      start();
+    } else {
+      model.reset();
+    }
     renderView();
   }
 
