@@ -113,6 +113,7 @@ public class Controller implements AnimationController, ActionListener {
       nextTick();
     }
 
+    shouldPlay = false;
     renderView();
 
     if (loop) {
@@ -257,29 +258,12 @@ public class Controller implements AnimationController, ActionListener {
     switch (e.getActionCommand()) {
       case "start/pause":
         togglePause();
-        JButton sButton = (JButton) e.getSource();
-
-        if (shouldPlay) {
-          sButton.setText("Pause");
-          System.out.println("Pause");
-        } else {
-          sButton.setText("Start");
-          System.out.println("Start");
-        }
-
         break;
       case "restart":
         restart();
         break;
       case "loop":
         toggleLoop();
-        JButton lButton = (JButton) e.getSource();
-
-        if (loop) {
-          lButton.setText("Loop ✓");
-        } else {
-          lButton.setText("Loop");
-        }
         break;
       case "speed":
         setSpeed(view.getSpeed());

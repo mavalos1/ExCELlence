@@ -4,6 +4,7 @@ import cs3500.animator.model.shapes.Shape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -127,6 +128,35 @@ public class EditorView implements AnimationView {
     restartButton.addActionListener(l);
     loopButton.addActionListener(l);
     speedButton.addActionListener(l);
+
+    startPauseButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (startPauseButton.getText() == "Start") {
+          startPauseButton.setText("Pause");
+        } else {
+          startPauseButton.setText("Start");
+        }
+      }
+    });
+
+    restartButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        startPauseButton.setText("Start");
+      }
+    });
+
+    loopButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (loopButton.getText() == "Loop") {
+          loopButton.setText("Loop ✓");
+        } else {
+          loopButton.setText("Loop");
+        }
+      }
+    });
   }
 
   /**
