@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.util.List;
 
+/**
+ * This class represents the implementation of the visual animation view panel
+ * <p>
+ *   The shape will be painted to the panel using JavaSwing. The supported types of shapes are
+ *   retangle and ellipse.
+ * </p>
+ */
 public class AnimationPanel extends JPanel {
   private List<Shape> shapes;
 

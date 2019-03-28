@@ -7,15 +7,28 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * This class represents the implementation of the editor view.
+ * <p>
+ *   This class reuses the JPanel animation panel of the visual view, and display additional
+ *   control around it. The supported runtime controls are: start, pause, restart, loop, and set
+ *   speed.
+ *   The view also displays controls to add/modify/delete shapes in the animation. The current
+ *   supported types are rectangle and ellipse.
+ * </p>
+ */
 public class EditorView implements AnimationView {
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
+  private int speed;
+
   private JPanel buttonPanel;
   private JButton startPauseButton;
   private JButton restartButton;
   private JButton loopButton;
   private JButton speedButton;
   private JTextField speedInput;
+
   private JPanel shapePanel;
   private JButton rectangleButton;
   private JButton ellipseButton;
@@ -97,6 +110,12 @@ public class EditorView implements AnimationView {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
+
+    try {
+      Thread.sleep(1000 / speed);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -115,7 +134,8 @@ public class EditorView implements AnimationView {
    * @return the speed in the input box
    */
   public int getSpeed() {
-    return Integer.parseInt(speedInput.getText());
+    speed = Integer.parseInt(speedInput.getText());
+    return speed;
   }
 
   /**
@@ -123,6 +143,7 @@ public class EditorView implements AnimationView {
    * @param speed the speed to set
    */
   public void setSpeed(int speed) {
+    this.speed = speed;
     speedInput.setText(Integer.toString(speed));
   }
 

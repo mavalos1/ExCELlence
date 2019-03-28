@@ -78,12 +78,11 @@ public class Model implements AnimationModel {
       throw new IllegalStateException("No valid shape to tick");
     }
 
+    currentTick++;
+
     for (Shape s : shapes) {
       s.tick(currentTick);
     }
-
-    currentTick++;
-
   }
 
   /**

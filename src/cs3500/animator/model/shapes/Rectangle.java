@@ -111,6 +111,12 @@ public class Rectangle implements Shape {
         }
       }
 
+      if (t.beginTime == 0) {
+        position = new Position2D(t.x1, t.y1);
+        size = new Size(t.w1, t.h1);
+        color = new Color(t.r1, t.g1, t.b1);
+      }
+
       transitions.add(t);
     }
   }
@@ -126,11 +132,7 @@ public class Rectangle implements Shape {
 
     Transition t = transitions.get(currentTransition);
 
-    if (currentTick < t.beginTime && t.beginTime != 0) {
-      return;
-    }
-
-    if (currentTick == t.beginTime) {
+    if (currentTick == t.beginTime || (t.beginTime == 0 && t.duration == 0)) {
       position = new Position2D(t.x1, t.y1);
       size = new Size(t.w1, t.h1);
       color = new Color(t.r1, t.g1, t.b1);
@@ -139,7 +141,7 @@ public class Rectangle implements Shape {
         currentTransition++;
         tick(currentTick);
       }
-    } else {
+    } else if (currentTick > t.beginTime) {
       position = new Position2D(
           position.getX() + (t.x2 - t.x1) / (double) t.duration,
           position.getY() + (t.y2 - t.y1) / (double) t.duration
@@ -261,7 +263,7 @@ public class Rectangle implements Shape {
     currentTransition = 0;
     Transition t0 = transitions.get(0);
 
-    if (t0.beginTime > 1) {
+    if (t0.beginTime > 0) {
       position = new Position2D();
       size = new Size();
       color = new Color();
