@@ -44,7 +44,7 @@ public class EditorView implements AnimationView {
 
     startPauseButton = new JButton("Pause");
     restartButton = new JButton("Restart");
-    loopButton = new JButton("Loop ✓");
+    loopButton = new JButton("Loop");
     speedButton = new JButton("Set Speed");
     speedInput = new JTextField("1000", 10);
 

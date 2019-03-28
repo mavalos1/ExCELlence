@@ -89,12 +89,6 @@ public class Rectangle implements Shape {
   public void addTransition(Transition... tr) {
     Objects.requireNonNull(tr, "Must have a valid transition list to add");
 
-    if (transitions.isEmpty()) {
-      position = new Position2D(tr[0].x1, tr[0].y1);
-      size = new Size(tr[0].w1, tr[0].h1);
-      color = new Color(tr[0].r1, tr[0].g1, tr[0].b1);
-    }
-
     for (Transition t : tr) {
       for (Transition inT : transitions) {
         if ((inT.beginTime > t.beginTime && inT.beginTime < t.endTime) ||
@@ -136,14 +130,15 @@ public class Rectangle implements Shape {
       return;
     }
 
-    if (t.duration == 0) {
-      t.duration = 1;
-    }
-
     if (currentTick == t.beginTime) {
       position = new Position2D(t.x1, t.y1);
       size = new Size(t.w1, t.h1);
       color = new Color(t.r1, t.g1, t.b1);
+
+      if (t.duration == 0) {
+        currentTransition++;
+        tick(currentTick);
+      }
     } else {
       position = new Position2D(
           position.getX() + (t.x2 - t.x1) / (double) t.duration,
@@ -154,9 +149,9 @@ public class Rectangle implements Shape {
           size.getH() + (t.h2 - t.h1) / (double) t.duration
       );
       color = new Color(
-          color.getR() + (t.r2 - t.r1) / t.duration,
-          color.getG() + (t.g2 - t.g1) / t.duration,
-          color.getB() + (t.b2 - t.b1) / t.duration
+          color.getR() + (t.r2 - t.r1) / (double) t.duration,
+          color.getG() + (t.g2 - t.g1) / (double) t.duration,
+          color.getB() + (t.b2 - t.b1) / (double) t.duration
       );
 
       if (currentTick >= t.endTime) {
@@ -182,7 +177,7 @@ public class Rectangle implements Shape {
   public String toSVG(int tickMS) {
     StringBuilder toSVG = new StringBuilder();
     toSVG.append(String.format("\n<rect id=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" " +
-            "height=\"%.2f\" fill=\"rgb(%d,%d,%d)\" visibility=\"visible\" >",
+            "height=\"%.2f\" fill=\"rgb(%.0f,%.0f,%.0f)\" visibility=\"visible\" >",
         name, position.getX(), position.getY(),
         size.getW(), size.getH(), color.getR(), color.getG(), color.getB()));
 
@@ -243,10 +238,17 @@ public class Rectangle implements Shape {
    */
   public void reset() {
     currentTransition = 0;
-    Transition t0 = transitions.get(currentTransition);
-    this.position = new Position2D(t0.x1, t0.y1);
-    this.size = new Size(t0.w1, t0.h1);
-    this.color = new Color(t0.r1, t0.g1, t0.b1);
+    Transition t0 = transitions.get(0);
+
+    if (t0.beginTime > 1) {
+      position = new Position2D();
+      size = new Size();
+      color = new Color();
+    } else {
+      position = new Position2D(t0.x1, t0.y1);
+      size = new Size(t0.w1, t0.h1);
+      color = new Color(t0.r1, t0.g1, t0.b1);
+    }
   }
 
   /**
@@ -271,23 +273,36 @@ public class Rectangle implements Shape {
    * @param b    The blue color-value of the shape
    */
   public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
-    Transition firstTr = transitions.get(0);
-    Transition lastTr = transitions.get(transitions.size());
+    if (transitions.isEmpty()) {
+      transitions.add(new Transition(
+          t, t,
+          x, y, w, h, r, g, b,
+          x, y, w, h, r, g, b
+      ));
 
+      return;
+    }
+
+    Transition firstTr = transitions.get(0);
     if (t < firstTr.beginTime) {
       transitions.add(0, new Transition(
           t, firstTr.beginTime,
           x, y, w, h, r, g, b,
           firstTr.x1, firstTr.y1, firstTr.w1, firstTr.h1, firstTr.r1, firstTr.g1, firstTr.b1
       ));
+
+      return;
     }
 
+    Transition lastTr = transitions.get(transitions.size() - 1);
     if (t > lastTr.endTime) {
       transitions.add(new Transition(
           lastTr.endTime, t,
           lastTr.x2, lastTr.y2, lastTr.w2, lastTr.h2, lastTr.r2, lastTr.g2, lastTr.b2,
           x, y, w, h, r, g, b
       ));
+
+      return;
     }
 
     for (int i = 0; i < transitions.size(); i++) {
@@ -315,29 +330,6 @@ public class Rectangle implements Shape {
         return;
       }
 
-      if (tr.endTime == t) {
-        tr.x2 = x;
-        tr.y2 = y;
-        tr.w2 = w;
-        tr.h2 = h;
-        tr.r2 = r;
-        tr.g2 = g;
-        tr.b2 = h;
-
-        if (i < transitions.size()) {
-          Transition nextTr = transitions.get(transitions.size() + 1);
-          nextTr.x1 = x;
-          nextTr.y1 = y;
-          nextTr.w1 = w;
-          nextTr.h1 = h;
-          nextTr.r1 = r;
-          nextTr.g1 = g;
-          nextTr.b1 = b;
-        }
-
-        return;
-      }
-
       if (tr.endTime > t && t > tr.beginTime) {
         Transition newTr0 = new Transition(
             tr.beginTime, t,
@@ -359,23 +351,35 @@ public class Rectangle implements Shape {
 
   /**
    * Delete a keyframe from the shape's transition.
+   * <p>
+   *   If the keyframe timestamp is the begin time of the first transition, the whole first
+   *   transition is deleted. Similarly for the last transition if the keyframe timestamp is the
+   *   last end time.
+   *
+   *   If the keyframe timestamp is an intermediate keyframe, the two adjacent transitions before
+   *   and after that keyframe timestamp is merged.
+   * </p>
    * @param t    The time for this keyframe
-   * @param x    The x-position of the shape
-   * @param y    The y-position of the shape
-   * @param w    The width of the shape
-   * @param h    The height of the shape
-   * @param r    The red color-value of the shape
-   * @param g    The green color-value of the shape
-   * @param b    The blue color-value of the shape
    * @throws IllegalArgumentException if the keyframe timestamp does not exist
    * @return
    */
-  public void deleteKeyFrame(
-      int t, int x, int y, int w, int h, int r, int g, int b) {
+  public void deleteKeyFrame(int t) {
+    Transition firstTr = transitions.get(0);
+    if (t == transitions.get(0).beginTime) {
+      transitions.remove(firstTr);
+      return;
+    }
+
+    Transition lastTr = transitions.get(transitions.size() - 1);
+    if (t == lastTr.endTime) {
+      transitions.remove(lastTr);
+      return;
+    }
+
     for (int i = 0; i < transitions.size(); i++) {
       Transition tr = transitions.get(i);
 
-      if(tr.endTime == t) {
+      if (tr.endTime == t) {
         Transition nextTr = transitions.get(i + 1);
         Transition mergedTr = new Transition(
             tr.beginTime, nextTr.endTime,
@@ -385,9 +389,9 @@ public class Rectangle implements Shape {
 
         transitions.set(i, mergedTr);
         transitions.remove(i + 1);
-      }
 
-      return;
+        return;
+      }
     }
 
     throw new IllegalArgumentException("No valid key frame associated with such timestamp");

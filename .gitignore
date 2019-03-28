@@ -9,4 +9,5 @@ bin/*
 **.txt
 **.zip
 **.MF
+**.svg
 target/*

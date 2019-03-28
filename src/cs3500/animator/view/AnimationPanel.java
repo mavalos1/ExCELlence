@@ -22,24 +22,22 @@ public class AnimationPanel extends JPanel {
     this.shapes = shapes;
   }
 
-  public void paintComponent(Graphics g) {
-    int x;
-    int y;
-    int w;
-    int h;
-
+  public void paintComponent(Graphics gr) {
     for (Shape s : shapes) {
-      x = (int) Math.round(s.getPosition().getX());
-      y = (int) Math.round(s.getPosition().getY());
-      w = (int) Math.round(s.getSize().getW());
-      h = (int) Math.round(s.getSize().getH());
+      int x = (int) Math.round(s.getPosition().getX());
+      int y = (int) Math.round(s.getPosition().getY());
+      int w = (int) Math.round(s.getSize().getW());
+      int h = (int) Math.round(s.getSize().getH());
+      int r = (int) Math.round(s.getColor().getR());
+      int g = (int) Math.round(s.getColor().getG());
+      int b = (int) Math.round(s.getColor().getB());
 
-      g.setColor(new Color(s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
+      gr.setColor(new Color(r, g, b));
 
       if (s.getShapeType().equals("ellipse")) {
-        g.fillOval(x, y, w, h);
+        gr.fillOval(x, y, w, h);
       } else if (s.getShapeType().equals("rectangle")) {
-        g.fillRect(x, y, w, h);
+        gr.fillRect(x, y, w, h);
       }
     }
   }

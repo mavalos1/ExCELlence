@@ -51,6 +51,10 @@ public class Transition {
       int x1, int y1, int w1, int h1, int r1, int g1, int b1,
       int x2, int y2, int w2, int h2, int r2, int g2, int b2
   ) {
+    if (beginTime < 0 || beginTime > endTime) {
+      throw new IllegalArgumentException("Invalid transition begin-end time");
+    }
+
     this.beginTime = beginTime;
     this.endTime = endTime;
     this.duration = endTime - beginTime;

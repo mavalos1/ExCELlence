@@ -26,7 +26,7 @@ public class Controller implements AnimationController, ActionListener {
   private AnimationModel model;
   private int speed = 1;
   private boolean shouldPlay = true;
-  private boolean loop = true;
+  private boolean loop = false;
 
   /**
    * Initialize the controller.
@@ -184,7 +184,7 @@ public class Controller implements AnimationController, ActionListener {
                             int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Transition t = new Transition(t1, t2, x1, y1, w1, h1, r1, g1, b1, x2, y2, w2, h2, r2, g2, b2);
-    model.getShape(name).addTransition(t);
+    model.addTransition(name, t);
   }
 
   /**
@@ -202,27 +202,17 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void addKeyFrame(
       String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-    Shape s = model.getShape(name);
-    s.addKeyFrame(t, x, y, w, h, r, g, b);
+    model.addKeyFrame(name, t, x, y, w, h, r, g, b);
   }
 
   /**
    * Delete a keyframe from the animation.
    * @param name The name of the shape
    * @param t    The time for this keyframe
-   * @param x    The x-position of the shape
-   * @param y    The y-position of the shape
-   * @param w    The width of the shape
-   * @param h    The height of the shape
-   * @param r    The red color-value of the shape
-   * @param g    The green color-value of the shape
-   * @param b    The blue color-value of the shape
    * @return
    */
-  public void deleteKeyFrame(
-      String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-    Shape s = model.getShape(name);
-    s.deleteKeyFrame(t, x, y, w, h, r, g, b);
+  public void deleteKeyFrame(String name, int t) {
+    model.deleteKeyFrame(name, t);
   }
 
   /**
