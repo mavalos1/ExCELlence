@@ -168,7 +168,19 @@ public class Rectangle implements Shape {
    * @return
    */
   public boolean canTick(int currentTick) {
-    return !transitions.isEmpty() && (currentTransition < transitions.size());
+    if (transitions.isEmpty()) {
+      return false;
+    }
+
+    if (currentTransition >= transitions.size()) {
+      return false;
+    }
+
+    if (currentTick > transitions.get(transitions.size() - 1).endTime) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -263,7 +275,7 @@ public class Rectangle implements Shape {
     currentTransition = 0;
     Transition t0 = transitions.get(0);
 
-    if (t0.beginTime > 0) {
+    if (t0.beginTime > 1) {
       position = new Position2D();
       size = new Size();
       color = new Color();
