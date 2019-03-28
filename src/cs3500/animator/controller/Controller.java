@@ -106,7 +106,7 @@ public class Controller implements AnimationController, ActionListener {
 
     while (model.canTick()) {
       if (!shouldPlay) {
-        return;
+        continue;
       }
 
       renderView();
@@ -222,10 +222,6 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void togglePause() {
     shouldPlay = !shouldPlay;
-    if (shouldPlay) {
-      //TODO: fix unpause
-      //start();
-    }
   }
 
   /**
@@ -265,8 +261,10 @@ public class Controller implements AnimationController, ActionListener {
 
         if (shouldPlay) {
           sButton.setText("Pause");
+          System.out.println("Pause");
         } else {
           sButton.setText("Start");
+          System.out.println("Start");
         }
 
         break;
