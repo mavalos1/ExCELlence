@@ -26,6 +26,7 @@ public class Controller implements AnimationController, ActionListener {
   private AnimationModel model;
   private boolean shouldPlay = true;
   private boolean loop = false;
+  private boolean looping = false;
 
   /**
    * Initialize the controller.
@@ -102,26 +103,28 @@ public class Controller implements AnimationController, ActionListener {
    * Animate the model till the end.
    */
   public void start() {
-    shouldPlay = true;
-
-    while (model.canTick()) {
+    while (true) {
+      looping = true;
       if (!shouldPlay) {
+        System.out.println("should not play");
         continue;
+      } else {
+        System.out.println("should play");
       }
 
       renderView();
       nextTick();
-    }
 
-    shouldPlay = false;
-    renderView();
+      if (!model.canTick()) {
+        shouldPlay = false;
+        if (loop) {
+          if (view instanceof TextualView || view instanceof SVGView) {
+            return;
+          }
 
-    if (loop) {
-      if (view instanceof TextualView || view instanceof SVGView) {
-        return;
+          restart();
+        }
       }
-
-      restart();
     }
   }
 
@@ -222,6 +225,9 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void togglePause() {
     shouldPlay = !shouldPlay;
+    //if (!looping) {
+    //  start();
+    //}
   }
 
   /**
@@ -229,13 +235,11 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void restart() {
     shouldPlay = false;
-    if (!model.canTick()) {
-      model.reset();
-      start();
-    } else {
-      model.reset();
-    }
+    model.reset();
     renderView();
+    //if (!looping) {
+    //  start();
+    //}
   }
 
   /**
