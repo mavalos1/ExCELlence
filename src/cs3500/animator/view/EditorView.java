@@ -16,6 +16,9 @@ public class EditorView implements AnimationView {
   private JButton loopButton;
   private JButton speedButton;
   private JTextField speedInput;
+  private JPanel shapePanel;
+  private JButton rectangleButton;
+  private JButton ellipseButton;
 
   /**
    * Initialize the view to a default JPanel, ready for rendering.
@@ -55,6 +58,20 @@ public class EditorView implements AnimationView {
     buttonPanel.add(loopButton);
     buttonPanel.add(speedInput);
     buttonPanel.add(speedButton);
+
+    //shape panel
+    shapePanel = new JPanel();
+    shapePanel.setLayout(new BoxLayout(shapePanel, BoxLayout.Y_AXIS));
+    viewFrame.add(shapePanel, BorderLayout.EAST);
+
+    rectangleButton = new JButton("Rectangle");
+    ellipseButton = new JButton("Ellipse");
+
+    rectangleButton.setActionCommand("rectangle");
+    ellipseButton.setActionCommand("ellipse");
+
+    shapePanel.add(rectangleButton);
+    shapePanel.add(ellipseButton);
 
     this.viewFrame.pack();
     viewFrame.setVisible(true);

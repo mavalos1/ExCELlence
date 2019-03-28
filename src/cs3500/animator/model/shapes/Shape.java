@@ -82,4 +82,32 @@ public interface Shape {
    * Reset the transition list.
    */
   void reset();
+
+  /**
+   * Add a new key frame to the transition list.
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   */
+  void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b);
+
+  /**
+   * Delete a keyframe from the transition list.
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @return
+   */
+  void deleteKeyFrame(
+      int t, int x, int y, int w, int h, int r, int g, int b);
 }

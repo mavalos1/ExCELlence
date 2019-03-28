@@ -70,6 +70,38 @@ public interface AnimationController {
                      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
 
   /**
+   * Adds a keyframe to the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @return
+   */
+  void addKeyFrame(
+      String name, int t, int x, int y, int w, int h, int r, int g, int b);
+
+  /**
+   * Delete a keyframe from the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @return
+   */
+  void deleteKeyFrame(
+      String name, int t, int x, int y, int w, int h, int r, int g, int b);
+
+  /**
    * Play/pause the animation.
    */
   void togglePause();

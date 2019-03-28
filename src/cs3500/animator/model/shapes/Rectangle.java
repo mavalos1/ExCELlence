@@ -249,6 +249,150 @@ public class Rectangle implements Shape {
     this.color = new Color(t0.r1, t0.g1, t0.b1);
   }
 
+  /**
+   * Add a new key frame to the transition list.
+   * <p>
+   *   If new keyframe timestamp is earlier than the shape's first keyframe or later than the
+   *   last keyframe. A new transition is simply added to the front/end of the list, respectively.
+   *
+   *   If new keyframe timestamp is splitting in the middle of the animation, the transitions is
+   *   splitted into 2 smaller transitions with the new keyframe changes accounted for.
+   *
+   *   if new keyframe is directly overlapping on another keyframe, the old keyframe will be
+   *   removed.
+   * </p>
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   */
+  public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+    Transition firstTr = transitions.get(0);
+    Transition lastTr = transitions.get(transitions.size());
+
+    if (t < firstTr.beginTime) {
+      transitions.add(0, new Transition(
+          t, firstTr.beginTime,
+          x, y, w, h, r, g, b,
+          firstTr.x1, firstTr.y1, firstTr.w1, firstTr.h1, firstTr.r1, firstTr.g1, firstTr.b1
+      ));
+    }
+
+    if (t > lastTr.endTime) {
+      transitions.add(new Transition(
+          lastTr.endTime, t,
+          lastTr.x2, lastTr.y2, lastTr.w2, lastTr.h2, lastTr.r2, lastTr.g2, lastTr.b2,
+          x, y, w, h, r, g, b
+      ));
+    }
+
+    for (int i = 0; i < transitions.size(); i++) {
+      Transition tr = transitions.get(i);
+      if (tr.beginTime == t) {
+        tr.x1 = x;
+        tr.y1 = y;
+        tr.w1 = w;
+        tr.h1 = h;
+        tr.r1 = r;
+        tr.g1 = g;
+        tr.b1 = h;
+
+        if (i > 0) {
+          Transition prevTr = transitions.get(i - 1);
+          prevTr.x2 = x;
+          prevTr.y2 = y;
+          prevTr.w2 = w;
+          prevTr.h2 = h;
+          prevTr.r2 = r;
+          prevTr.g2 = g;
+          prevTr.b2 = b;
+        }
+
+        return;
+      }
+
+      if (tr.endTime == t) {
+        tr.x2 = x;
+        tr.y2 = y;
+        tr.w2 = w;
+        tr.h2 = h;
+        tr.r2 = r;
+        tr.g2 = g;
+        tr.b2 = h;
+
+        if (i < transitions.size()) {
+          Transition nextTr = transitions.get(transitions.size() + 1);
+          nextTr.x1 = x;
+          nextTr.y1 = y;
+          nextTr.w1 = w;
+          nextTr.h1 = h;
+          nextTr.r1 = r;
+          nextTr.g1 = g;
+          nextTr.b1 = b;
+        }
+
+        return;
+      }
+
+      if (tr.endTime > t && t > tr.beginTime) {
+        Transition newTr0 = new Transition(
+            tr.beginTime, t,
+            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1,
+            x, y, w, h, r, g, b);
+        Transition newTr1 = new Transition(
+            t, tr.endTime,
+          x, y, w, h, r, g, b,
+          tr.x2, tr.y2, tr.w2, tr.h2, tr.r2, tr.g2, tr.b2
+        );
+
+        transitions.set(i, newTr0);
+        transitions.add(i + 1, newTr1);
+
+        return;
+      }
+    }
+  }
+
+  /**
+   * Delete a keyframe from the shape's transition.
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @throws IllegalArgumentException if the keyframe timestamp does not exist
+   * @return
+   */
+  public void deleteKeyFrame(
+      int t, int x, int y, int w, int h, int r, int g, int b) {
+    for (int i = 0; i < transitions.size(); i++) {
+      Transition tr = transitions.get(i);
+
+      if(tr.endTime == t) {
+        Transition nextTr = transitions.get(i + 1);
+        Transition mergedTr = new Transition(
+            tr.beginTime, nextTr.endTime,
+            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1,
+            nextTr.x2, nextTr.y2, nextTr.w2, nextTr.h2, nextTr.r2, nextTr.g2, nextTr.b2
+        );
+
+        transitions.set(i, mergedTr);
+        transitions.remove(i + 1);
+      }
+
+      return;
+    }
+
+    throw new IllegalArgumentException("No valid key frame associated with such timestamp");
+  }
+
   @Override
   public String getShapeType() {
     return "rectangle";
