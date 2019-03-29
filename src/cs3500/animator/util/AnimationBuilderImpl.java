@@ -18,7 +18,7 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @return an animation controller
    */
   public AnimationController build() {
-    controller.animate();
+    controller.start();
 
     return controller;
   }
@@ -97,9 +97,7 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    */
   public AnimationBuilder<AnimationController> addKeyframe(
       String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-    // Our model does not allow to add an individual key frame, yet.
-    // controller.addFrame(name, t, x, y, w, h, r, g, b);
-
+    controller.addKeyFrame(name, t, x, y, w, h, r, g, b);
     return this;
   }
 }

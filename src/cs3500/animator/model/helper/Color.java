@@ -3,13 +3,13 @@ package cs3500.animator.model.helper;
 import java.util.Objects;
 
 /**
- * This class represents a RGB-coded color. Three integer code in the range of (0, 255) uniquely
+ * This class represents a RGB-coded color. Three code in the range of (0, 255) uniquely
  * identify each color code.
  */
 public class Color {
-  private int r;
-  private int g;
-  private int b;
+  private double r;
+  private double g;
+  private double b;
 
   /**
    * Initialize the color to the code.
@@ -17,7 +17,7 @@ public class Color {
    * @param g green
    * @param b blue
    */
-  public Color(int r, int g, int b) {
+  public Color(double r, double g, double b) {
     this.setR(r);
     this.setG(g);
     this.setB(b);
@@ -43,7 +43,7 @@ public class Color {
    *
    * @return r
    */
-  public int getR() {
+  public double getR() {
     return r;
   }
 
@@ -52,7 +52,7 @@ public class Color {
    *
    * @param r the red componenet
    */
-  private void setR(int r) {
+  private void setR(double r) {
     if (r < 0) {
       r += 256;
     }
@@ -64,7 +64,7 @@ public class Color {
    *
    * @return g green
    */
-  public int getG() {
+  public double getG() {
     return g;
   }
 
@@ -73,7 +73,7 @@ public class Color {
    *
    * @param g green
    */
-  private void setG(int g) {
+  private void setG(double g) {
     if (g < 0) {
       g += 256;
     }
@@ -85,7 +85,7 @@ public class Color {
    *
    * @return b blue
    */
-  public int getB() {
+  public double getB() {
     return b;
   }
 
@@ -94,7 +94,7 @@ public class Color {
    *
    * @param b blue
    */
-  private void setB(int b) {
+  private void setB(double b) {
     if (b < 0) {
       b += 256;
     }
@@ -112,7 +112,9 @@ public class Color {
 
     Color that = (Color) a;
 
-    return (this.r == that.r && this.g == that.g && this.b == that.b);
+    return ((Math.abs(this.r - that.r) < 0.01)
+        && (Math.abs(this.g - that.g) < 0.01)
+        && (Math.abs(this.b - that.b) < 0.01));
   }
 
   @Override

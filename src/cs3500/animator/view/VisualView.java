@@ -2,14 +2,11 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
-import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -20,8 +17,32 @@ import java.util.List;
  * </p>
  */
 public class VisualView implements AnimationView {
+  private int w;
+  private int h;
+  private int speed;
   private JFrame viewFrame;
   private AnimationPanel animationPanel;
+
+
+  /**
+   * Initialize the view to a default JPanel, ready for rendering.
+   */
+  public VisualView() {
+    JScrollPane scrollPane;
+    viewFrame = new JFrame();
+    viewFrame.setTitle("Animation Visual View");
+    viewFrame.setSize(w, h);
+    viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    this.viewFrame.setLayout(new BorderLayout());
+    animationPanel = new AnimationPanel();
+    animationPanel.setPreferredSize(new Dimension(w, h));
+    animationPanel.setLayout(null);
+    scrollPane = new JScrollPane(animationPanel);
+    this.viewFrame.add(scrollPane, BorderLayout.CENTER);
+    this.viewFrame.pack();
+    viewFrame.setVisible(true);
+  }
 
   /**
    * Set the view bounds.
@@ -31,27 +52,13 @@ public class VisualView implements AnimationView {
    * @param h height of the view
    */
   public void setBounds(int x, int y, int w, int h) {
+    if (w < 0 || h < 0) {
+      throw new IllegalArgumentException("Width or height is negative");
+    }
+
+    this.w = w;
+    this.h = h;
     viewFrame.setBounds(x,y,w,h);
-  }
-
-  /**
-   * Initialize the view to a default JPanel, ready for rendering.
-   */
-  public VisualView() {
-    JScrollPane scrollPane;
-    viewFrame = new JFrame();
-    viewFrame.setTitle("Animation Visual View");
-    viewFrame.setSize(400, 400);
-    viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    this.viewFrame.setLayout(new BorderLayout());
-    animationPanel = new AnimationPanel();
-    animationPanel.setPreferredSize(new Dimension(500, 500));
-    animationPanel.setLayout(null);
-    scrollPane = new JScrollPane(animationPanel);
-    this.viewFrame.add(scrollPane, BorderLayout.CENTER);
-    this.viewFrame.pack();
-    viewFrame.setVisible(true);
   }
 
   /**
@@ -63,41 +70,47 @@ public class VisualView implements AnimationView {
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
+
+    try {
+      Thread.sleep(1000 / speed);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
-  class AnimationPanel extends JPanel {
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("Visual view does not support action listener");
+  }
 
-    private List<Shape> shapes;
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  public int getSpeed() {
+    return speed;
+  }
 
-    public AnimationPanel() {
-      super();
-      this.shapes = new ArrayList<>();
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  public void setSpeed(int speed) {
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
     }
 
-    public void setShapes(List<Shape> shapes) {
-      this.shapes = shapes;
-    }
+    this.speed = speed;
+  }
 
-    public void paintComponent(Graphics g) {
-      int x;
-      int y;
-      int w;
-      int h;
-
-      for (Shape s : shapes) {
-        x = (int) Math.round(s.getPosition().getX());
-        y = (int) Math.round(s.getPosition().getY());
-        w = (int) Math.round(s.getSize().getW());
-        h = (int) Math.round(s.getSize().getH());
-
-        g.setColor(new Color(s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
-
-        if (s.getShapeType().equals("ellipse")) {
-          g.fillOval(x, y, w, h);
-        } else if (s.getShapeType().equals("rectangle")) {
-          g.fillRect(x, y, w, h);
-        }
-      }
-    }
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  public void setOutputFile(String outFile) {
+    throw new UnsupportedOperationException("Visual view does not support file output");
   }
 }

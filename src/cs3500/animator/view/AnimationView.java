@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -28,4 +29,28 @@ public interface AnimationView {
    * @param h height of the view
    */
   void setBounds(int x, int y, int w, int h);
+
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
+  void setListener(ActionListener l);
+
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  int getSpeed();
+
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  void setSpeed(int speed);
+
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  void setOutputFile(String outFile);
 }

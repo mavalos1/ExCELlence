@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,14 +34,10 @@ public class SVGView implements AnimationView {
    * @param outFile name of the output file
    */
   public SVGView(int x, int y, int w, int h, int speed, String outFile) {
-    if (speed <= 0) {
-      throw new IllegalArgumentException("Invalid animation speed");
-    }
-
-    this.setBounds(x, y, w, h);
-    this.speed = speed;
+    setBounds(x, y, w, h);
+    setSpeed(speed);
     this.outFile = outFile;
-    svgStr = new StringBuilder();
+    this.svgStr = new StringBuilder();
 
     if (!outFile.equals("")) {
       try {
@@ -52,24 +49,22 @@ public class SVGView implements AnimationView {
   }
 
   /**
-   * Initialize the view to a speed and an output destination.
-   * @param speed the speed of the animation
-   * @param outFile the name of the output file
+   * Initialize the view to a default.
    */
-  public SVGView(int speed, String outFile) {
-    this(0, 0, 0, 0, speed, outFile);
+  public SVGView() {
+    this(0, 0, 0, 0, 1, "");
   }
 
   /**
-   * Initialize the view.
-   * @param x x-coordinate of the top-left corner of the view
-   * @param y y-coordinate of the top-left corner of the view
-   * @param w width of the view
-   * @param h height of the view
-   * @param speed the speed of the animation
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
    */
-  public SVGView(int x, int y, int w, int h, int speed) {
-    this(x, y, w, h, speed, "");
+  public void setOutputFile(String outFile) {
+    if (outFile == null) {
+      throw new IllegalArgumentException("Null output name");
+    }
+
+    this.outFile = outFile;
   }
 
   /**
@@ -115,10 +110,11 @@ public class SVGView implements AnimationView {
   /**
    * Render the view output to a file.
    */
-  public void renderFile() {
+  private void renderFile() {
     try {
-      this.writer.write(svgStr.toString());
-      this.writer.close();
+      writer = new BufferedWriter(new FileWriter(outFile));
+      writer.write(svgStr.toString());
+      writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -127,7 +123,35 @@ public class SVGView implements AnimationView {
   /**
    * Render the view output to the system console.
    */
-  public void renderConsole() {
+  private void renderConsole() {
     System.out.print(svgStr.toString());
+  }
+
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("SVG view does not support action listener");
+  }
+
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  public int getSpeed() {
+    return speed;
+  }
+
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  public void setSpeed(int speed) {
+    if (speed <= 0) {
+      throw new IllegalArgumentException("Invalid animation speed");
+    }
+
+    this.speed = speed;
   }
 }

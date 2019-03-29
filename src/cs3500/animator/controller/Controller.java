@@ -7,10 +7,14 @@ import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
 import cs3500.animator.view.AnimationView;
+import cs3500.animator.view.EditorView;
+import cs3500.animator.view.PopUpOptionPanel;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextualView;
 import cs3500.animator.view.VisualView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
@@ -21,10 +25,12 @@ import java.util.Objects;
  *   The added shapes and animations are rendered by the order of them being added.
  * </p>
  */
-public class Controller implements AnimationController {
+public class Controller implements AnimationController, ActionListener {
   private AnimationView view;
   private AnimationModel model;
-  private int speed;
+  private int speed = 1;
+  private boolean shouldPlay = true;
+  private boolean loop = true;
 
   /**
    * Initialize the controller.
@@ -41,7 +47,7 @@ public class Controller implements AnimationController {
 
     this.model = model;
     this.view = view;
-    this.speed = speed;
+    setSpeed(speed);
   }
 
   /**
@@ -59,22 +65,28 @@ public class Controller implements AnimationController {
       throw new IllegalArgumentException("Invalid animation speed");
     }
 
-    this.speed = speed;
-    this.model = new Model();
-
     switch (type) {
       case "text":
-        this.view = new TextualView(outFile);
+        this.view = new TextualView();
+        this.view.setOutputFile(outFile);
         break;
       case "svg":
-        this.view = new SVGView(speed, outFile);
+        this.view = new SVGView();
+        this.view.setOutputFile(outFile);
         break;
       case "visual":
         this.view = new VisualView();
         break;
+      case "edit":
+        this.view = new EditorView();
+        this.view.setListener(this);
+        break;
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
+
+    this.model = new Model();
+    setSpeed(speed);
   }
 
   /**
@@ -94,18 +106,29 @@ public class Controller implements AnimationController {
   /**
    * Animate the model till the end.
    */
-  public void animate() {
-    while (model.canTick()) {
-      this.renderView();
-      this.nextTick();
-      try {
-        Thread.sleep(1000 / speed);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+  public void start() {
+    while (true) {
+      if (!shouldPlay) {
+        System.out.print("");
+        continue;
+      }
+
+      renderView();
+      nextTick();
+
+      if (!model.canTick()) {
+        renderView();
+        shouldPlay = false;
+        if (loop) {
+          if (view instanceof TextualView || view instanceof SVGView) {
+            return;
+          }
+
+          restart();
+          shouldPlay = true;
+        }
       }
     }
-
-    this.renderView();
   }
 
   /**
@@ -127,6 +150,10 @@ public class Controller implements AnimationController {
   public void addShape(String name, String type) {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Objects.requireNonNull(name, "Must have a valid shape type");
+
+    if (name.isEmpty() || type.isEmpty()) {
+      throw new IllegalArgumentException("Empty shape name or type");
+    }
 
     Shape s = null;
     if (type.equals("rectangle")) {
@@ -165,6 +192,141 @@ public class Controller implements AnimationController {
                             int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Transition t = new Transition(t1, t2, x1, y1, w1, h1, r1, g1, b1, x2, y2, w2, h2, r2, g2, b2);
-    model.getShape(name).addTransition(t);
+    model.addTransition(name, t);
+  }
+
+  /**
+   * Adds a keyframe to the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @return
+   */
+  public void addKeyFrame(
+      String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    model.addKeyFrame(name, t, x, y, w, h, r, g, b);
+  }
+
+  /**
+   * Delete a keyframe from the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @return
+   */
+  public void deleteKeyFrame(String name, int t) {
+    model.deleteKeyFrame(name, t);
+  }
+
+  /**
+   * Pause the animation.
+   */
+  public void togglePause() {
+    shouldPlay = !shouldPlay;
+  }
+
+  /**
+   * Restart the animation.
+   */
+  public void restart() {
+    shouldPlay = false;
+    model.reset();
+    renderView();
+  }
+
+  /**
+   * Toggle the looping option.
+   */
+  public void toggleLoop() {
+    loop = !loop;
+  }
+
+  /**
+   * Get the speed of the animation
+   * @return the number of ticks per second
+   */
+  public int getSpeed() {
+    return speed;
+  }
+
+  /**
+   * Set the speed of the animation.
+   * @param speed the number of ticks per second
+   */
+  public void setSpeed(int speed) {
+    if (view instanceof TextualView) {
+      return;
+    }
+
+    this.speed = speed;
+    view.setSpeed(speed);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    switch (e.getActionCommand()) {
+      case "start/pause":
+        togglePause();
+        break;
+      case "restart":
+        restart();
+        break;
+      case "loop":
+        toggleLoop();
+        break;
+      case "speed":
+        setSpeed(view.getSpeed());
+        break;
+      case "rectangle":
+        PopUpOptionPanel pR = (PopUpOptionPanel) e.getSource();
+
+        Rectangle r = new Rectangle(pR.name, pR.x, pR.y, pR.w, pR.h, pR.r, pR.g, pR.b);
+        model.addShape(r);
+        break;
+      case "ellipse":
+        PopUpOptionPanel pE = (PopUpOptionPanel) e.getSource();
+
+        Ellipse el = new Ellipse(pE.name, pE.x, pE.y, pE.w, pE.h, pE.r, pE.g, pE.b);
+        model.addShape(el);
+        break;
+      case "removeShape":
+        PopUpOptionPanel pS = (PopUpOptionPanel) e.getSource();
+
+        model.removeShape(pS.name);
+        break;
+      case "addKeyFrame":
+        PopUpOptionPanel pK = (PopUpOptionPanel) e.getSource();
+
+        addKeyFrame(pK.name, pK.t, pK.x, pK.y, pK.w, pK.h, pK.r, pK.g, pK.b);
+        break;
+      case "removeKeyFrame":
+        PopUpOptionPanel pF = (PopUpOptionPanel) e.getSource();
+
+        deleteKeyFrame(pF.name, pF.t);
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported action command");
+    }
+  }
+
+  /**
+   * Get the loop option.
+   * @return true if loop is on
+   */
+  public boolean getLoop() {
+    return loop;
+  }
+
+  /**
+   * Return whether the animation is playing
+   * @return true if the animation is playing
+   */
+  public boolean getPlaying() {
+    return shouldPlay;
   }
 }

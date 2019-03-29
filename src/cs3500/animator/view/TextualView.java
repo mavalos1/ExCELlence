@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class TextualView implements AnimationView {
   private int h;
   private String outFile;
   private StringBuilder textStr;
+  private StringBuilder lineOutput;
   private BufferedWriter writer;
 
   /**
@@ -32,12 +34,9 @@ public class TextualView implements AnimationView {
    * @param outFile name of the output file
    */
   public TextualView(int x, int y, int w, int h, String outFile) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
     this.setBounds(x, y, w, h);
     this.outFile = outFile;
+    this.lineOutput = new StringBuilder();
     this.textStr = new StringBuilder();
 
     if (!outFile.equals("")) {
@@ -50,22 +49,10 @@ public class TextualView implements AnimationView {
   }
 
   /**
-   * Initialize the view and output destination.
-   * @param outFile name of the output file
+   * Initialize the view to a default.
    */
-  public TextualView(String outFile) {
-    this(0, 0, 0, 0, outFile);
-  }
-
-  /**
-   * Initialize the view.
-   * @param x x-coordinate of the top-left corner of the view
-   * @param y y-coordinate of the top-left corner of the view
-   * @param w width of the view
-   * @param h height of the view
-   */
-  public TextualView(int x, int y, int w, int h) {
-    this(x, y, w, h, "");
+  public TextualView() {
+    this(0, 0, 0, 0, "");
   }
 
   /**
@@ -79,10 +66,23 @@ public class TextualView implements AnimationView {
     if (w < 0 || h < 0) {
       throw new IllegalArgumentException("Width or height is negative");
     }
+
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+  }
+
+  /**
+   * Set the output destination file. Print to system console if not specified.
+   * @param outFile the name of the output file
+   */
+  public void setOutputFile(String outFile) {
+    if (outFile == null) {
+      throw new IllegalArgumentException("Null output name");
+    }
+
+    this.outFile = outFile;
   }
 
   /**
@@ -91,7 +91,11 @@ public class TextualView implements AnimationView {
    * @param shapeList the shapeList.
    */
   public void render(int currentTick, List<Shape> shapeList) {
-    StringBuilder lineOutput = new StringBuilder();
+    lineOutput = new StringBuilder();
+
+    if (currentTick == 0) {
+      lineOutput.append(String.format("canvas %d %d %d %d\n", x, y, w, h));
+    }
 
     for (Shape s : shapeList) {
       if (currentTick == 0) {
@@ -102,7 +106,7 @@ public class TextualView implements AnimationView {
         lineOutput.append(String.format("%.0f %.0f ",
             s.getPosition().getX(), s.getPosition().getY()));
         lineOutput.append(String.format("%.0f %.0f ", s.getSize().getW(), s.getSize().getH()));
-        lineOutput.append(String.format("%d %d %d\n",
+        lineOutput.append(String.format("%.0f %.0f %.0f\n",
             s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));
       }
     }
@@ -110,24 +114,32 @@ public class TextualView implements AnimationView {
     textStr.append(lineOutput);
 
     if (!outFile.equals("")) {
-      renderFile(lineOutput.toString());
+      if (currentTick == 0) {
+        try {
+          writer = new BufferedWriter(new FileWriter(outFile, false));
+          writer.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+      renderFile();
     } else {
-      renderConsole(lineOutput.toString());
+      renderConsole();
     }
   }
 
   /**
    * Render the view output to a file.
    */
-  public void renderFile(String lineOutput) {
+  private void renderFile() {
     if (outFile.equals("")) {
-      throw new IllegalArgumentException("No output file destination");
+      throw new IllegalStateException("No output file destination");
     }
 
     try {
-      this.writer = new BufferedWriter(new FileWriter(outFile, true));
-      this.writer.write(lineOutput);
-      this.writer.close();
+      writer = new BufferedWriter(new FileWriter(outFile, true));
+      writer.write(lineOutput.toString());
+      writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -136,7 +148,31 @@ public class TextualView implements AnimationView {
   /**
    * Render the view output to the system console.
    */
-  public void renderConsole(String lineOutput) {
-    System.out.print(lineOutput);
+  private void renderConsole() {
+    System.out.print(lineOutput.toString());
+  }
+
+  /**
+   * Set the event listener to a controller.
+   * @param l the listener to set to
+   */
+  public void setListener(ActionListener l) {
+    throw new UnsupportedOperationException("Textual view does not support action listener");
+  }
+
+  /**
+   * Get the speed input by the user.
+   * @return the speed in the input box
+   */
+  public int getSpeed() {
+    throw new UnsupportedOperationException("Textual view does not support input");
+  }
+
+  /**
+   * Set the speed input box to a value.
+   * @param speed the speed to set
+   */
+  public void setSpeed(int speed) {
+    throw new UnsupportedOperationException("Textual view does not support input");
   }
 }

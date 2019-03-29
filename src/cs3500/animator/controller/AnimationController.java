@@ -27,7 +27,7 @@ public interface AnimationController {
   /**
    * Animate the model till the end.
    */
-  void animate();
+  void start();
 
   /**
    * Set the bounds of the view.
@@ -68,4 +68,67 @@ public interface AnimationController {
   void addTransition(String name,
                      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
                      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
+
+  /**
+   * Adds a keyframe to the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @param x    The x-position of the shape
+   * @param y    The y-position of the shape
+   * @param w    The width of the shape
+   * @param h    The height of the shape
+   * @param r    The red color-value of the shape
+   * @param g    The green color-value of the shape
+   * @param b    The blue color-value of the shape
+   * @return
+   */
+  void addKeyFrame(
+      String name, int t, int x, int y, int w, int h, int r, int g, int b);
+
+  /**
+   * Delete a keyframe from the animation.
+   * @param name The name of the shape
+   * @param t    The time for this keyframe
+   * @return
+   */
+  void deleteKeyFrame(String name, int t);
+
+  /**
+   * Play/pause the animation.
+   */
+  void togglePause();
+
+  /**
+   * Restart the animation.
+   */
+  void restart();
+
+  /**
+   * Toggle the looping option.
+   */
+  void toggleLoop();
+
+  /**
+   * Get the speed of the animation
+   * @return the number of ticks per second
+   */
+  int getSpeed();
+
+  /**
+   * Set the speed of the animation.
+   * @param speed the number of ticks per second
+   */
+  void setSpeed(int speed);
+
+  /**
+   * Get the loop option.
+   * @return true if loop is on
+   */
+  boolean getLoop();
+
+  /**
+   * Return whether the animation is playing
+   * @return true if the animation is playing
+   */
+  boolean getPlaying();
 }
