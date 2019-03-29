@@ -44,6 +44,7 @@ public class VisualViewTest {
     AnimationView view = new VisualView();
     view.setBounds(0,0, -100, -100);
   }
+
   @Test
   public void testGetSpeed() {
     AnimationModel model = new Model();

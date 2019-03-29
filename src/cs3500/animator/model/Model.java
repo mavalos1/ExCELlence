@@ -148,7 +148,7 @@ public class Model implements AnimationModel {
   }
 
   /**
-   * Remove the shape with such name from the model
+   * Remove the shape with such name from the model.
    * @param name the name of the shape
    */
   public void removeShape(String name) {

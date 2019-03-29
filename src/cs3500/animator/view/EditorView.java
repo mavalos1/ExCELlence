@@ -2,9 +2,16 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -33,7 +40,6 @@ public class EditorView implements AnimationView {
   private final static String REMOVE_KEYFRAME = "Remove";
 
   private JFrame viewFrame;
-  private JScrollPane scrollPane;
   private AnimationPanel animationPanel;
   private int speed;
 
@@ -57,7 +63,7 @@ public class EditorView implements AnimationView {
    * Initialize the view to a default JPanel, ready for rendering.
    */
   public EditorView() {
-    scrollPane = new JScrollPane();
+    JScrollPane scrollPane = new JScrollPane();
     viewFrame = new JFrame();
     viewFrame.setTitle("Animation Editor View");
     viewFrame.setSize(400, 400);

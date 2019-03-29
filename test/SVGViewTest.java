@@ -22,31 +22,52 @@ import static org.junit.Assert.assertEquals;
  * This is the test class for the SVG View.
  */
 public class SVGViewTest {
-  String expectedOutput = "<svg width=\"30\" height=\"100\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+  String expectedOutput = "<svg width=\"30\" height=\"100\" version=\"1.1\" xmlns=\"http://www" +
+      ".w3.org/2000/svg\">\n" +
       "\n" +
-      "<rect id=\"R\" x=\"0.00\" y=\"0.00\" width=\"100.00\" height=\"100.00\" fill=\"rgb(50,50,50)\" visibility=\"visible\" >\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"x\" begin=\"2000ms\" to=\"20\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"y\" begin=\"2000ms\" to=\"20\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"width\" begin=\"2000ms\" to=\"30\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"height\" begin=\"2000ms\" to=\"30\" fill=\"freeze\" />\n" +
+      "<rect id=\"R\" x=\"0.00\" y=\"0.00\" width=\"100.00\" height=\"100.00\" fill=\"rgb(50,50," +
+      "50)\" visibility=\"visible\" >\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"x\" begin=\"2000ms\" to=\"20\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"y\" begin=\"2000ms\" to=\"20\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"width\" begin=\"2000ms\" to=\"30\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"height\" begin=\"2000ms\" to=\"30\" " +
+      "fill=\"freeze\" />\n" +
       "\t<set attributeName=\"fill\" begin=\"2000ms\" to=\"rgb(30,30,30)\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"x\" from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"y\" from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"width\" from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"height\" from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeName=\"fill\" begin=\"2000ms\" dur=\"10000ms\" from=\"rgb(30,30,30)\" to=\"rgb(10,10,10)\"  fill=\"freeze\"/>\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"x\" " +
+      "from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"y\" " +
+      "from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"width\"" +
+      " from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" " +
+      "attributeName=\"height\" from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeName=\"fill\" begin=\"2000ms\" dur=\"10000ms\" from=\"rgb(30,30,30)\"" +
+      " to=\"rgb(10,10,10)\"  fill=\"freeze\"/>\n" +
       "</rect>\n" +
-      "<ellipse id=\"C\" cx=\"0.00\" cy=\"0.00\" rx=\"0.00\" ry=\"0.00\" fill=\"rgb(0,0,0)\" visibility=\"visible\" >\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"cx\" begin=\"2000ms\" to=\"20\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"cy\" begin=\"2000ms\" to=\"20\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"rx\" begin=\"2000ms\" to=\"30\" fill=\"freeze\" />\n" +
-      "\t<set attributeType=\"xml\" attributeName=\"ry\" begin=\"2000ms\" to=\"30\" fill=\"freeze\" />\n" +
+      "<ellipse id=\"C\" cx=\"0.00\" cy=\"0.00\" rx=\"0.00\" ry=\"0.00\" fill=\"rgb(0,0,0)\" " +
+      "visibility=\"visible\" >\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"cx\" begin=\"2000ms\" to=\"20\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"cy\" begin=\"2000ms\" to=\"20\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"rx\" begin=\"2000ms\" to=\"30\" " +
+      "fill=\"freeze\" />\n" +
+      "\t<set attributeType=\"xml\" attributeName=\"ry\" begin=\"2000ms\" to=\"30\" " +
+      "fill=\"freeze\" />\n" +
       "\t<set attributeName=\"fill\" begin=\"2000ms\" to=\"rgb(30,30,30)\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"cx\" from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"cy\" from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"rx\" from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"ry\" from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
-      "\t<animate attributeName=\"fill\" begin=\"2000ms\" dur=\"10000ms\" from=\"rgb(30,30,30)\" to=\"rgb(10,10,10)\"  fill=\"freeze\"/>\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"cx\" " +
+      "from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"cy\" " +
+      "from=\"20\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"rx\" " +
+      "from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"10000ms\" attributeName=\"ry\" " +
+      "from=\"30\" to=\"10\" fill=\"freeze\" />\n" +
+      "\t<animate attributeName=\"fill\" begin=\"2000ms\" dur=\"10000ms\" from=\"rgb(30,30,30)\" " +
+      "to=\"rgb(10,10,10)\"  fill=\"freeze\"/>\n" +
       "</ellipse>\n" +
       "</svg>";
 
@@ -76,6 +97,7 @@ public class SVGViewTest {
     model.addTransition("C", t);
 
     controller.start();
+    controller.renderView();
 
     assertEquals(expectedOutput + "\n", outContent.toString());
   }
@@ -127,6 +149,7 @@ public class SVGViewTest {
     view.setOutputFile(null);
   }
 
+  @Test
   public void testRenderFileSetOutput() {
     String outputFile = "svgViewFile.txt";
 
@@ -146,6 +169,7 @@ public class SVGViewTest {
     model.addTransition("C", t);
 
     controller.start();
+    controller.renderView();
 
     try {
       String content = new Scanner(new File(outputFile)).useDelimiter("\\Z").next();

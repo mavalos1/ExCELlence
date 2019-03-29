@@ -6,9 +6,13 @@ import cs3500.animator.model.helper.Transition;
 import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.model.shapes.Shape;
-import cs3500.animator.view.*;
+import cs3500.animator.view.AnimationView;
+import cs3500.animator.view.EditorView;
+import cs3500.animator.view.PopUpOptionPanel;
+import cs3500.animator.view.SVGView;
+import cs3500.animator.view.TextualView;
+import cs3500.animator.view.VisualView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -25,8 +29,7 @@ public class Controller implements AnimationController, ActionListener {
   private AnimationView view;
   private AnimationModel model;
   private boolean shouldPlay = true;
-  private boolean loop = false;
-  private boolean looping = false;
+  private boolean loop = true;
 
   /**
    * Initialize the controller.
@@ -104,12 +107,9 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void start() {
     while (true) {
-      looping = true;
       if (!shouldPlay) {
-        System.out.println("should not play");
+        System.out.print("");
         continue;
-      } else {
-        System.out.println("should play");
       }
 
       renderView();
@@ -123,6 +123,7 @@ public class Controller implements AnimationController, ActionListener {
           }
 
           restart();
+          shouldPlay = true;
         }
       }
     }
@@ -225,9 +226,6 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void togglePause() {
     shouldPlay = !shouldPlay;
-    //if (!looping) {
-    //  start();
-    //}
   }
 
   /**
@@ -237,9 +235,6 @@ public class Controller implements AnimationController, ActionListener {
     shouldPlay = false;
     model.reset();
     renderView();
-    //if (!looping) {
-    //  start();
-    //}
   }
 
   /**

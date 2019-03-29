@@ -176,11 +176,7 @@ public class Rectangle implements Shape {
       return false;
     }
 
-    if (currentTick > transitions.get(transitions.size() - 1).endTime) {
-      return false;
-    }
-
-    return true;
+    return currentTick <= transitions.get(transitions.size() - 1).endTime;
   }
 
   /**
@@ -376,8 +372,8 @@ public class Rectangle implements Shape {
             x, y, w, h, r, g, b);
         Transition newTr1 = new Transition(
             t, tr.endTime,
-          x, y, w, h, r, g, b,
-          tr.x2, tr.y2, tr.w2, tr.h2, tr.r2, tr.g2, tr.b2
+            x, y, w, h, r, g, b,
+            tr.x2, tr.y2, tr.w2, tr.h2, tr.r2, tr.g2, tr.b2
         );
 
         transitions.set(i, newTr0);
@@ -400,7 +396,6 @@ public class Rectangle implements Shape {
    * </p>
    * @param t    The time for this keyframe
    * @throws IllegalArgumentException if the keyframe timestamp does not exist
-   * @return
    */
   public void deleteKeyFrame(int t) {
     Transition firstTr = transitions.get(0);

@@ -97,8 +97,7 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    */
   public AnimationBuilder<AnimationController> addKeyframe(
       String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-     controller.addKeyFrame(name, t, x, y, w, h, r, g, b);
-
+    controller.addKeyFrame(name, t, x, y, w, h, r, g, b);
     return this;
   }
 }

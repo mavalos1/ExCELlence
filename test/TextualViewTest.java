@@ -8,7 +8,6 @@ import cs3500.animator.model.shapes.Rectangle;
 import cs3500.animator.view.AnimationView;
 import cs3500.animator.view.TextualView;
 
-import javafx.animation.Animation;
 import org.junit.Test;
 
 import java.awt.event.ActionListener;
@@ -78,6 +77,7 @@ public class TextualViewTest {
     model.addTransition("C", t);
 
     controller.start();
+    controller.renderView();
 
     assertEquals(expectedOutput + "\n", outContent.toString());
   }
@@ -132,6 +132,7 @@ public class TextualViewTest {
     model.addTransition("C", t);
 
     controller.start();
+    controller.renderView();
 
     try {
       String content = new Scanner(new File(outputFile)).useDelimiter("\\Z").next();

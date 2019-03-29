@@ -85,6 +85,7 @@ public class ControllerTest {
         "1 motion R 1 1 1 1 1 1 1\n", outContent.toString());
 
     controller.start();
+    controller.renderView();
 
     assertEquals(new Position2D(10, 10), r.getPosition());
     assertEquals(new Size(10, 10), r.getSize());
@@ -189,6 +190,7 @@ public class ControllerTest {
         "1 motion R 1 1 1 1 1 1 1\n", outContent.toString());
 
     controller.start();
+
     assertEquals(new Position2D(10, 10), r.getPosition());
     assertEquals(new Size(10, 10), r.getSize());
     assertEquals(new Color(10, 10, 10), r.getColor());
@@ -204,8 +206,7 @@ public class ControllerTest {
         "7 motion R 6 6 6 6 6 6 6\n" +
         "8 motion R 7 7 7 7 7 7 7\n" +
         "9 motion R 8 8 8 8 8 8 8\n" +
-        "10 motion R 9 9 9 9 9 9 9\n" +
-        "11 motion R 10 10 10 10 10 10 10\n", outContent.toString());
+        "10 motion R 9 9 9 9 9 9 9\n", outContent.toString());
 
     controller.restart();
     outContent = new ByteArrayOutputStream();

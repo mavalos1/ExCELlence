@@ -17,8 +17,6 @@ import java.util.List;
  * </p>
  */
 public class VisualView implements AnimationView {
-  private int x;
-  private int y;
   private int w;
   private int h;
   private int speed;
@@ -58,8 +56,6 @@ public class VisualView implements AnimationView {
       throw new IllegalArgumentException("Width or height is negative");
     }
 
-    this.x = x;
-    this.y = y;
     this.w = w;
     this.h = h;
     viewFrame.setBounds(x,y,w,h);

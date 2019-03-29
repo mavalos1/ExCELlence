@@ -1,10 +1,30 @@
 package cs3500.animator.view;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class represents the implementation of the option popup panels.
+ * <p>
+ *   The option popup panels have the following variants: create shapes, remove shapes, add
+ *   keyframe, and remove keyframe.
+ *   The create shape variant has the options to enter for: name, x, y, w, h, r, g, b (the name
+ *   of the shape, and all properities)
+ *   The remove shape variant has the options to enter for: name (the shape to remove)
+ *   The add keyframe has the options: name, t, x, y, w, h, r, g, b (the shape to add to, time
+ *   stamp, and all shape properties)
+ *   the remove keyframe has the options: name, t (the shape to remove the key frame from and the
+ *   timestamp)
+ * </p>
+ */
 public class PopUpOptionPanel extends JButton implements ActionListener {
   private String title;
   public String name;
@@ -17,6 +37,10 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
   public int g;
   public int b;
 
+  /**
+   * Initialize the popup to a certain type.
+   * @param title the title of the popup
+   */
   public PopUpOptionPanel(String title) {
     this.title = title;
 
