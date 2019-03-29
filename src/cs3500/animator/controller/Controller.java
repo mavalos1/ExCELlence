@@ -28,6 +28,7 @@ import java.util.Objects;
 public class Controller implements AnimationController, ActionListener {
   private AnimationView view;
   private AnimationModel model;
+  private int speed = 1;
   private boolean shouldPlay = true;
   private boolean loop = true;
 
@@ -246,6 +247,14 @@ public class Controller implements AnimationController, ActionListener {
   }
 
   /**
+   * Get the speed of the animation
+   * @return the number of ticks per second
+   */
+  public int getSpeed() {
+    return speed;
+  }
+
+  /**
    * Set the speed of the animation.
    * @param speed the number of ticks per second
    */
@@ -254,6 +263,7 @@ public class Controller implements AnimationController, ActionListener {
       return;
     }
 
+    this.speed = speed;
     view.setSpeed(speed);
   }
 
@@ -302,5 +312,21 @@ public class Controller implements AnimationController, ActionListener {
       default:
         throw new IllegalArgumentException("Unsupported action command");
     }
+  }
+
+  /**
+   * Get the loop option.
+   * @return true if loop is on
+   */
+  public boolean getLoop() {
+    return loop;
+  }
+
+  /**
+   * Return whether the animation is playing
+   * @return true if the animation is playing
+   */
+  public boolean getPlaying() {
+    return shouldPlay;
   }
 }
