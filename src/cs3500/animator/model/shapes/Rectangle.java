@@ -156,8 +156,9 @@ public class Rectangle implements Shape {
           color.getB() + (t.b2 - t.b1) / (double) t.duration
       );
 
-      if (currentTick >= t.endTime) {
+      if (currentTick == t.endTime) {
         currentTransition++;
+        tick(currentTick);
       }
     }
   }

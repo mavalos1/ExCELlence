@@ -164,26 +164,26 @@ public class ModelTest {
     assertEquals(new Size(0, 0), r.getSize());
     assertEquals(new Color(0, 0, 0), r.getColor());
 
-    model.addKeyFrame("R", 3, 1, 2, 3, 4, 5, 6, 7);
-    model.addKeyFrame("R", 10, 8, 9, 10, 11, 12, 13, 14);
+    model.addKeyFrame("R", 3, 3, 3, 3, 3, 3, 3, 3);
+    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10);
 
     model.tick();
     model.tick();
     model.tick();
 
     assertEquals(3, model.getCurrentTick());
-    assertEquals(new Position2D(1, 2), r.getPosition());
-    assertEquals(new Size(3, 4), r.getSize());
-    assertEquals(new Color(5, 6, 7), r.getColor());
+    assertEquals(new Position2D(3, 3), r.getPosition());
+    assertEquals(new Size(3, 3), r.getSize());
+    assertEquals(new Color(3, 3, 3), r.getColor());
 
     while (model.canTick()) {
       model.tick();
     }
 
     assertEquals(10, model.getCurrentTick());
-    assertEquals(new Position2D(8, 9), r.getPosition());
-    assertEquals(new Size(10, 11), r.getSize());
-    assertEquals(new Color(12, 13, 14), r.getColor());
+    assertEquals(new Position2D(10, 10), r.getPosition());
+    assertEquals(new Size(10, 10), r.getSize());
+    assertEquals(new Color(10, 10, 10), r.getColor());
 
     model.reset();
     model.addKeyFrame("R", 5, 0, 0, 0, 0, 0, 0, 0);
@@ -202,9 +202,9 @@ public class ModelTest {
     }
 
     assertEquals(10, model.getCurrentTick());
-    assertEquals(new Position2D(8, 9), r.getPosition());
-    assertEquals(new Size(10, 11), r.getSize());
-    assertEquals(new Color(12, 13, 14), r.getColor());
+    assertEquals(new Position2D(10, 10), r.getPosition());
+    assertEquals(new Size(10, 10), r.getSize());
+    assertEquals(new Color(10, 10, 10), r.getColor());
 
     model.reset();
     model.deleteKeyFrame("R", 10);
@@ -220,7 +220,7 @@ public class ModelTest {
     assertEquals(new Color(0, 0, 0), r.getColor());
 
     model.reset();
-    model.addKeyFrame("R", 10, 8, 9, 10, 11, 12, 13, 14);
+    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10);
     model.deleteKeyFrame("R", 5);
 
     for (int i = 0; i < 5; i++) {
@@ -229,18 +229,18 @@ public class ModelTest {
 
     assertEquals(5, model.getCurrentTick());
     assertEquals(true, model.canTick());
-    assertEquals(new Position2D(3, 4), r.getPosition());
-    assertEquals(new Size(5, 6), r.getSize());
-    assertEquals(new Color(7, 8, 9), r.getColor());
+    assertEquals(new Position2D(5, 5), r.getPosition());
+    assertEquals(new Size(5, 5), r.getSize());
+    assertEquals(new Color(5, 5, 5), r.getColor());
 
     while (model.canTick()) {
       model.tick();
     }
 
     assertEquals(10, model.getCurrentTick());
-    assertEquals(new Position2D(8, 9), r.getPosition());
-    assertEquals(new Size(10, 11), r.getSize());
-    assertEquals(new Color(12, 13, 14), r.getColor());
+    assertEquals(new Position2D(10, 10), r.getPosition());
+    assertEquals(new Size(10, 10), r.getSize());
+    assertEquals(new Color(10, 10, 10), r.getColor());
   }
 
   @Test(expected = IllegalArgumentException.class)

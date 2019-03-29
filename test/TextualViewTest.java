@@ -77,7 +77,6 @@ public class TextualViewTest {
     model.addTransition("C", t);
 
     controller.start();
-    controller.renderView();
 
     assertEquals(expectedOutput + "\n", outContent.toString());
   }
@@ -132,7 +131,6 @@ public class TextualViewTest {
     model.addTransition("C", t);
 
     controller.start();
-    controller.renderView();
 
     try {
       String content = new Scanner(new File(outputFile)).useDelimiter("\\Z").next();

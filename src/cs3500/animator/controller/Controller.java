@@ -116,6 +116,7 @@ public class Controller implements AnimationController, ActionListener {
       nextTick();
 
       if (!model.canTick()) {
+        renderView();
         shouldPlay = false;
         if (loop) {
           if (view instanceof TextualView || view instanceof SVGView) {
