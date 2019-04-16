@@ -172,6 +172,9 @@ public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorMo
 		throw new UnsupportedOperationException("No duration get supported");
 	}
 
+	/**
+	 * Generates a list of shapes at each tick.
+	 */
 	protected void renderToMap() {
 		renderedShapeMap.clear();
 		model.reset();

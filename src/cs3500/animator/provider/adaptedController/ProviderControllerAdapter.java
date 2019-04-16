@@ -11,6 +11,9 @@ import cs3500.animator.provider.view.IShape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Our adaptation of our controller to work with the provider's view.
+ */
 public class ProviderControllerAdapter implements ActionListener {
 	private static final String DECLARE_SHAPE_ACTION = "Declare Shape";
 	private static final String PLAY_PAUSE_ACTION = "Play Pause";
@@ -25,10 +28,19 @@ public class ProviderControllerAdapter implements ActionListener {
 	private ExCELenceAnimatorModel model;
 	private EditorView view;
 
+	/**
+	 * Contructs an adapted controller.
+	 * @param controller our controller
+	 */
 	public ProviderControllerAdapter(AnimationController controller) {
 		this.controller = controller;
 	}
 
+	/**
+	 * Contructs an adapted controller.
+	 * @param model our model
+	 * @param view our view
+	 */
 	public ProviderControllerAdapter(ExCELenceAnimatorModel model, EditorView view) {
 		this.model = model;
 		this.view = view;
@@ -38,6 +50,10 @@ public class ProviderControllerAdapter implements ActionListener {
 		refreshShapeList();
 	}
 
+	/**
+	 * Listener for actions.
+	 * @param e the event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
@@ -81,14 +97,23 @@ public class ProviderControllerAdapter implements ActionListener {
 		}
 	}
 
+	/**
+	 * Shows the view.
+	 */
 	public void go() {
 		view.showView();
 	}
 
+	/**
+	 * Refreshes shapes list.
+	 */
 	private void refreshShapeList() {
 		view.setShapeNames(model.getShapes());
 	}
 
+	/**
+	 * Refreshes key frames list.
+	 */
 	private void refreshKeyFrameList() {
 		view.setKeyTicks(model.getKeyticksForShape(view.getSelectedShapeName()));
 	}

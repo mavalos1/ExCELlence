@@ -18,7 +18,7 @@ public class Position2D extends cs3500.animator.model.helper.Position2D {
 
 	/**
 	 * Return the y-coordinate of the position.
-	 * This method is renamed as it clashes with the same getY() method in implemented Position2D
+	 * This method is renamed as it clashes with the same getY() method in implemented Position2D.
 	 * @return
 	 */
 	public Double getY() {

@@ -11,16 +11,16 @@ public class Dimension2D extends Size {
 	}
 
 	/**
-	 * Get the width of the dimension
-	 * @return width as Double
+	 * Get the width of the dimension.
+	 * @return width as Double.
 	 */
 	public Double getWidth() {
 		return getW();
 	}
 
 	/**
-	 * Get the height of the dimension
-	 * @return height as Double
+	 * Get the height of the dimension.
+	 * @return height as Double.
 	 */
 	public Double getHeight() {
 		return getH();

@@ -14,24 +14,24 @@ public class RBGcolor extends Color {
 	}
 
 	/**
-	 * Get the red code of the color
-	 * @return red code as integer
+	 * Get the red code of the color.
+	 * @return red code as integer.
 	 */
 	public int getRedValue() {
 		return (int) getR();
 	}
 
 	/**
-	 * Get the green code of the color
-	 * @return green code as integer
+	 * Get the green code of the color.
+	 * @return green code as integer.
 	 */
 	public int getGreenValue() {
 		return (int) getG();
 	}
 
 	/**
-	 * Get the blue code of the color
-	 * @return blue code as integer
+	 * Get the blue code of the color.
+	 * @return blue code as integer.
 	 */
 	public int getBlueValue() {
 		return (int) getB();
