@@ -6,6 +6,10 @@ import cs3500.animator.model.helper.Size;
  * This is the implementation of the wrapper of Size helper to adapt to provider.
  */
 public class Dimension2D extends Size {
+	/**
+	 * Constructor to copy implemented Size helper
+	 * @param s the size to copy from
+	 */
 	public Dimension2D(Size s) {
 		super(s);
 	}

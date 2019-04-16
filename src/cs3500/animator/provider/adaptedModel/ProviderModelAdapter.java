@@ -66,7 +66,7 @@ public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implement
 	 *                                  with the time interval of a different motion
 	 */
 	public void addMotion(String name, Motion motion) {
-		//TODO:
+		throw new UnsupportedOperationException("Add individual motion not supported");
 	}
 
 	/**

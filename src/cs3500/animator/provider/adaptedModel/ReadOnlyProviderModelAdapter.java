@@ -17,8 +17,8 @@ import java.util.List;
 public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 	protected int x = 0;
 	protected int y = 0;
-	protected int w = 400;
-	protected int h = 400;
+	protected int w = 0;
+	protected int h = 0;
 
 	protected AnimationModel model;
 	protected HashMap<Integer, ArrayList<Shape2D>> renderedShapeMap;
