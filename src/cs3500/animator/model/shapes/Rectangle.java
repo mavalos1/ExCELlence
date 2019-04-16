@@ -51,6 +51,18 @@ public class Rectangle implements Shape {
   }
 
   /**
+   * Copy constructor.
+   * @param s the shape to copy from
+   */
+  public Rectangle(Shape s) {
+    this(s.getName(),
+        (int) s.getPosition().getX(), (int) s.getPosition().getY(),
+        (int) s.getSize().getW(), (int) s.getSize().getH(),
+        (int) s.getColor().getR(), (int) s.getColor().getG(), (int) s.getColor().getB()
+    );
+  }
+
+  /**
    * Get the shape name.
    * @return
    */

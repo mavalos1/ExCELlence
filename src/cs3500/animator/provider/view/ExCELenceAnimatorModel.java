@@ -1,10 +1,7 @@
 package cs3500.animator.provider.view;
 
-import java.util.ArrayList;
-
 import cs3500.animator.model.motion.Motion;
 import cs3500.animator.model.shapes.Shape2D;
-import cs3500.animator.model.shapes.IShape;
 
 /**
  * This interface represents all the operations offered by the ExCELenceAnimatorModel. One object of

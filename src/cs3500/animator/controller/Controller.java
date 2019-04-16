@@ -81,6 +81,9 @@ public class Controller implements AnimationController, ActionListener {
         this.view = new EditorView();
         this.view.setListener(this);
         break;
+      case "provider":
+//        this.view = new cs3500.animator.provider.view.EditorView();
+        this.view.setListener(this);
       default:
         throw new IllegalArgumentException("Invalid view type");
     }

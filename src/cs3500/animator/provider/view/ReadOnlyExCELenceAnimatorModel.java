@@ -3,7 +3,6 @@ package cs3500.animator.provider.view;
 import java.util.ArrayList;
 
 import cs3500.animator.model.motion.Motion;
-import cs3500.animator.model.shapes.IShape;
 import cs3500.animator.model.shapes.Shape2D;
 
 public interface ReadOnlyExCELenceAnimatorModel {

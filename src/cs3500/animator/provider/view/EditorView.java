@@ -27,8 +27,9 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
 
-import cs3500.animator.model.ReadOnlyExCELenceAnimatorModel;
-import cs3500.animator.model.shapes.IShape;
+//This import was changed to accomodate for ReadOnlyExCELenceAnimatorModel location in provider.view
+import cs3500.animator.provider.view.ReadOnlyExCELenceAnimatorModel;
+import cs3500.animator.provider.view.IShape;
 import cs3500.animator.model.shapes.Shape2D;
 
 /**

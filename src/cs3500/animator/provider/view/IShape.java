@@ -1,5 +1,6 @@
 package cs3500.animator.provider.view;
 
+import cs3500.animator.model.shapes.Shape2D;
 import cs3500.animator.model.shapes.attribute.RBGcolor;
 import cs3500.animator.model.shapes.attribute.Dimension2D;
 import cs3500.animator.model.shapes.attribute.Position2D;

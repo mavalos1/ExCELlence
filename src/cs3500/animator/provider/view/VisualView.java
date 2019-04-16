@@ -1,7 +1,7 @@
 package cs3500.animator.provider.view;
 
-import cs3500.animator.model.ExCELenceAnimatorModel;
-import cs3500.animator.model.ReadOnlyExCELenceAnimatorModel;
+//This import was changed to accomodate for ReadOnlyExCELenceAnimatorModel location in provider.view
+import cs3500.animator.provider.view.ReadOnlyExCELenceAnimatorModel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

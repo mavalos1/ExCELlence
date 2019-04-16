@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JColorChooser;
 import javax.swing.SpinnerModel;
 
-import cs3500.animator.model.shapes.IShape;
 import cs3500.animator.model.shapes.Shape2D;
 import cs3500.animator.model.shapes.attribute.RBGcolor;
 
