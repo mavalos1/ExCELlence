@@ -13,7 +13,7 @@ public class RBGcolor extends Color {
    * @param b the b-code
    */
   public RBGcolor(int r, int g, int b) {
-    super(new Double(r), new Double (g), new Double(b));
+    super(new Double(r), new Double(g), new Double(b));
   }
 
   /**

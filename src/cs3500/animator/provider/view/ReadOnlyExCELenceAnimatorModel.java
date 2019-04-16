@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import cs3500.animator.model.motion.Motion;
 import cs3500.animator.model.shapes.Shape2D;
 
+/**
+ * This interface represents an animation model whose data can only be accessed but not changed.
+ * This model type provides all the "get" methods from the original model interface in order to be
+ * used with the views.
+ */
 public interface ReadOnlyExCELenceAnimatorModel {
 
   /**
@@ -86,8 +91,9 @@ public interface ReadOnlyExCELenceAnimatorModel {
   Integer getCanvasOffsetY();
 
   /**
-   * Determine how many ticks long the animation.
-   * This is essentially the tick of the last keyframe.
+   * Determine how many ticks long the animation. This is essentially the tick of the last
+   * keyframe.
+   *
    * @return the length of this animation, in ticks
    */
   Integer getDuration();

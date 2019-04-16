@@ -77,6 +77,11 @@ public class EditorView extends JFrame implements IActionableView {
   ShapeEditorView shapeEditor;
   JButton editKeyframeButton;
 
+  /**
+   * Creates an editor view.
+   *
+   * @param model the model for the animation
+   */
   public EditorView(ReadOnlyExCELenceAnimatorModel model) {
     super();
     this.model = model;
@@ -150,7 +155,7 @@ public class EditorView extends JFrame implements IActionableView {
     });
 
     this.loopButoon.addActionListener((ActionEvent e) -> {
-      if(loopButoon.isSelected()) {
+      if (loopButoon.isSelected()) {
         this.animation.setLoop(true);
       } else {
         this.animation.setLoop(false);
@@ -244,7 +249,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
-   * Side effect: clears the text input
+   * Side effect: clears the text input.
+   *
    * @return The String name of the new shape to create
    */
   public String pullNewShapeName() {
@@ -254,6 +260,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Pulls a new shape from the given index in the drop down menu.
+   *
    * @return The ShapeType of the new shape to create
    */
   public Shape2D.ShapeType pullNewShapeType() {
@@ -262,7 +270,10 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Gets new keyframe.
+   *
    * @return Get the tick of the new keyframe to create
+   * @throws IllegalStateException if the keyframe value is not an integer
    */
   public Integer getNewKeyframeTick() {
     SpinnerModel numberModel = this.newKeytick.getModel();
@@ -274,6 +285,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Sets shape name.
+   *
    * @param names Set the displayed list of shape names
    */
   public void setShapeNames(ArrayList<String> names) {
@@ -282,6 +295,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Gets selected name.
+   *
    * @return the currently selected String name
    */
   public String getSelectedShapeName() {
@@ -290,7 +305,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
-   * To see which shape this tick applies to, use getSelectedShapeName()
+   * To see which shape this tick applies to, use getSelectedShapeName().
+   *
    * @return the currently selected tick for a particular shape
    */
   public Integer getSelectedKeytick() {
@@ -299,7 +315,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
-   * The ticks displayed should match with the shape displayed
+   * The ticks displayed should match with the shape displayed.
+   *
    * @param keyticks the list of ticks to display
    */
   public void setKeyTicks(ArrayList<Integer> keyticks) {
@@ -308,6 +325,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Gets the edited shape.
+   *
    * @return the shape constructed in the view
    */
   public IShape getShapeValue() {
@@ -315,6 +334,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Sets the edited shape value.
+   *
    * @param shape the shape to update the view to
    */
   public void setShapeEditorValue(IShape shape) {
@@ -322,6 +343,8 @@ public class EditorView extends JFrame implements IActionableView {
   }
 
   /**
+   * Enabled or disables the ability to edit shapes.
+   *
    * @param enabled true to disable shape edits, false otherwise
    */
   public void setShapeEditsEnabled(boolean enabled) {

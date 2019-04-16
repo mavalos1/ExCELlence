@@ -1,7 +1,10 @@
 package cs3500.animator.provider.view;
 
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
 
 import javax.swing.SpinnerNumberModel;
 import javax.swing.BorderFactory;
@@ -11,14 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JColorChooser;
 import javax.swing.SpinnerModel;
 
+//This import was changed to accomodate for ReadOnlyExCELenceAnimatorModel location in provider.view
+import cs3500.animator.provider.view.IShape;
 import cs3500.animator.model.shapes.Shape2D;
 import cs3500.animator.model.shapes.attribute.RBGcolor;
 
 /**
- * A view which can display the attributes of an IShape.
- * The attributes (position, size, and color) can be modified using this view.
- * Note: making modifications in this view will NOT actually change the IShape reference provided.
- * To get the updated IShape, use getValue().
+ * A view which can display the attributes of an IShape. The attributes (position, size, and color)
+ * can be modified using this view. Note: making modifications in this view will NOT actually change
+ * the IShape reference provided. To get the updated IShape, use getValue().
  */
 public class ShapeEditorView extends JPanel {
 
@@ -31,21 +35,27 @@ public class ShapeEditorView extends JPanel {
   private JSpinner shapeYPos;
   private JButton shapeColorButton;
 
+  /**
+   * Provides the UI for users to edit a shape.
+   */
   public ShapeEditorView() {
     this(null);
   }
 
+  /**
+   * Creates a shape editor with shape value.
+   */
   public ShapeEditorView(IShape value) {
     super(new FlowLayout());
 
     SpinnerNumberModel widthModel =
-            new SpinnerNumberModel(0, 0, null, 1);
+        new SpinnerNumberModel(0, 0, null, 1);
     SpinnerNumberModel heightModel =
-            new SpinnerNumberModel(0, 0, null, 1);
+        new SpinnerNumberModel(0, 0, null, 1);
     SpinnerNumberModel posXModel =
-            new SpinnerNumberModel(0, 0, null, 1);
+        new SpinnerNumberModel(0, 0, null, 1);
     SpinnerNumberModel posYModel =
-            new SpinnerNumberModel(0, 0, null, 1);
+        new SpinnerNumberModel(0, 0, null, 1);
 
     this.shapeWidth = new JSpinner(widthModel);
     this.shapeWidth.setPreferredSize(new Dimension(60, 20));
@@ -59,9 +69,9 @@ public class ShapeEditorView extends JPanel {
 
     this.shapeColorButton.addActionListener((ActionEvent e) -> {
       this.colorValue = JColorChooser.showDialog(
-              this,
-              "Choose Color",
-              this.colorValue);
+          this,
+          "Choose Color",
+          this.colorValue);
 
       this.setColorButtonColor(this.colorValue);
     });
@@ -85,6 +95,11 @@ public class ShapeEditorView extends JPanel {
     this.setValue(value);
   }
 
+  /**
+   * Sets the Position, Dimension, Color, and Type for an IShape. If the shape is null, sets the
+   * attributes of the shape to zero and makes its color white and type rectangle.
+   * @param value the given IShape.
+   */
   public void setValue(IShape value) {
     if (value == null) {
       this.shapeWidth.setValue(0);
@@ -115,27 +130,35 @@ public class ShapeEditorView extends JPanel {
 
   }
 
+  /**
+   * Returns a IShape to be edited by the user.
+   * @return an IShape
+   */
   public IShape getValue() {
     Integer width = this.getSpinnerValue(this.shapeWidth);
     Integer height = this.getSpinnerValue(this.shapeHeight);
     Integer xPos = this.getSpinnerValue(this.shapeXPos);
     Integer yPos = this.getSpinnerValue(this.shapeYPos);
     RBGcolor col = new RBGcolor(
-            this.colorValue.getRed(),
-            this.colorValue.getBlue(),
-            this.colorValue.getGreen());
+        this.colorValue.getRed(),
+        this.colorValue.getBlue(),
+        this.colorValue.getGreen());
 
     return new Shape2D(
-            xPos,
-            yPos,
-            width,
-            height,
-            col.getRedValue(),
-            col.getBlueValue(),
-            col.getGreenValue(),
-            this.shapeType);
+        xPos,
+        yPos,
+        width,
+        height,
+        col.getRedValue(),
+        col.getBlueValue(),
+        col.getGreenValue(),
+        this.shapeType);
   }
 
+  /**
+   * Sets the shape type.
+   * @param type the type of the shape
+   */
   public void setShapeType(Shape2D.ShapeType type) {
     this.shapeType = type;
   }
@@ -147,7 +170,7 @@ public class ShapeEditorView extends JPanel {
   private Integer getSpinnerValue(JSpinner spinner) {
     SpinnerModel numberModel = spinner.getModel();
     if (numberModel instanceof SpinnerNumberModel) {
-      return((SpinnerNumberModel) numberModel).getNumber().intValue();
+      return ((SpinnerNumberModel) numberModel).getNumber().intValue();
     }
     throw new IllegalStateException("Spinner is not numeric.");
   }

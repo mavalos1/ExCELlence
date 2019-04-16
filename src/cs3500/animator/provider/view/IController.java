@@ -8,7 +8,7 @@ public interface IController {
   /**
    * Displays the view from the start of an animation.
    */
-  void go();
+  void controllerGo();
 
   /**
    * Sets the tick rate for an animation.

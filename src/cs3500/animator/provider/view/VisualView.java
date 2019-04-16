@@ -3,7 +3,10 @@ package cs3500.animator.provider.view;
 //This import was changed to accomodate for ReadOnlyExCELenceAnimatorModel location in provider.view
 import cs3500.animator.provider.view.ReadOnlyExCELenceAnimatorModel;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 
 import java.awt.Container;
@@ -19,16 +22,14 @@ public class VisualView extends JFrame implements IView {
 
   private ReadOnlyExCELenceAnimatorModel model;
 
-  private PlaybackRenderer animation;
+
   private Container cp;
-  private JPanel statusBar;
   private JLabel statusLabel;
-  private JScrollPane scrollPane;
   private int delay;
 
 
   /**
-   * Creates a visual view with the given animation model
+   * Creates a visual view with the given animation model.
    *
    * @param model the animation model
    */
@@ -59,12 +60,12 @@ public class VisualView extends JFrame implements IView {
     setTitle("ExCELence Animator");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setSize(model.getCanvasWidth(), model.getCanvasHeight());
-    this.animation = new PlaybackRenderer(model, delay);
+    PlaybackRenderer animation = new PlaybackRenderer(model, delay);
     animation.setPreferredSize(new Dimension(model.getCanvasWidth(), model.getCanvasHeight()));
-    scrollPane = new JScrollPane(animation);
+    JScrollPane scrollPane = new JScrollPane(animation);
     this.add(scrollPane, BorderLayout.CENTER);
 
-    statusBar = createStatusBar();
+    JPanel statusBar = createStatusBar();
 
     cp.add(statusBar, BorderLayout.SOUTH);
     this.pack();
