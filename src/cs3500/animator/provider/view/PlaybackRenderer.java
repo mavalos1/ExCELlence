@@ -56,8 +56,8 @@ public class PlaybackRenderer extends JPanel implements ActionListener, IPlaybac
 
 		for (IShape s : this.model.getShapesAtTick(this.tickCounter)) {
 			if (s != null) {
-				int x = s.getPosition().getXCoord().intValue() - this.model.getCanvasOffsetX();
-				int y = s.getPosition().getYCoord().intValue() - this.model.getCanvasOffsetY();
+				int x = s.getPosition().getX().intValue() - this.model.getCanvasOffsetX();
+				int y = s.getPosition().getY().intValue() - this.model.getCanvasOffsetY();
 				int w = s.getDimension().getWidth().intValue();
 				int h = s.getDimension().getHeight().intValue();
 				Color c = new Color(

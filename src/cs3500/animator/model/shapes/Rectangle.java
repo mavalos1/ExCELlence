@@ -56,7 +56,7 @@ public class Rectangle implements Shape {
    */
   public Rectangle(Shape s) {
     this(s.getName(),
-        (int) s.getPosition().getX(), (int) s.getPosition().getY(),
+        (int) s.getPosition().getXCoord(), (int) s.getPosition().getYCoord(),
         (int) s.getSize().getW(), (int) s.getSize().getH(),
         (int) s.getColor().getR(), (int) s.getColor().getG(), (int) s.getColor().getB()
     );
@@ -155,8 +155,8 @@ public class Rectangle implements Shape {
       }
     } else if (currentTick > t.beginTime) {
       position = new Position2D(
-          position.getX() + (t.x2 - t.x1) / (double) t.duration,
-          position.getY() + (t.y2 - t.y1) / (double) t.duration
+          position.getXCoord() + (t.x2 - t.x1) / (double) t.duration,
+          position.getYCoord() + (t.y2 - t.y1) / (double) t.duration
       );
       size = new Size(
           size.getW() + (t.w2 - t.w1) / (double) t.duration,
@@ -202,7 +202,7 @@ public class Rectangle implements Shape {
     toSVG.append(String.format(
         "\n<rect id=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" " +
             "height=\"%.2f\" fill=\"rgb(%.0f,%.0f,%.0f)\" visibility=\"visible\" >",
-        name, position.getX(), position.getY(),
+        name, position.getXCoord(), position.getYCoord(),
         size.getW(), size.getH(), color.getR(), color.getG(), color.getB())
     );
 
@@ -449,9 +449,9 @@ public class Rectangle implements Shape {
     return "rectangle";
   }
 
-  public ArrayList<Integer> getKeyFrameList() {
-    for (Transition t : transitions) {
+  //public ArrayList<Integer> getKeyFrameList() {
+  //  for (Transition t : transitions) {
 
-    }
-  }
+  //  }
+  //}
 }

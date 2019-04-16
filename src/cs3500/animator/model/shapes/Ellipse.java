@@ -41,7 +41,7 @@ public class Ellipse extends Rectangle {
     StringBuilder toSVG = new StringBuilder();
     toSVG.append(String.format("\n<ellipse id=\"%s\" cx=\"%.2f\" cy=\"%.2f\" rx=\"%.2f\" "
                     + "ry=\"%.2f\" fill=\"rgb(%.0f,%.0f,%.0f)\" visibility=\"visible\" >",
-        name, position.getX(), position.getY(),
+        name, position.getXCoord(), position.getYCoord(),
         size.getW() / 2, size.getH() / 2, color.getR(), color.getG(), color.getB()));
 
     if (!transitions.isEmpty()) {

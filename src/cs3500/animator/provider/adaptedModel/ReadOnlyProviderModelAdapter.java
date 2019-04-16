@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Read only class to follow providers code structure.
+ */
 public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 	protected int x = 0;
 	protected int y = 0;

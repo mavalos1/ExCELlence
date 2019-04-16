@@ -12,8 +12,8 @@ public class Position2D extends cs3500.animator.model.helper.Position2D {
 	 * This method is renamed as it clashes with the same getX() method in implemented Position2D.
 	 * @return
 	 */
-	public Double getXCoord() {
-		return getX();
+	public Double getX() {
+		return getXCoord();
 	}
 
 	/**
@@ -21,7 +21,7 @@ public class Position2D extends cs3500.animator.model.helper.Position2D {
 	 * This method is renamed as it clashes with the same getY() method in implemented Position2D
 	 * @return
 	 */
-	public Double getYCoord() {
-		return getY();
+	public Double getY() {
+		return getYCoord();
 	}
 }

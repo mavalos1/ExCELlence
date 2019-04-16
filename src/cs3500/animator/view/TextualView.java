@@ -104,7 +104,7 @@ public class TextualView implements AnimationView {
         lineOutput.append(String.format("%d ", currentTick));
         lineOutput.append(String.format("motion %s ", s.getName()));
         lineOutput.append(String.format("%.0f %.0f ",
-            s.getPosition().getX(), s.getPosition().getY()));
+            s.getPosition().getXCoord(), s.getPosition().getYCoord()));
         lineOutput.append(String.format("%.0f %.0f ", s.getSize().getW(), s.getSize().getH()));
         lineOutput.append(String.format("%.0f %.0f %.0f\n",
             s.getColor().getR(), s.getColor().getG(), s.getColor().getB()));

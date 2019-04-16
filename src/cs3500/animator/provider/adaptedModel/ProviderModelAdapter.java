@@ -8,6 +8,9 @@ import cs3500.animator.model.shapes.Shape2D;
 import cs3500.animator.provider.view.ExCELenceAnimatorModel;
 import cs3500.animator.provider.view.IShape;
 
+/**
+ * Editable version of the animator model.
+ */
 public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implements ExCELenceAnimatorModel {
 	/**
 	 * Adapter constructor to adapt AnimationModel to provider's ExCELenceAnimatorModel.
@@ -87,8 +90,8 @@ public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implement
 
 		model.addKeyFrame(
 			name, tick,
-			shape.getPosition().getXCoord().intValue(),
-			shape.getPosition().getYCoord().intValue(),
+			shape.getPosition().getX().intValue(),
+			shape.getPosition().getY().intValue(),
 			shape.getDimension().getWidth().intValue(),
 			shape.getDimension().getHeight().intValue(),
 			shape.getColor().getRedValue(), shape.getColor().getGreenValue(),

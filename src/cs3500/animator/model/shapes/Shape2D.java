@@ -61,10 +61,10 @@ public class Shape2D extends Rectangle implements IShape {
 	@Override
 	public IShape copy() {
 		return new Shape2D(
-			this.p.getXCoord().intValue(), this.p.getYCoord().intValue(),
-			this.d.getWidth().intValue(), this.d.getHeight().intValue(),
-			this.c.getRedValue(), this.c.getBlueValue(), this.c.getGreenValue(),
-			this.t
+						(int)this.p.getXCoord(), (int)this.p.getYCoord(),
+            this.d.getWidth().intValue(), this.d.getHeight().intValue(),
+            this.c.getRedValue(), this.c.getBlueValue(), this.c.getGreenValue(),
+            this.t
 		);
 	}
 }

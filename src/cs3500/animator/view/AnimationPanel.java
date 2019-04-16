@@ -39,8 +39,8 @@ public class AnimationPanel extends JPanel {
    */
   public void paintComponent(Graphics gr) {
     for (Shape s : shapes) {
-      int x = (int) Math.round(s.getPosition().getX());
-      int y = (int) Math.round(s.getPosition().getY());
+      int x = (int) Math.round(s.getPosition().getXCoord());
+      int y = (int) Math.round(s.getPosition().getYCoord());
       int w = (int) Math.round(s.getSize().getW());
       int h = (int) Math.round(s.getSize().getH());
       int r = (int) Math.round(s.getColor().getR());

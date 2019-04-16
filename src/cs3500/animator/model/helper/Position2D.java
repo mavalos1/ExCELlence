@@ -39,7 +39,7 @@ public class Position2D {
    *
    * @return x the x pos
    */
-  public double getX() {
+  public double getXCoord() {
     return x;
   }
 
@@ -48,7 +48,7 @@ public class Position2D {
    *
    * @return y
    */
-  public double getY() {
+  public double getYCoord() {
     return y;
   }
 
