@@ -45,7 +45,7 @@ public class PlaybackRenderer extends JPanel implements ActionListener, IPlaybac
 		this.model = model;
 		this.setFocusable(true);
 		this.setPreferredSize(new Dimension(model.getCanvasWidth(), model.getCanvasHeight()));
-		this.loop = true;
+		this.loop = false;
 		timer = new Timer(delay, this);
 	}
 
