@@ -2,7 +2,7 @@ package cs3500.animator.util;
 
 import cs3500.animator.controller.AnimationController;
 import cs3500.animator.controller.Controller;
-import cs3500.animator.provider.adaptedController.ProviderControllerAdapter;
+import cs3500.animator.provider.adaptedcontroller.ProviderControllerAdapter;
 
 /**
  * A class for creating animation controllers.
@@ -10,6 +10,12 @@ import cs3500.animator.provider.adaptedController.ProviderControllerAdapter;
 public class AnimationBuilderImpl implements AnimationBuilder {
   private AnimationController controller;
 
+  /**
+   * Construct animation controller.
+   * @param type the view type
+   * @param speed the view speed
+   * @param outFile the output file
+   */
   public AnimationBuilderImpl(String type, int speed, String outFile) {
     if (type.equals("provider")) {
       controller = new ProviderControllerAdapter(type, speed, outFile);

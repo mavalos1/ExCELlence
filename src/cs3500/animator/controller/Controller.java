@@ -252,7 +252,7 @@ public class Controller implements AnimationController, ActionListener {
   }
 
   /**
-   * Get the speed of the animation
+   * Get the speed of the animation.
    * @return the number of ticks per second
    */
   public int getSpeed() {
@@ -332,7 +332,7 @@ public class Controller implements AnimationController, ActionListener {
   }
 
   /**
-   * Return whether the animation is playing
+   * Return whether the animation is playing.
    * @return true if the animation is playing
    */
   public boolean getPlaying() {

@@ -58,7 +58,7 @@ public class Model implements AnimationModel {
     for (Shape s : sh) {
       try {
         getShape(s.getName());
-      } catch (IllegalArgumentException e){
+      } catch (IllegalArgumentException e) {
         shapes.add(s);
       }
     }
