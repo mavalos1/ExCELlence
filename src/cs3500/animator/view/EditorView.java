@@ -2,18 +2,17 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.shapes.Shape;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -59,6 +58,9 @@ public class EditorView implements AnimationView {
   private JButton addKeyFrameButton;
   private JButton removeKeyFrameButton;
 
+  private JPanel playBackPanel;
+  private JSlider playbackSlider;
+
   /**
    * Initialize the view to a default JPanel, ready for rendering.
    */
@@ -79,7 +81,6 @@ public class EditorView implements AnimationView {
     //button panel
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
-    viewFrame.add(buttonPanel, BorderLayout.SOUTH);
 
     startPauseButton = new JButton(PAUSE);
     restartButton = new JButton(RESTART);
@@ -123,6 +124,16 @@ public class EditorView implements AnimationView {
 
     keyFramePanel.add(addKeyFrameButton);
     keyFramePanel.add(removeKeyFrameButton);
+
+    //playback panel
+    playBackPanel = new JPanel();
+    playBackPanel.setLayout(new BoxLayout(playBackPanel, BoxLayout.Y_AXIS));
+
+    playbackSlider = new JSlider(0, 100, 0);
+    playBackPanel.add(playbackSlider);
+    playBackPanel.add(buttonPanel);
+
+    viewFrame.add(playBackPanel, BorderLayout.SOUTH);
 
     this.viewFrame.pack();
     viewFrame.setVisible(true);
@@ -216,6 +227,24 @@ public class EditorView implements AnimationView {
     PopUpOptionPanel removeKeyFramePopup = new PopUpOptionPanel("Remove Keyframe");
     removeKeyFrameButton.addActionListener(removeKeyFramePopup);
     removeKeyFramePopup.addActionListener(l);
+
+    playbackSlider.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        System.out.println("pressed");
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        System.out.println("unpressed");
+      }
+    });
+    playbackSlider.addChangeListener(new ChangeListener() {
+      @Override
+      public void stateChanged(ChangeEvent e) {
+        System.out.println(playbackSlider.getValue());
+      }
+    });
   }
 
   /**
