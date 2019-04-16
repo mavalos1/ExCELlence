@@ -6,7 +6,7 @@ import cs3500.animator.model.shapes.attribute.RBGcolor;
 import cs3500.animator.provider.view.IShape;
 
 public class Shape2D extends Rectangle implements IShape {
-	private ShapeType t = ShapeType.RECTANGLE;
+	private ShapeType t;
 	private Position2D p = new Position2D(this.position);
 	private Dimension2D d = new Dimension2D(this.size);
 	private RBGcolor c = new RBGcolor(this.color);
@@ -17,6 +17,7 @@ public class Shape2D extends Rectangle implements IShape {
 
 	public Shape2D(Shape s) {
 		super(s);
+		t = s.getShapeType().equals("ellipse") ? ShapeType.ELLIPSE : ShapeType.RECTANGLE;
 	}
 
 	public Shape2D(int x, int y, int w, int h, int r, int b, int g, ShapeType t) {

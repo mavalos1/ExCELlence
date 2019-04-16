@@ -3,6 +3,7 @@ package cs3500.animator.model;
 import cs3500.animator.model.helper.Transition;
 import cs3500.animator.model.shapes.Shape;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,4 +100,10 @@ public interface AnimationModel {
    */
   void removeShape(String name);
 
+  /**
+   * Get the keyframe list of a shape of such name from the model.
+   * @param name the name of the shape
+   * @return the list of keyframes present in the shape
+   */
+  ArrayList<Integer> getKeyFrameList(String name);
 }

@@ -64,11 +64,14 @@ public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorMo
 	public IShape getShapeAtTick(String name, Integer tick) {
 		ArrayList<Shape2D> sList = renderedShapeMap.get(tick);
 
-		for (Shape2D s : sList) {
-			if (s.getName().equals(name)) {
-				return s;
+		if (sList != null) {
+			for (Shape2D s : sList) {
+				if (s.getName().equals(name)) {
+					return s;
+				}
 			}
 		}
+
 
 		throw new IllegalArgumentException("No shape with such name found");
 	}
@@ -99,11 +102,11 @@ public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorMo
 	 * @return an ArrayList of ticks that are keyframes of a shape
 	 */
 	public ArrayList<Integer> getKeyticksForShape(String name) {
-		ArrayList<Integer> kList = new ArrayList<>();
-		System.out.println(name);
-		kList.add(1);
-
-		return kList;
+		if (name != null && !name.isEmpty()) {
+			return model.getKeyFrameList(name);
+		} else {
+			return new ArrayList<>();
+		}
 	}
 
 	/**
@@ -180,7 +183,7 @@ public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorMo
 		model.reset();
 		List<Shape> shapes = model.getShapes();
 
-		int i = 0;
+		int i = model.getCurrentTick();
 		while (model.canTick()) {
 			ArrayList<Shape2D> sList = new ArrayList<>();
 
@@ -192,5 +195,7 @@ public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorMo
 			model.tick();
 			i++;
 		}
+
+		return;
 	}
 }

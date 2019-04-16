@@ -75,7 +75,6 @@ public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implement
 		if (name.isEmpty()) return;
 
 		addKeyframe(name, tick, getShapeAtTick(name, tick));
-		renderToMap();
 	}
 
 	/**

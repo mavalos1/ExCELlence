@@ -160,4 +160,13 @@ public class Model implements AnimationModel {
     shapes.remove(s);
   }
 
+  /**
+   * Get the keyframe list of a shape of such name from the model.
+   * @param name the name of the shape
+   * @return the list of keyframes present in the shape
+   */
+  public ArrayList<Integer> getKeyFrameList(String name) {
+    Shape s = getShape(name);
+    return s.getKeyFrameList();
+  }
 }

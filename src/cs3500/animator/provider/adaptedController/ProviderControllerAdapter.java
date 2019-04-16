@@ -72,6 +72,14 @@ public class ProviderControllerAdapter implements ActionListener {
 
 				model.removeShape(dName);
 				refreshShapeList();
+				refreshKeyFrameList();
+				break;
+			case SELECT_KEYTICK_ACTION:
+				IShape nS = model.getShapeAtTick(
+					view.getSelectedShapeName(), view.getSelectedKeytick()
+				);
+
+				view.setShapeEditorValue(nS);
 				break;
 			case ADD_KEYFRAME_ACTION:
 				String aName = view.getSelectedShapeName();

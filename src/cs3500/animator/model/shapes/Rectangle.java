@@ -449,9 +449,17 @@ public class Rectangle implements Shape {
     return "rectangle";
   }
 
-  //public ArrayList<Integer> getKeyFrameList() {
-  //  for (Transition t : transitions) {
+  /**
+   * Get the list of keyframes in the shape.
+   * @return the list of keyframes, empty if no keyframe is present
+   */
+  public ArrayList<Integer> getKeyFrameList() {
+    ArrayList<Integer> kList = new ArrayList<>();
 
-  //  }
-  //}
+    for (Transition t : transitions) {
+      kList.add(t.endTime);
+    }
+
+    return kList;
+  }
 }

@@ -5,6 +5,8 @@ import cs3500.animator.model.helper.Position2D;
 import cs3500.animator.model.helper.Size;
 import cs3500.animator.model.helper.Transition;
 
+import java.util.ArrayList;
+
 /**
  * This interface specifies the operation of a single 2D shape.
  *
@@ -102,4 +104,10 @@ public interface Shape {
    * @return
    */
   void deleteKeyFrame(int t);
+
+  /**
+   * Get the list of keyframes in the shape.
+   * @return the list of keyframes, empty if no keyframe is present
+   */
+  ArrayList<Integer> getKeyFrameList();
 }
