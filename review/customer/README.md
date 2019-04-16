@@ -15,4 +15,4 @@ The controller now regulates the ability to loop the animation on editor view, i
 The editor view is a JFrame that contains the visual view's JPanel within it. the editor view provides a playback panel at the bottom, with start/pause, restart, loop, and set speed. Each of these button triggers an event in the controller to respectively modifiy the model, thus modifying the view. The left and right panels are for adding/removing shapes and keyframes, each of which button will open a popup window for the user to input in the parameters for the shapes and keyframe to add/remove. The popup windows upon hitting OK, will inform the controller to modify the model accordingly.
 
 #Changes for customer
-Added period on Javadoc in AnimationController.java at line 112 and 130
+Added period on Javadoc in AnimationController.java at line 112 and 130.
