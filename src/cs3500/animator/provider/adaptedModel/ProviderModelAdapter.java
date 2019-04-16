@@ -4,6 +4,7 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.motion.Motion;
 import cs3500.animator.model.shapes.Ellipse;
 import cs3500.animator.model.shapes.Rectangle;
+import cs3500.animator.model.shapes.Shape;
 import cs3500.animator.model.shapes.Shape2D;
 import cs3500.animator.provider.view.ExCELenceAnimatorModel;
 import cs3500.animator.provider.view.IShape;
@@ -28,11 +29,16 @@ public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implement
 	 * @throws IllegalArgumentException if a shape has already been declared with this name
 	 */
 	public void declareShape(String name, Shape2D.ShapeType type) {
+	  Shape s;
 		if (type == Shape2D.ShapeType.RECTANGLE) {
-			model.addShape(new Rectangle(name));
+			s = new Rectangle(name);
 		} else {
-			model.addShape(new Ellipse(name));
+		  s = new Ellipse(name);
 		}
+		model.addShape(s);
+		model.addKeyFrame(name, 0, (int)s.getPosition().getXCoord(), (int)s.getPosition().getYCoord(),
+						(int)s.getSize().getW(), (int)s.getSize().getH(),
+						(int)s.getColor().getR(),	(int)s.getColor().getG(), (int)s.getColor().getB());
 
 		renderToMap();
 	}
