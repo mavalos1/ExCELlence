@@ -67,7 +67,6 @@ public class ProviderModelAdapter extends ReadOnlyProviderModelAdapter implement
 	 */
 	public void addMotion(String name, Motion motion) {
 		//TODO:
-		renderToMap();
 	}
 
 	/**

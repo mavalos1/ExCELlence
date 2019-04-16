@@ -26,8 +26,8 @@ import java.util.Objects;
  * </p>
  */
 public class Controller implements AnimationController, ActionListener {
-  private AnimationView view;
-  private AnimationModel model;
+  protected AnimationView view;
+  protected AnimationModel model;
   private int speed = 1;
   private boolean shouldPlay = true;
   private boolean loop = true;
@@ -82,14 +82,16 @@ public class Controller implements AnimationController, ActionListener {
         this.view.setListener(this);
         break;
       case "provider":
-//        this.view = new cs3500.animator.provider.view.EditorView();
-        this.view.setListener(this);
+        break;
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
 
     this.model = new Model();
-    setSpeed(speed);
+
+    if (view != null) {
+      setSpeed(speed);
+    }
   }
 
   /**
@@ -263,6 +265,10 @@ public class Controller implements AnimationController, ActionListener {
    */
   public void setSpeed(int speed) {
     if (view instanceof TextualView) {
+      return;
+    }
+
+    if (view == null) {
       return;
     }
 
