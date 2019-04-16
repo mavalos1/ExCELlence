@@ -56,7 +56,11 @@ public class Model implements AnimationModel {
    */
   public void addShape(Shape... sh) {
     for (Shape s : sh) {
-      shapes.add(s);
+      try {
+        getShape(s.getName());
+      } catch (IllegalArgumentException e){
+        shapes.add(s);
+      }
     }
   }
 

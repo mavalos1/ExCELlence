@@ -1,5 +1,6 @@
-package cs3500.animator.model;
+package cs3500.animator.provider.adaptedModel;
 
+import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.motion.Motion;
 import cs3500.animator.model.shapes.Shape;
 import cs3500.animator.model.shapes.Shape2D;
@@ -10,32 +11,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
-	private int x = 0;
-	private int y = 0;
-	private int w = 400;
-	private int h = 400;
+public class ReadOnlyProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
+	protected int x = 0;
+	protected int y = 0;
+	protected int w = 400;
+	protected int h = 400;
 
-	private AnimationModel model;
-	private HashMap<Integer, ArrayList<Shape2D>> renderedShapeMap;
+	protected AnimationModel model;
+	protected HashMap<Integer, ArrayList<Shape2D>> renderedShapeMap;
 
-	public ProviderModelAdapter(AnimationModel model) {
+	/**
+	 * Adapter constructor to adapt AnimationModel to provider's ExCELenceAnimatorModel.
+	 * @param model
+	 */
+	public ReadOnlyProviderModelAdapter(AnimationModel model) {
 		this.model = model;
 		renderedShapeMap = new HashMap<>();
-
-		int i = 0;
-		List<Shape> shapes = model.getShapes();
-		while (model.canTick()) {
-			ArrayList<Shape2D> sList = new ArrayList<>();
-
-			for (Shape s : shapes) {
-				sList.add(new Shape2D(s));
-			}
-
-			renderedShapeMap.put(i, sList);
-			model.tick();
-			i++;
-		}
+		renderToMap();
 	}
 
 	/**
@@ -48,11 +40,12 @@ public class ProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 		List<Shape> shapes = model.getShapes();
 		ArrayList<String> sNames = new ArrayList<>();
 
+		//accomodate for provider's code hardcoded check for 1 in PlaybackRenderer.isEndOfAnimation
+		sNames.add(0, "");
+
 		for (Shape s : shapes) {
 			sNames.add(s.getName());
 		}
-
-		if (sNames.size() < 2) sNames.add(1, "");
 
 		return sNames;
 	}
@@ -86,14 +79,11 @@ public class ProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 	public ArrayList<IShape> getShapesAtTick(Integer tick) {
 		ArrayList<Shape2D> sList = renderedShapeMap.get(tick);
 
-		if (sList == null) {
-			int lastTick = getKeyticksForShape("").get(0);
-			sList = renderedShapeMap.get(lastTick);
-		}
-
 		ArrayList<IShape> rList = new ArrayList<>();
-		for (Shape2D s : sList) {
-			rList.add(s);
+		if (sList != null) {
+			for (Shape2D s : sList) {
+				rList.add(s);
+			}
 		}
 
 		return rList;
@@ -106,13 +96,9 @@ public class ProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 	 * @return an ArrayList of ticks that are keyframes of a shape
 	 */
 	public ArrayList<Integer> getKeyticksForShape(String name) {
-		int i = 0;
-		while (renderedShapeMap.get(i) != null) {
-			i++;
-		}
-
 		ArrayList<Integer> kList = new ArrayList<>();
-		kList.add(i - 1);
+		System.out.println(name);
+		kList.add(1);
 
 		return kList;
 	}
@@ -181,5 +167,24 @@ public class ProviderModelAdapter implements ReadOnlyExCELenceAnimatorModel {
 	 */
 	public Integer getDuration() {
 		throw new UnsupportedOperationException("No duration get supported");
+	}
+
+	protected void renderToMap() {
+		renderedShapeMap.clear();
+		model.reset();
+		List<Shape> shapes = model.getShapes();
+
+		int i = 0;
+		while (model.canTick()) {
+			ArrayList<Shape2D> sList = new ArrayList<>();
+
+			for (Shape s : shapes) {
+				sList.add(new Shape2D(s));
+			}
+
+			renderedShapeMap.put(i, sList);
+			model.tick();
+			i++;
+		}
 	}
 }

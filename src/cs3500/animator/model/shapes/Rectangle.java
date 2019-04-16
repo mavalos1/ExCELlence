@@ -448,4 +448,10 @@ public class Rectangle implements Shape {
   public String getShapeType() {
     return "rectangle";
   }
+
+  public ArrayList<Integer> getKeyFrameList() {
+    for (Transition t : transitions) {
+
+    }
+  }
 }
