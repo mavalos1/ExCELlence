@@ -1,0 +1,10 @@
+Our experience with our customers was simple and straightforward. Our customers didn't have any
+questions and the one changed they asked for was a few periods for the style.
+
+Our experience with our providers was nice. We had a lot of questions about their code and they were
+usually quick to respond and nice to work with. We learned not to write the code the way they wrote
+theirs. While their code was difficult to work with the developers of the code were a pleasure to
+work with.
+
+We could have used keyframes instead of transitions from the start which would have been a bit
+easier to work with.

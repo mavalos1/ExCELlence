@@ -1,0 +1,35 @@
+Design critique:
+
+Controller is lacking in functionality. The controller should do more than just start the animation
+and set the tickrate. The view contains a lot of the functionality that should be in the controller.
+
+Also both the view and the controller have a function to set the ticks per
+second. Only one of these should be needed (preferably in the controller).
+
+Their shapes do not have names so we have to keep track of this manually in our model.
+
+
+Implementation critique:
+
+Many functions that should be defined in interfaces are not. Please revise functions used in
+implementations and make sure all relevant functions are included in their interfaces.
+
+
+Documentation critique:
+
+Documentation is acceptable.
+
+
+Design/code limitations:
+
+Unable to add keyframes with initial values in the editor view. All keyframes must be added with
+default values and then edited separately. This could be improved by adding additional fields to the
+view to specify initial values for the keyframes.
+
+
+Other notes:
+
+We had to change the name of our position 2d get X and Y functions since they had the same name as
+our provider's.
+
+
