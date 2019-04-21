@@ -156,4 +156,24 @@ public class Model implements AnimationModel {
     shapes.remove(s);
   }
 
+  /**
+   * Advance the model to a certain percentage of frames.
+   * @param pct the percent to jump to
+   */
+  public void jumpToPercent(int pct) {
+    int maxTick = 0;
+    for (Shape s : shapes) {
+      while (s.canTick(maxTick)) maxTick++;
+    }
+
+    int newTick = maxTick * pct / 100;
+
+    if (currentTick > newTick) {
+      reset();
+    } else if (currentTick == newTick) {
+      return;
+    }
+
+    while (currentTick < newTick) tick();
+  }
 }

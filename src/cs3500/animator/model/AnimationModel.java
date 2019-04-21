@@ -99,4 +99,9 @@ public interface AnimationModel {
    */
   void removeShape(String name);
 
+  /**
+   * Advance the model to a certain percentage of frames.
+   * @param pct the percent to jump to
+   */
+  void jumpToPercent(int pct);
 }

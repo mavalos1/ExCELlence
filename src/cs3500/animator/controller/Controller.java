@@ -13,8 +13,10 @@ import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextualView;
 import cs3500.animator.view.VisualView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.*;
 import java.util.Objects;
 
 /**
@@ -25,7 +27,8 @@ import java.util.Objects;
  *   The added shapes and animations are rendered by the order of them being added.
  * </p>
  */
-public class Controller implements AnimationController, ActionListener {
+public class Controller extends MouseAdapter implements AnimationController, ActionListener,
+    MouseListener, ChangeListener {
   private AnimationView view;
   private AnimationModel model;
   private int speed = 1;
@@ -312,6 +315,23 @@ public class Controller implements AnimationController, ActionListener {
       default:
         throw new IllegalArgumentException("Unsupported action command");
     }
+  }
+
+  @Override
+  public void stateChanged(ChangeEvent e) {
+    int val = ((JSlider) e.getSource()).getValue();
+    model.jumpToPercent(val);
+    renderView();
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    togglePause();
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    togglePause();
   }
 
   /**

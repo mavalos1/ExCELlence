@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.EventListener;
 import java.util.List;
 
 /**
@@ -158,6 +159,11 @@ public class EditorView implements AnimationView {
    * @param shapes the list of shape to be rendered
    */
   public void render(int tick, List<Shape> shapes) {
+    int maxTick = 0;
+    for (Shape s : shapes) while (s.canTick(maxTick)) maxTick++;
+    double sliderVal = (double) tick/maxTick * 100;
+    playbackSlider.setValue((int) Math.round(sliderVal));
+
     animationPanel.setShapes(shapes);
     viewFrame.revalidate();
     viewFrame.repaint();
@@ -228,23 +234,8 @@ public class EditorView implements AnimationView {
     removeKeyFrameButton.addActionListener(removeKeyFramePopup);
     removeKeyFramePopup.addActionListener(l);
 
-    playbackSlider.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent e) {
-        System.out.println("unpressed");
-      }
-    });
-    playbackSlider.addChangeListener(new ChangeListener() {
-      @Override
-      public void stateChanged(ChangeEvent e) {
-        System.out.println(playbackSlider.getValue());
-      }
-    });
+    playbackSlider.addMouseListener((MouseAdapter) l);
+    playbackSlider.addChangeListener((ChangeListener) l);
   }
 
   /**
