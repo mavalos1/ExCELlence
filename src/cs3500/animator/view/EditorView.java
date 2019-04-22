@@ -29,8 +29,8 @@ import java.util.List;
 public class EditorView implements AnimationView {
   private final static String START = "▶";
   private final static String PAUSE = "❙❙";
-  private final static String LOOP_ON = "↺ ✓";
-  private final static String LOOP_OFF = "↺";
+  private final static String LOOP_ON = "Loop ✓";
+  private final static String LOOP_OFF = "Loop";
   private final static String RESTART = "◼";
   private final static String SPEED = "Set Speed";
   private final static String RECTANGLE = "▢";

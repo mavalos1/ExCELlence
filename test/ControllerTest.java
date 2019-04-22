@@ -59,8 +59,8 @@ public class ControllerTest {
 
     controller.addShape("R", "rectangle");
     controller.addTransition("R",
-        1, 1, 1, 1, 1, 1, 1, 1,
-        11, 10, 10, 10, 10, 10, 10, 10
+        1, 1, 1, 1, 1, 1, 1, 1, 0,
+        11, 10, 10, 10, 10, 10, 10, 10, 0
     );
 
     Shape r = model.getShape("R");
@@ -156,7 +156,7 @@ public class ControllerTest {
     AnimationView view = new TextualView();
     AnimationController controller = new Controller(model, view, 1);
 
-    controller.addTransition(null, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+    controller.addTransition(null, 0, 1, 1, 1, 1, 1, 1, 1, 0,1, 1, 1, 1, 1, 1, 1, 1, 0);
   }
 
   @Test
@@ -171,8 +171,8 @@ public class ControllerTest {
     controller.setBounds(20, 20, 400, 400);
 
     controller.addShape("R", "rectangle");
-    controller.addKeyFrame("R", 1, 1, 1, 1, 1, 1, 1, 1);
-    controller.addKeyFrame("R", 11, 10, 10, 10, 10, 10, 10, 10);
+    controller.addKeyFrame("R", 1, 1, 1, 1, 1, 1, 1, 1, 0);
+    controller.addKeyFrame("R", 11, 10, 10, 10, 10, 10, 10, 10, 0);
 
     controller.renderView();
     controller.nextTick();
@@ -212,7 +212,7 @@ public class ControllerTest {
 
     outContent = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outContent));
-    controller.addKeyFrame("R", 5, 0, 0, 0, 0, 0, 0, 0);
+    controller.addKeyFrame("R", 5, 0, 0, 0, 0, 0, 0, 0, 0);
 
     controller.togglePause();
     controller.start();

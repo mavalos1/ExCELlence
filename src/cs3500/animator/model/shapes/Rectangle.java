@@ -19,6 +19,7 @@ public class Rectangle implements Shape {
   protected Position2D position;
   protected Size size;
   protected Color color;
+  protected double rotation;
   protected int currentTransition;
   protected List<Transition> transitions;
 
@@ -32,12 +33,15 @@ public class Rectangle implements Shape {
    * @param r red
    * @param g green
    * @param b blue
+   * @param rt the rotation
    */
-  public Rectangle(String name, int x, int y, int w, int h, int r, int g, int b) {
+  public Rectangle(String name, int x, int y, int w, int h, int r, int g, int b, int rt) {
     this.name = name;
     this.position = new Position2D(x, y);
     this.size = new Size(w, h);
     this.color = new Color(r, g, b);
+    this.rotation = rt;
+
     this.transitions = new ArrayList<>();
     this.currentTransition = 0;
   }
@@ -47,7 +51,7 @@ public class Rectangle implements Shape {
    * @param name the name of the shape
    */
   public Rectangle(String name) {
-    this(name, 0, 0, 0, 0, 0, 0, 0);
+    this(name, 0, 0, 0, 0, 0, 0, 0, 0);
   }
 
   /**
@@ -83,6 +87,14 @@ public class Rectangle implements Shape {
   }
 
   /**
+   * Get the model's rotation.
+   * @return
+   */
+  public double getRotation() {
+    return rotation;
+  }
+
+  /**
    * Add new transitions(s) to the shape.
    * @param tr the transitions to add
    */
@@ -102,7 +114,7 @@ public class Rectangle implements Shape {
         if ((Math.abs(latestTr.x2 - t.x1) > 0.01) || (Math.abs(latestTr.y2 - t.y1) > 0.01)
             || (Math.abs(latestTr.w2 - t.w1) > 0.01) || (Math.abs(latestTr.h2 - t.h1) > 0.01)
             || (Math.abs(latestTr.r2 - t.r1) > 0.01) || (Math.abs(latestTr.g2 - t.g1) > 0.01)
-            || (Math.abs(latestTr.b2 - t.b1) > 0.01)) {
+            || (Math.abs(latestTr.b2 - t.b1) > 0.01) || (Math.abs(latestTr.rt2 - t.rt1) > 0.01)) {
           throw new IllegalArgumentException("Invalid transition state");
         }
 
@@ -115,6 +127,7 @@ public class Rectangle implements Shape {
         position = new Position2D(t.x1, t.y1);
         size = new Size(t.w1, t.h1);
         color = new Color(t.r1, t.g1, t.b1);
+        rotation = t.rt1;
       }
 
       transitions.add(t);
@@ -136,6 +149,7 @@ public class Rectangle implements Shape {
       position = new Position2D(t.x1, t.y1);
       size = new Size(t.w1, t.h1);
       color = new Color(t.r1, t.g1, t.b1);
+      rotation = t.rt1;
 
       if (t.duration == 0) {
         currentTransition++;
@@ -155,6 +169,7 @@ public class Rectangle implements Shape {
           color.getG() + (t.g2 - t.g1) / (double) t.duration,
           color.getB() + (t.b2 - t.b1) / (double) t.duration
       );
+      rotation += (t.rt2 - t.rt1) / (double) t.duration;
 
       if (currentTick == t.endTime) {
         currentTransition++;
@@ -308,12 +323,12 @@ public class Rectangle implements Shape {
    * @param g    The green color-value of the shape
    * @param b    The blue color-value of the shape
    */
-  public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+  public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b, int rt) {
     if (transitions.isEmpty()) {
       transitions.add(new Transition(
           t, t,
-          x, y, w, h, r, g, b,
-          x, y, w, h, r, g, b
+          x, y, w, h, r, g, b, rt,
+          x, y, w, h, r, g, b, rt
       ));
 
       return;
@@ -323,8 +338,9 @@ public class Rectangle implements Shape {
     if (t < firstTr.beginTime) {
       transitions.add(0, new Transition(
           t, firstTr.beginTime,
-          x, y, w, h, r, g, b,
-          firstTr.x1, firstTr.y1, firstTr.w1, firstTr.h1, firstTr.r1, firstTr.g1, firstTr.b1
+          x, y, w, h, r, g, b, rt,
+          firstTr.x1, firstTr.y1, firstTr.w1, firstTr.h1, firstTr.r1, firstTr.g1, firstTr.b1,
+          firstTr.rt1
       ));
 
       return;
@@ -334,8 +350,8 @@ public class Rectangle implements Shape {
     if (t > lastTr.endTime) {
       transitions.add(new Transition(
           lastTr.endTime, t,
-          lastTr.x2, lastTr.y2, lastTr.w2, lastTr.h2, lastTr.r2, lastTr.g2, lastTr.b2,
-          x, y, w, h, r, g, b
+          lastTr.x2, lastTr.y2, lastTr.w2, lastTr.h2, lastTr.r2, lastTr.g2, lastTr.b2, lastTr.rt2,
+          x, y, w, h, r, g, b, rt
       ));
 
       return;
@@ -369,12 +385,12 @@ public class Rectangle implements Shape {
       if (tr.endTime > t && t > tr.beginTime) {
         Transition newTr0 = new Transition(
             tr.beginTime, t,
-            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1,
-            x, y, w, h, r, g, b);
+            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1, tr.rt1,
+            x, y, w, h, r, g, b, rt);
         Transition newTr1 = new Transition(
             t, tr.endTime,
-            x, y, w, h, r, g, b,
-            tr.x2, tr.y2, tr.w2, tr.h2, tr.r2, tr.g2, tr.b2
+            x, y, w, h, r, g, b, rt,
+            tr.x2, tr.y2, tr.w2, tr.h2, tr.r2, tr.g2, tr.b2, tr.rt2
         );
 
         transitions.set(i, newTr0);
@@ -418,8 +434,8 @@ public class Rectangle implements Shape {
         Transition nextTr = transitions.get(i + 1);
         Transition mergedTr = new Transition(
             tr.beginTime, nextTr.endTime,
-            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1,
-            nextTr.x2, nextTr.y2, nextTr.w2, nextTr.h2, nextTr.r2, nextTr.g2, nextTr.b2
+            tr.x1, tr.y1, tr.w1, tr.h1, tr.r1, tr.g1, tr.b1, tr.rt1,
+            nextTr.x2, nextTr.y2, nextTr.w2, nextTr.h2, nextTr.r2, nextTr.g2, nextTr.b2, nextTr.rt2
         );
 
         transitions.set(i, mergedTr);

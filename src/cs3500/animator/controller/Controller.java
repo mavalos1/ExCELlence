@@ -191,10 +191,12 @@ public class Controller extends MouseAdapter implements AnimationController, Act
    * @param b2 the ending B-color code of the transition
    */
   public void addTransition(String name,
-                            int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                            int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+                            int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int rt1,
+                            int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int rt2)
+  {
     Objects.requireNonNull(name, "Must have a valid shape name");
-    Transition t = new Transition(t1, t2, x1, y1, w1, h1, r1, g1, b1, x2, y2, w2, h2, r2, g2, b2);
+    Transition t =
+        new Transition(t1, t2, x1, y1, w1, h1, r1, g1, b1, rt1, x2, y2, w2, h2, r2, g2, b2, rt2);
     model.addTransition(name, t);
   }
 
@@ -212,8 +214,8 @@ public class Controller extends MouseAdapter implements AnimationController, Act
    * @return
    */
   public void addKeyFrame(
-      String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-    model.addKeyFrame(name, t, x, y, w, h, r, g, b);
+      String name, int t, int x, int y, int w, int h, int r, int g, int b, int rt) {
+    model.addKeyFrame(name, t, x, y, w, h, r, g, b, rt);
   }
 
   /**
@@ -288,13 +290,13 @@ public class Controller extends MouseAdapter implements AnimationController, Act
       case "rectangle":
         PopUpOptionPanel pR = (PopUpOptionPanel) e.getSource();
 
-        Rectangle r = new Rectangle(pR.name, pR.x, pR.y, pR.w, pR.h, pR.r, pR.g, pR.b);
+        Rectangle r = new Rectangle(pR.name, pR.x, pR.y, pR.w, pR.h, pR.r, pR.g, pR.b, pR.rt);
         model.addShape(r);
         break;
       case "ellipse":
         PopUpOptionPanel pE = (PopUpOptionPanel) e.getSource();
 
-        Ellipse el = new Ellipse(pE.name, pE.x, pE.y, pE.w, pE.h, pE.r, pE.g, pE.b);
+        Ellipse el = new Ellipse(pE.name, pE.x, pE.y, pE.w, pE.h, pE.r, pE.g, pE.b, pE.rt);
         model.addShape(el);
         break;
       case "removeShape":
@@ -305,7 +307,7 @@ public class Controller extends MouseAdapter implements AnimationController, Act
       case "addKeyFrame":
         PopUpOptionPanel pK = (PopUpOptionPanel) e.getSource();
 
-        addKeyFrame(pK.name, pK.t, pK.x, pK.y, pK.w, pK.h, pK.r, pK.g, pK.b);
+        addKeyFrame(pK.name, pK.t, pK.x, pK.y, pK.w, pK.h, pK.r, pK.g, pK.b, pK.rt);
         break;
       case "removeKeyFrame":
         PopUpOptionPanel pF = (PopUpOptionPanel) e.getSource();

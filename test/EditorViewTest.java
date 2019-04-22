@@ -24,8 +24,8 @@ public class EditorViewTest {
 
     Rectangle r = new Rectangle("R");
     model.addShape(r);
-    controller.addKeyFrame("R", 1, 1, 1, 1, 1, 1, 1, 1);
-    controller.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10);
+    controller.addKeyFrame("R", 1, 1, 1, 1, 1, 1, 1, 1, 0);
+    controller.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10, 0);
 
     JButton testButton = new JButton();
     testButton.addActionListener((ActionListener) controller);

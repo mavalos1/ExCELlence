@@ -53,6 +53,12 @@ public interface Shape {
   Color getColor();
 
   /**
+   * Get the model's rotation.
+   * @return
+   */
+  double getRotation();
+
+  /**
    * Add new transitions(s) to the shape.
    * @param tr the transitions
    */
@@ -94,7 +100,7 @@ public interface Shape {
    * @param g    The green color-value of the shape
    * @param b    The blue color-value of the shape
    */
-  void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b);
+  void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b, int rt);
 
   /**
    * Delete a keyframe from the transition list.

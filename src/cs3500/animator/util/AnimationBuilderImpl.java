@@ -53,7 +53,8 @@ public class AnimationBuilderImpl implements AnimationBuilder {
   }
 
   /**
-   * Adds a transition to the animation.
+   * Adds a transformation to the growing document.
+   *
    * @param name The name of the shape (added with {@link AnimationBuilder#declareShape})
    * @param t1   The start time of this transformation
    * @param x1   The initial x-position of the shape
@@ -63,6 +64,7 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @param r1   The initial red color-value of the shape
    * @param g1   The initial green color-value of the shape
    * @param b1   The initial blue color-value of the shape
+   * @param rt1  The intitial rotation of the shape
    * @param t2   The end time of this transformation
    * @param x2   The final x-position of the shape
    * @param y2   The final y-position of the shape
@@ -71,13 +73,15 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @param r2   The final red color-value of the shape
    * @param g2   The final green color-value of the shape
    * @param b2   The final blue color-value of the shape
-   * @return
+   * @param rt2  The final rotation of the shape
+   * @return This {@link AnimationBuilder}
    */
   public AnimationBuilder<AnimationController> addMotion(
       String name,
-      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
-    controller.addTransition(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
+      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int rt1,
+      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int rt2) {
+    controller.addTransition(
+        name, t1, x1, y1, w1, h1, r1, g1, b1, rt1, t2, x2, y2, w2, h2, r2, g2, b2, rt2);
 
     return this;
   }
@@ -96,8 +100,8 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @return
    */
   public AnimationBuilder<AnimationController> addKeyframe(
-      String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-    controller.addKeyFrame(name, t, x, y, w, h, r, g, b);
+      String name, int t, int x, int y, int w, int h, int r, int g, int b, int rt) {
+    controller.addKeyFrame(name, t, x, y, w, h, r, g, b, rt);
     return this;
   }
 }

@@ -4,8 +4,9 @@ package cs3500.animator.view;
 import cs3500.animator.model.shapes.Shape;
 
 
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.util.List;
@@ -38,6 +39,8 @@ public class AnimationPanel extends JPanel {
    * @param gr the graphic component to draw
    */
   public void paintComponent(Graphics gr) {
+    Graphics2D g2 = (Graphics2D) gr;
+
     for (Shape s : shapes) {
       int x = (int) Math.round(s.getPosition().getX());
       int y = (int) Math.round(s.getPosition().getY());
@@ -47,12 +50,16 @@ public class AnimationPanel extends JPanel {
       int g = (int) Math.round(s.getColor().getG());
       int b = (int) Math.round(s.getColor().getB());
 
-      gr.setColor(new Color(r, g, b));
+      AffineTransform tx = new AffineTransform();
+      tx.rotate(Math.toRadians(s.getRotation()), x + w / 2, y + h / 2);
+      g2.setColor(new Color(r, g, b));
 
       if (s.getShapeType().equals("ellipse")) {
-        gr.fillOval(x, y, w, h);
+        Ellipse2D ell = new Ellipse2D.Float(x, y, w, h);
+        g2.fill(tx.createTransformedShape(ell));
       } else if (s.getShapeType().equals("rectangle")) {
-        gr.fillRect(x, y, w, h);
+        Rectangle rect = new Rectangle(x, y, w, h);
+        g2.fill(tx.createTransformedShape(rect));
       }
     }
   }

@@ -19,8 +19,8 @@ public class Ellipse extends Rectangle {
    * @param g green
    * @param b blue
    */
-  public Ellipse(String name, int x, int y, int w, int h, int r, int g, int b) {
-    super(name, x, y, w, h, r, g, b);
+  public Ellipse(String name, int x, int y, int w, int h, int r, int g, int b, int rt) {
+    super(name, x, y, w, h, r, g, b, rt);
   }
 
   /**

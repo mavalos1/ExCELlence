@@ -28,9 +28,10 @@ public class VisualViewTest {
 
     view.setBounds(10, 10, 30, 100);
 
-    Rectangle r = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50);
+    Rectangle r = new Rectangle("R", 0, 0, 100, 100, 50, 50, 50, 0);
     Ellipse e = new Ellipse("C");
-    Transition t = new Transition(2, 12, 20, 20, 30, 30, 30, 30, 30, 10, 10, 10, 10, 10, 10, 10);
+    Transition t = new Transition(
+        2, 12, 20, 20, 30, 30, 30, 30, 30, 0, 10, 10, 10, 10, 10, 10, 10, 0);
 
     model.addShape(r, e);
     model.addTransition("R", t);

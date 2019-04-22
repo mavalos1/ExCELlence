@@ -19,6 +19,7 @@ public class Transition {
   public int r1;
   public int g1;
   public int b1;
+  public int rt1;
   public int x2;
   public int y2;
   public int w2;
@@ -26,6 +27,7 @@ public class Transition {
   public int r2;
   public int g2;
   public int b2;
+  public int rt2;
 
   /**
    * Initialize the transition to the specified time and start/end state.
@@ -38,6 +40,7 @@ public class Transition {
    * @param r1 the initial R-color code
    * @param g1 the initial G-color code
    * @param b1 the initial B-color code
+   * @param rt1 the initial rotation
    * @param x2 the result x-position
    * @param y2 the result y-position
    * @param w2 the result width
@@ -45,11 +48,12 @@ public class Transition {
    * @param r2 the result R-color code
    * @param g2 the result G-color code
    * @param b2 the result B-color code
+   * @param rt2 the result rotation
    */
   public Transition(
       int beginTime, int endTime,
-      int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int x2, int y2, int w2, int h2, int r2, int g2, int b2
+      int x1, int y1, int w1, int h1, int r1, int g1, int b1, int rt1,
+      int x2, int y2, int w2, int h2, int r2, int g2, int b2, int rt2
   ) {
     if (beginTime < 0 || beginTime > endTime) {
       throw new IllegalArgumentException("Invalid transition begin-end time");
@@ -65,6 +69,7 @@ public class Transition {
     this.r1 = r1;
     this.g1 = g1;
     this.b1 = b1;
+    this.rt1 = rt1;
     this.x2 = x2;
     this.y2 = y2;
     this.w2 = w2;
@@ -72,5 +77,6 @@ public class Transition {
     this.r2 = r2;
     this.g2 = g2;
     this.b2 = b2;
+    this.rt2 = rt2;
   }
 }

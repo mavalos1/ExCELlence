@@ -36,6 +36,7 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
   public int r;
   public int g;
   public int b;
+  public int rt;
 
   /**
    * Initialize the popup to a certain type.
@@ -105,17 +106,20 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
     JTextField rText = new JTextField(10);
     r.add(rText);
 
-
     JPanel g = new JPanel(new FlowLayout());
     g.add(new JLabel("G", SwingConstants.RIGHT));
     JTextField gText = new JTextField(10);
     g.add(gText);
 
-
     JPanel b = new JPanel(new FlowLayout());
     b.add(new JLabel("B", SwingConstants.RIGHT));
     JTextField bText = new JTextField(10);
     b.add(bText);
+
+    JPanel rt = new JPanel(new FlowLayout());
+    rt.add(new JLabel("Rotation", SwingConstants.RIGHT));
+    JTextField rtText = new JTextField(10);
+    rt.add(rtText);
 
     popUp.add(name);
     if (this.title.equals("Add Keyframe") || this.title.equals("Remove Keyframe")) {
@@ -131,6 +135,7 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
       popUp.add(r);
       popUp.add(g);
       popUp.add(b);
+      popUp.add(rt);
     }
 
     int result = JOptionPane.showConfirmDialog(
@@ -168,6 +173,10 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
 
       if (!bText.getText().equals("")) {
         this.b = Integer.parseInt(bText.getText());
+      }
+
+      if (!rtText.getText().equals("")) {
+        this.rt = Integer.parseInt(bText.getText());
       }
 
       this.doClick();

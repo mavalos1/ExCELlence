@@ -39,26 +39,26 @@ public class ModelTest {
   public void testAddTransitionInvalidName() {
     AnimationModel model = new Model();
     model.addShape(new Rectangle("R"));
-    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 0,8, 9, 10, 11, 12, 13, 14, 0);
 
     model.addTransition("C", t1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNegativeBeginTime() {
-    Transition t1 = new Transition(-1, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(-1, 10, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNegativeDurationTransition() {
-    Transition t1 = new Transition(5, 4, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(5, 4, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testOverlappingTransition() {
     Rectangle r = new Rectangle("R");
-    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
-    Transition t2 = new Transition(6, 15, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
+    Transition t2 = new Transition(6, 15, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
 
     AnimationModel model = new Model();
     model.addShape(r);
@@ -69,8 +69,8 @@ public class ModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testConsistentStartEndState() {
     Rectangle r = new Rectangle("R");
-    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
-    Transition t2 = new Transition(10, 15, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
+    Transition t2 = new Transition(10, 15, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
 
     AnimationModel model = new Model();
     model.addShape(r);
@@ -81,8 +81,8 @@ public class ModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testNoGapTransitionShape() {
     Rectangle r = new Rectangle("R");
-    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
-    Transition t2 = new Transition(15, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+    Transition t1 = new Transition(1, 10, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
+    Transition t2 = new Transition(15, 20, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0);
 
     AnimationModel model = new Model();
     model.addShape(r);
@@ -119,8 +119,8 @@ public class ModelTest {
     Rectangle r = new Rectangle("R");
     r.addTransition(new Transition(
         2, 10,
-        1, 2, 3, 4, 5, 6, 7,
-        8, 9, 10, 11, 12, 13, 14));
+        1, 2, 3, 4, 5, 6, 7, 0,
+        8, 9, 10, 11, 12, 13, 14, 0));
     model.addShape(r);
 
     assertEquals(true, model.canTick());
@@ -164,8 +164,8 @@ public class ModelTest {
     assertEquals(new Size(0, 0), r.getSize());
     assertEquals(new Color(0, 0, 0), r.getColor());
 
-    model.addKeyFrame("R", 3, 3, 3, 3, 3, 3, 3, 3);
-    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10);
+    model.addKeyFrame("R", 3, 3, 3, 3, 3, 3, 3, 3, 0);
+    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10, 0);
 
     model.tick();
     model.tick();
@@ -186,7 +186,7 @@ public class ModelTest {
     assertEquals(new Color(10, 10, 10), r.getColor());
 
     model.reset();
-    model.addKeyFrame("R", 5, 0, 0, 0, 0, 0, 0, 0);
+    model.addKeyFrame("R", 5, 0, 0, 0, 0, 0, 0, 0, 0);
 
     for (int i = 0; i < 5; i++) {
       model.tick();
@@ -220,7 +220,7 @@ public class ModelTest {
     assertEquals(new Color(0, 0, 0), r.getColor());
 
     model.reset();
-    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10);
+    model.addKeyFrame("R", 10, 10, 10, 10, 10, 10, 10, 10, 0);
     model.deleteKeyFrame("R", 5);
 
     for (int i = 0; i < 5; i++) {
@@ -247,7 +247,7 @@ public class ModelTest {
   public void testDeleteInvalidKeyFrame() {
     AnimationModel model = new Model();
     model.addShape(new Rectangle("R"));
-    model.addKeyFrame("R", 10, 1, 1, 1, 1,1, 1, 1);
+    model.addKeyFrame("R", 10, 1, 1, 1, 1,1, 1, 1, 0);
     model.deleteKeyFrame("R", 2);
   }
 
@@ -255,14 +255,14 @@ public class ModelTest {
   public void testAddInvalidKeyFrameName() {
     AnimationModel model = new Model();
     model.addShape(new Rectangle("R"));
-    model.addKeyFrame("C", 10, 1, 1, 1, 1,1, 1, 1);
+    model.addKeyFrame("C", 10, 1, 1, 1, 1,1, 1, 1, 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDeleteInvalidKeyFrameName() {
     AnimationModel model = new Model();
     model.addShape(new Rectangle("R"));
-    model.addKeyFrame("R", 10, 1, 1, 1, 1,1, 1, 1);
+    model.addKeyFrame("R", 10, 1, 1, 1, 1,1, 1, 1, 0);
     model.deleteKeyFrame("C", 10);
   }
 
@@ -270,6 +270,6 @@ public class ModelTest {
   public void testAddNegativeKeyFrame() {
     AnimationModel model = new Model();
     model.addShape(new Rectangle("R"));
-    model.addKeyFrame("C", -1, 1, 1, 1, 1,1, 1, 1);
+    model.addKeyFrame("C", -1, 1, 1, 1, 1,1, 1, 1, 0);
   }
 }

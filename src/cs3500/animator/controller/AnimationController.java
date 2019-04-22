@@ -66,8 +66,8 @@ public interface AnimationController {
    * @param b2 the ending B-color code of the transition
    */
   void addTransition(String name,
-                     int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                     int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
+                     int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int rt1,
+                     int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int rt2);
 
   /**
    * Adds a keyframe to the animation.
@@ -83,7 +83,7 @@ public interface AnimationController {
    * @return
    */
   void addKeyFrame(
-      String name, int t, int x, int y, int w, int h, int r, int g, int b);
+      String name, int t, int x, int y, int w, int h, int r, int g, int b, int rt);
 
   /**
    * Delete a keyframe from the animation.
