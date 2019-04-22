@@ -149,8 +149,9 @@ public class Controller extends MouseAdapter implements AnimationController, Act
    * Add a new shape to the model.
    * @param name the name of the shape
    * @param type the type of shape
+   * @param layer The layer order to add to
    */
-  public void addShape(String name, String type) {
+  public void addShape(String name, String type, int layer) {
     Objects.requireNonNull(name, "Must have a valid shape name");
     Objects.requireNonNull(name, "Must have a valid shape type");
 
@@ -167,7 +168,17 @@ public class Controller extends MouseAdapter implements AnimationController, Act
       throw new IllegalArgumentException("Unsupported shape types");
     }
 
-    model.addShape(s);
+    if (layer < 0) model.addShape(layer, s);
+    else model.addShape(s);
+  }
+
+  /**
+   * Add a new shape to the model.
+   * @param name the name of the shape
+   * @param type the type of shape
+   */
+  public void addShape(String name, String type) {
+    addShape(name, type, -1);
   }
 
   /**
@@ -277,6 +288,9 @@ public class Controller extends MouseAdapter implements AnimationController, Act
     switch (e.getActionCommand()) {
       case "start/pause":
         togglePause();
+
+        JButton sButton = (JButton) e.getSource();
+        sButton.setText(shouldPlay ? "❙❙" : "▶");
         break;
       case "restart":
         restart();
@@ -291,13 +305,13 @@ public class Controller extends MouseAdapter implements AnimationController, Act
         PopUpOptionPanel pR = (PopUpOptionPanel) e.getSource();
 
         Rectangle r = new Rectangle(pR.name, pR.x, pR.y, pR.w, pR.h, pR.r, pR.g, pR.b, pR.rt);
-        model.addShape(r);
+        model.addShape(pR.layer, r);
         break;
       case "ellipse":
         PopUpOptionPanel pE = (PopUpOptionPanel) e.getSource();
 
         Ellipse el = new Ellipse(pE.name, pE.x, pE.y, pE.w, pE.h, pE.r, pE.g, pE.b, pE.rt);
-        model.addShape(el);
+        model.addShape(pE.layer, el);
         break;
       case "removeShape":
         PopUpOptionPanel pS = (PopUpOptionPanel) e.getSource();
@@ -313,6 +327,22 @@ public class Controller extends MouseAdapter implements AnimationController, Act
         PopUpOptionPanel pF = (PopUpOptionPanel) e.getSource();
 
         deleteKeyFrame(pF.name, pF.t);
+        break;
+      case "removeLayer":
+        PopUpOptionPanel pL = (PopUpOptionPanel) e.getSource();
+
+        model.removeLayer(pL.layer);
+        restart();
+        break;
+      case "addLayer":
+        PopUpOptionPanel pnL = (PopUpOptionPanel) e.getSource();
+
+        model.addLayer(pnL.layer);
+        break;
+      case "reorderLayer":
+        PopUpOptionPanel prL = (PopUpOptionPanel) e.getSource();
+
+        model.reorderLayer(prL.layer, prL.newLayer);
         break;
       default:
         throw new IllegalArgumentException("Unsupported action command");

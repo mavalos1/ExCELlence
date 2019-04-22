@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class represents the test of the editor view listeners.
+ */
 public class EditorViewTest {
   @Test
   public void testPlaybackControlListener() {

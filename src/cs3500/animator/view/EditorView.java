@@ -36,6 +36,9 @@ public class EditorView implements AnimationView {
   private final static String RECTANGLE = "▢";
   private final static String ELLIPSE = "◯";
   private final static String REMOVE_SHAPE = "Remove";
+  private final static String ADD_LAYER = "Add Layer";
+  private final static String REORDER_LAYER = "Reorder Layer";
+  private final static String REMOVE_LAYER = "Remove Layer";
   private final static String ADD_KEYFRAME = "Add";
   private final static String REMOVE_KEYFRAME = "Remove";
 
@@ -54,6 +57,10 @@ public class EditorView implements AnimationView {
   private JButton rectangleButton;
   private JButton ellipseButton;
   private JButton removeShapeButton;
+
+  private JButton addLayerButton;
+  private JButton reorderLayerButton;
+  private JButton removeLayerButton;
 
   private JPanel keyFramePanel;
   private JButton addKeyFrameButton;
@@ -109,10 +116,16 @@ public class EditorView implements AnimationView {
     rectangleButton = new JButton(RECTANGLE);
     ellipseButton = new JButton(ELLIPSE);
     removeShapeButton = new JButton(REMOVE_SHAPE);
+    addLayerButton = new JButton(ADD_LAYER);
+    reorderLayerButton = new JButton(REORDER_LAYER);
+    removeLayerButton = new JButton(REMOVE_LAYER);
 
     shapePanel.add(rectangleButton);
     shapePanel.add(ellipseButton);
     shapePanel.add(removeShapeButton);
+    shapePanel.add(addLayerButton);
+    shapePanel.add(reorderLayerButton);
+    shapePanel.add(removeLayerButton);
 
     //keyframe panel
     keyFramePanel = new JPanel();
@@ -185,34 +198,9 @@ public class EditorView implements AnimationView {
     loopButton.addActionListener(l);
     speedButton.addActionListener(l);
 
-    startPauseButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (startPauseButton.getText().equals(START)) {
-          startPauseButton.setText(PAUSE);
-        } else {
-          startPauseButton.setText(START);
-        }
-      }
-    });
-
-    restartButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        startPauseButton.setText(START);
-      }
-    });
-
-    loopButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (loopButton.getText().equals(LOOP_ON)) {
-          loopButton.setText(LOOP_OFF);
-        } else {
-          loopButton.setText(LOOP_ON);
-        }
-      }
-    });
+    restartButton.addActionListener(event -> startPauseButton.setText(START));
+    loopButton.addActionListener(event ->
+        loopButton.setText(loopButton.getText().equals(LOOP_ON) ? LOOP_OFF : LOOP_ON));
 
     PopUpOptionPanel createRectPopup = new PopUpOptionPanel("Add Rectangle");
     rectangleButton.addActionListener(createRectPopup);
@@ -225,6 +213,19 @@ public class EditorView implements AnimationView {
     PopUpOptionPanel removeShapePopup = new PopUpOptionPanel("Remove Shape");
     removeShapeButton.addActionListener(removeShapePopup);
     removeShapePopup.addActionListener(l);
+
+    PopUpOptionPanel addLayerPopUp = new PopUpOptionPanel("Add Layer");
+    addLayerButton.addActionListener(addLayerPopUp);
+    addLayerPopUp.addActionListener(l);
+
+    PopUpOptionPanel reorderLayerPopUp = new PopUpOptionPanel("Reorder Layer");
+    reorderLayerButton.addActionListener(reorderLayerPopUp);
+    reorderLayerPopUp.addActionListener(l);
+
+    PopUpOptionPanel removeLayerPopUp = new PopUpOptionPanel("Remove Layer");
+    removeLayerButton.addActionListener(removeLayerPopUp);
+    removeLayerPopUp.addActionListener(l);
+    removeLayerPopUp.addActionListener(event -> startPauseButton.setText(START));
 
     PopUpOptionPanel addKeyFramePopup = new PopUpOptionPanel("Add Keyframe");
     addKeyFrameButton.addActionListener(addKeyFramePopup);

@@ -42,6 +42,15 @@ public interface AnimationController {
    * Add a new shape to the model.
    * @param name the name of the shape
    * @param type the type of shape
+   * @param layer The layer order to add to
+   */
+  void addShape(String name, String type, int layer);
+
+  /**
+   * Add a new shape to the model.
+   * Add to the bottom layer of 0 if layer not specified.
+   * @param name the name of the shape
+   * @param type the type of shape
    */
   void addShape(String name, String type);
 

@@ -30,9 +30,10 @@ public interface AnimationBuilder<AnimationController> {
    * @param type The type of shape (e.g. "ellipse", "rectangle") to be added.  
    *             The set of supported shapes is unspecified, but should 
    *             include "ellipse" and "rectangle" as a minimum.
+   * @param layer The layer order to add to.
    * @return This {@link AnimationBuilder}
    */
-  AnimationBuilder<AnimationController> declareShape(String name, String type);
+  AnimationBuilder<AnimationController> declareShape(String name, String type, int layer);
 
   /**
    * Adds a transformation to the growing document.

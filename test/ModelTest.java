@@ -272,4 +272,11 @@ public class ModelTest {
     model.addShape(new Rectangle("R"));
     model.addKeyFrame("C", -1, 1, 1, 1, 1,1, 1, 1, 0);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddShapeDuplicateName() {
+    AnimationModel model = new Model();
+    model.addShape(new Rectangle("R"));
+    model.addShape(new Ellipse("R"));
+  }
 }

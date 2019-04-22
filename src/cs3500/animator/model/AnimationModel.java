@@ -36,6 +36,13 @@ public interface AnimationModel {
 
   /**
    * Add a new shape to the model.
+   * @param layer the layer order
+   * @param sh the shapes
+   */
+  void addShape(Integer layer, Shape... sh);
+
+  /**
+   * Add a new shape to the model to the bottom layer.
    * @param sh the shapes
    */
   void addShape(Shape... sh);
@@ -104,4 +111,24 @@ public interface AnimationModel {
    * @param pct the percent to jump to
    */
   void jumpToPercent(int pct);
+
+  /**
+   * Remove all shapes in a specific layer.
+   * @param layer the layer to remove
+   */
+  void removeLayer(Integer layer);
+
+  /**
+   * Add a new empty layer.
+   * @param layer the layer to add
+   */
+  void addLayer(Integer layer);
+
+  /**
+   * Reorder the layer to a new order. If new order already exists, the layer at the new order is
+   * moved up 1 order.
+   * @param oldLayer the old value of the layer
+   * @param newLayer the new layer order
+   */
+  void reorderLayer(Integer oldLayer, Integer newLayer);
 }

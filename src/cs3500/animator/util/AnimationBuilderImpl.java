@@ -44,10 +44,11 @@ public class AnimationBuilderImpl implements AnimationBuilder {
    * @param type The type of shape (e.g. "ellipse", "rectangle") to be added.
    *             The set of supported shapes is unspecified, but should
    *             include "ellipse" and "rectangle" as a minimum.
+   * @param layer The layer order to add to.
    * @return
    */
-  public AnimationBuilder<AnimationController> declareShape(String name, String type) {
-    controller.addShape(name, type);
+  public AnimationBuilder<AnimationController> declareShape(String name, String type, int layer) {
+    controller.addShape(name, type, layer);
 
     return this;
   }

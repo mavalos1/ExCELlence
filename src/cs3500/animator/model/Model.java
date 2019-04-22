@@ -3,8 +3,7 @@ package cs3500.animator.model;
 import cs3500.animator.model.helper.Transition;
 import cs3500.animator.model.shapes.Shape;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * A class representing a single animation. The model stores a list of shapes, each of which
@@ -13,14 +12,14 @@ import java.util.List;
  */
 public class Model implements AnimationModel {
   private int currentTick;
-  private List<Shape> shapes;
+  private TreeMap<Integer, List<Shape>> shapes;
 
   /**
    * Initialize the model.
    */
   public Model() {
     currentTick = 0;
-    shapes = new ArrayList<>();
+    shapes = new TreeMap<>();
   }
 
   /**
@@ -28,7 +27,12 @@ public class Model implements AnimationModel {
    * @return
    */
   public List<Shape> getShapes() {
-    return shapes;
+    List<Shape> sList = new ArrayList<>();
+    for (int k : shapes.keySet()) {
+      sList.addAll(shapes.get(k));
+    }
+
+    return sList;
   }
 
   /**
@@ -41,7 +45,8 @@ public class Model implements AnimationModel {
       throw new  IllegalArgumentException("Invalid null shape name");
     }
 
-    for (Shape s : shapes) {
+    List<Shape> sList = getShapes();
+    for (Shape s : sList) {
       if (s.getName().equals(name)) {
         return s;
       }
@@ -52,12 +57,36 @@ public class Model implements AnimationModel {
 
   /**
    * Add a new shape to the model.
+   * @param layer the layer order
+   * @param sh the shapes
+   */
+  public void addShape(Integer layer, Shape... sh) {
+    List<Shape> sList = shapes.get(layer);
+    if (sList == null || sList.isEmpty()) {
+      sList = new ArrayList<>();
+      shapes.put(layer, sList);
+    }
+
+    for (Shape s : sh) {
+      for (Integer k : shapes.keySet()) {
+        List<Shape> iList = shapes.get(k);
+        for (Shape iS : iList) {
+          if (iS.getName().equals(s.getName())) {
+            throw new IllegalArgumentException("Another shape already exists with the same name");
+          }
+        }
+      }
+
+      sList.add(s);
+    }
+  }
+
+  /**
+   * Add a new shape to the model to the bottom layer.
    * @param sh the shapes
    */
   public void addShape(Shape... sh) {
-    for (Shape s : sh) {
-      shapes.add(s);
-    }
+    addShape(0, sh);
   }
 
   /**
@@ -80,7 +109,8 @@ public class Model implements AnimationModel {
 
     currentTick++;
 
-    for (Shape s : shapes) {
+    List<Shape> sList = getShapes();
+    for (Shape s : sList) {
       s.tick(currentTick);
     }
   }
@@ -90,7 +120,8 @@ public class Model implements AnimationModel {
    * @return
    */
   public boolean canTick() {
-    for (Shape s : shapes) {
+    List<Shape> sList = getShapes();
+    for (Shape s : sList) {
       if (s.canTick(currentTick)) {
         return true;
       }
@@ -112,7 +143,8 @@ public class Model implements AnimationModel {
    */
   public void reset() {
     currentTick = 0;
-    for (Shape s : shapes) {
+    List<Shape> sList = getShapes();
+    for (Shape s : sList) {
       s.reset();
     }
   }
@@ -153,7 +185,9 @@ public class Model implements AnimationModel {
    */
   public void removeShape(String name) {
     Shape s = getShape(name);
-    shapes.remove(s);
+    for (Integer k : shapes.keySet()) {
+      shapes.get(k).remove(s);
+    }
   }
 
   /**
@@ -162,7 +196,8 @@ public class Model implements AnimationModel {
    */
   public void jumpToPercent(int pct) {
     int maxTick = 0;
-    for (Shape s : shapes) {
+    List<Shape> sList = getShapes();
+    for (Shape s : sList) {
       while (s.canTick(maxTick)) maxTick++;
     }
 
@@ -175,5 +210,41 @@ public class Model implements AnimationModel {
     }
 
     while (currentTick < newTick) tick();
+  }
+
+  /**
+   * Remove all shapes in a specific layer.
+   * @param layer the layer to remove
+   */
+  public void removeLayer(Integer layer) {
+    shapes.remove(layer);
+  }
+
+  /**
+   * Add a new empty layer.
+   * @param layer the layer to add
+   */
+  public void addLayer(Integer layer) {
+    if (shapes.get(layer) == null) shapes.put(layer, new ArrayList<>());
+    else throw new IllegalArgumentException("Layer already exists");
+  }
+
+  /**
+   * Reorder the layer to a new order.
+   * @param oldLayer the old value of the layer
+   * @param newLayer the new layer order
+   */
+  public void reorderLayer(Integer oldLayer, Integer newLayer) {
+    List<Shape> sList = shapes.get(oldLayer);
+    if (sList == null) {
+      throw new IllegalArgumentException("No layer exists with such order");
+    }
+
+    if (shapes.get(newLayer) != null) {
+      throw new IllegalArgumentException("A layer already exists with such order");
+    }
+
+    shapes.remove(oldLayer);
+    shapes.put(newLayer, sList);
   }
 }

@@ -37,6 +37,8 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
   public int g;
   public int b;
   public int rt;
+  public int layer;
+  public int newLayer;
 
   /**
    * Initialize the popup to a certain type.
@@ -60,6 +62,15 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
         break;
       case "Remove Keyframe":
         this.setActionCommand("removeKeyFrame");
+        break;
+      case "Remove Layer":
+        this.setActionCommand("removeLayer");
+        break;
+      case "Add Layer":
+        this.setActionCommand("addLayer");
+        break;
+      case "Reorder Layer":
+        this.setActionCommand("reorderLayer");
         break;
       default:
         break;
@@ -121,7 +132,18 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
     JTextField rtText = new JTextField(10);
     rt.add(rtText);
 
+    JPanel l = new JPanel(new FlowLayout());
+    l.add(new JLabel("Layer", SwingConstants.RIGHT));
+    JTextField lText = new JTextField(10);
+    l.add(lText);
+
+    JPanel nl = new JPanel(new FlowLayout());
+    nl.add(new JLabel("New Order", SwingConstants.RIGHT));
+    JTextField nLText = new JTextField(10);
+    nl.add(nLText);
+
     popUp.add(name);
+
     if (this.title.equals("Add Keyframe") || this.title.equals("Remove Keyframe")) {
       popUp.add(t);
     }
@@ -136,6 +158,17 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
       popUp.add(g);
       popUp.add(b);
       popUp.add(rt);
+      popUp.add(l);
+    }
+
+    if (this.title.equals("Add Layer") || this.title.equals("Remove Layer")
+        || this.title.equals("Reorder Layer")) {
+      popUp.remove(name);
+      popUp.add(l);
+
+      if (this.title.equals("Reorder Layer")) {
+        popUp.add(nl);
+      }
     }
 
     int result = JOptionPane.showConfirmDialog(
@@ -176,7 +209,15 @@ public class PopUpOptionPanel extends JButton implements ActionListener {
       }
 
       if (!rtText.getText().equals("")) {
-        this.rt = Integer.parseInt(bText.getText());
+        this.rt = Integer.parseInt(rtText.getText());
+      }
+
+      if (!lText.getText().equals("")) {
+        this.layer = Integer.parseInt(lText.getText());
+      }
+
+      if (!nLText.getText().equals("")) {
+        this.newLayer = Integer.parseInt(nLText.getText());
       }
 
       this.doClick();
